@@ -26,15 +26,15 @@ class LoginController extends Controller
      * @var string
      */
 
-    // protected function credentials(\Illuminate\Http\Request $request)
-    // {
-    //     if(is_numeric($request->get('email'))){
-    //         return ['nik'=>$request->get('email'),'password'=>$request->get('password')];
-    //     }else{
-    //         return ['nik' => $request->{$this->username()}, 'password' => $request->password];
-    //     }
-    //     return $request->only($this->username(), 'password');
-    // }
+    protected function credentials(\Illuminate\Http\Request $request)
+    {
+        if(is_numeric($request->get('email'))){
+            return ['nik'=>$request->get('email'),'password'=>$request->get('password')];
+        }else{
+            return ['nik' => $request->{$this->username()}, 'password' => $request->password];
+        }
+        return $request->only($this->username(), 'password');
+    }
     public function programaticallyEmployeeLogin(Request $request, $personnel_no)
     {
         $personnel_no = base64_decode($personnel_no);

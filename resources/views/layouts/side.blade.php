@@ -5,9 +5,10 @@
             <i class="fa fa-home"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li><a href="{{url('/unit/')}}" style="font-weight: 500;"><i class="fa fa-home"></i> Unit Kerja</a></li>
         
         @if(Auth::user()['role_id']==1)
+        <li><a href="{{url('/unit/')}}" style="font-weight: 500;"><i class="fa fa-home"></i> Unit Kerja</a></li>
+        
           <li class="treeview">
               <a href="#" style="background:#f9fafc;font-weight: 500;">
                 <i class="fa fa-folder"></i>

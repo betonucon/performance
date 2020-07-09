@@ -59,7 +59,7 @@
                             <thead>
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th>Unit Kerja {{persen($tahun,$bulan)}}</th>
+                                    <th>Unit Kerja</th>
                                     @for($x=1;$x<13;$x++)
                                         <?php
                                             if($x>9){$bul=$x;}else{$bul='0'.$x;}
@@ -74,17 +74,22 @@
                                         $total[$x]=0;
                                     ?>
                                 @endfor
-                                @foreach(unit() as $no=>$data)
+                                @foreach(unit_user() as $no=>$data)
                                     @for($x=1;$x<13;$x++)   
                                         <?php
-                                        $total[$x]+=array_kode($data['kode'],$tahun,$x);
+                                        $total[$x]+=array_kode($data,$tahun,$x);
                                         ?>
                                     @endfor
                                     <tr>
                                         <td>{{$no+1}}</td>
-                                        <td>{{$data['nama']}}</td>
+                                        <td>{{cek_unit($data)['nama']}}</td>
                                         @for($x=1;$x<13;$x++)
-                                        <td>{{array_kode($data['kode'],$tahun,$x)}}</td>
+                                            @if(array_kode($data,$tahun,$x)==1)
+                                                <td style="background:#bda2a2"></td>
+                                            @else
+                                                <td style="background:#f1d059bf"></td>
+                                            @endif
+                                        
                                         @endfor
                                     </tr>
                                 @endforeach

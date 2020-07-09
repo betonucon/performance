@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
@@ -30,8 +31,16 @@ class HomeController extends Controller
             $tahun=$request->tahun;
             $bulan=$request->bulan;
         }
-       
-        return view('home',compact('tahun','bulan'));
+       if(Auth::user()['role_id']==1){
+            return view('home',compact('tahun','bulan'));
+       }
+       if(Auth::user()['role_id']==2){
+            return view('home_atasan',compact('tahun','bulan'));
+       }
+       if(Auth::user()['role_id']==3){
+            return view('home_atasan',compact('tahun','bulan'));
+       }
+        
     }
     public function pdf()
     {

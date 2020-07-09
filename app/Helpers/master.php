@@ -187,23 +187,66 @@ function array_mandatori(){
 }
 
 function array_kode($kode,$tahun,$bulan){
-    $cek=App\Deployment::where('kode_unit',$kode)->where('sts', 0)->where('tahun',$tahun)->count();
-    $data  = array_column(
-        App\Deployment::where('kode_unit',$kode)->where('sts', 0)->where('tahun',$tahun)
-        ->get()
-        ->toArray(),'id'
-     );
+    
+        if(Auth::user()['role_id']==1){
+            $cek=App\Deployment::where('kode_unit',$kode)->where('sts', 0)->where('tahun',$tahun)->count();
+            $data  = array_column(
+                App\Deployment::where('kode_unit',$kode)->where('sts', 0)->where('tahun',$tahun)
+                ->get()
+                ->toArray(),'id'
+            );
 
-    if($cek>0){
-        $realisasi=App\Target::whereIn('deployment_id',$data)->where('status_realisasi',2)->where('bulan',$bulan)->count();
-        if($cek==$realisasi){
-            $nilai=1;
-        }else{
-            $nilai=0;
+            if($cek>0){
+                $realisasi=App\Target::whereIn('deployment_id',$data)->where('tgl_validasi_atasan','!=',null)->where('bulan',$bulan)->count();
+                if($cek==$realisasi){
+                    $nilai=1;
+                }else{
+                    $nilai=0;
+                }
+            }else{
+                $nilai=0;
+            }
         }
-    }else{
-        $nilai=0;
-    }
+
+        if(Auth::user()['role_id']==2){
+            $cek=App\Deployment::where('kode_unit',$kode)->where('sts', 0)->where('tahun',$tahun)->count();
+            $data  = array_column(
+                App\Deployment::where('kode_unit',$kode)->where('sts', 0)->where('tahun',$tahun)
+                ->get()
+                ->toArray(),'id'
+            );
+
+            if($cek>0){
+                $realisasi=App\Target::whereIn('deployment_id',$data)->where('tgl_validasi_atasan','!=',null)->where('bulan',$bulan)->count();
+                if($cek==$realisasi){
+                    $nilai=1;
+                }else{
+                    $nilai=0;
+                }
+            }else{
+                $nilai=0;
+            }
+        }
+
+        if(Auth::user()['role_id']==3){
+            $cek=App\Deployment::where('kode_unit',$kode)->where('sts', 0)->where('tahun',$tahun)->count();
+            $data  = array_column(
+                App\Deployment::where('kode_unit',$kode)->where('sts', 0)->where('tahun',$tahun)
+                ->get()
+                ->toArray(),'id'
+            );
+
+            if($cek>0){
+                $realisasi=App\Target::whereIn('deployment_id',$data)->where('tgl_validasi_atasan','!=',null)->where('bulan',$bulan)->count();
+                if($cek==$realisasi){
+                    $nilai=1;
+                }else{
+                    $nilai=0;
+                }
+            }else{
+                $nilai=0;
+            }
+        }
      return $nilai;
 }
 

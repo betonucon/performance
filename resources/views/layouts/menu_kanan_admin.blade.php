@@ -26,7 +26,9 @@
                 
             </div>
             <div class="pull-left">
+                @if(Auth::user()['role_id']==1)
                   <input type="submit" onclick="pengaturan()" class="btn btn-default btn-flat" value="Pengaturan">
+                @endif
             </div>
             <div class="pull-right">
                     <form id="logout-form" action="{{ route('logout') }}" method="POST">

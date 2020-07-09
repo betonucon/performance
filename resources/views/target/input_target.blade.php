@@ -44,7 +44,7 @@
                                     <li class="list-group-item"><b>Nama Unit</b> <a class="pull-right">{{cek_unit($data['kode_unit'])['nama']}}</a></li>
                                     <li class="list-group-item"><b>Kode KPI</b> <a class="pull-right">{{$data['kode_kpi']}}</a></li>
                                     <li class="list-group-item"><b>KPI</b> <a class="pull-right">{{cek_kpi($data['kode_kpi'])['kpi']}}</a></li>
-                                    <li class="list-group-item"><b>Level</b> <a class="pull-right">{{cek_level($data['level'])}}</a></li>
+                                    <li class="list-group-item"><b>Level</b> <a class="pull-right">{{cek_level(cek_unit($data['kode_unit'])['unit_id'])}}</a></li>
                                     
                                 </ul>
                             </div>

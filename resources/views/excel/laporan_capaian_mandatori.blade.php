@@ -57,7 +57,7 @@ header("Content-Disposition: attachment; filename=KPI MANDATORI-".$tahun.".xls")
                 <tbody>
                     <?php $score=0; ?>
                     @foreach(deployment_mandatori_capaian($tahun) as $no=>$data)
-                        <?php $score+=score($data['id'],akumulasi_capaian($data['id']));?>
+                        <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
                     <?php if($no%2==0){$color="#fff";}else{$color="#f9f4fb";} ?>
                         <tr style="background:{{$color}}">
                             <td rowspan="3">{{$data->kode_kpi}}</td>
@@ -75,7 +75,7 @@ header("Content-Disposition: attachment; filename=KPI MANDATORI-".$tahun.".xls")
                                     @endif
                                 @endforeach
                             <td>{{round(akumulasi_target($data['id']),1)}}</td>
-                            <td rowspan="3">{{round(score($data['id'],akumulasi_capaian($data['id'])),1)}}</td>
+                            <td rowspan="3">{{round(score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))),1)}}</td>
                         </tr>
                         <tr style="background:{{$color}}">
                             <td>R</td>
@@ -93,7 +93,7 @@ header("Content-Disposition: attachment; filename=KPI MANDATORI-".$tahun.".xls")
                             @foreach(get_target($data['id']) as $detail)
                                 <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</th>
                             @endforeach
-                            <td>{{round(akumulasi_capaian($data['id']),1)}}</td>
+                            <td>{{round(akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])),1)}}</td>
                         </tr>
                     @endforeach
                         <tr style="background:{{$color}}">

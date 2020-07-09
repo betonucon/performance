@@ -184,7 +184,7 @@
                 processData:false,
                 beforeSend: function(){
                     $('#simpan_data').hide();
-                    $('#proses_loading').html('Proses Pembayaran ....................');
+                    $('#proses_loading').html('Proses simpan data....................');
                 },
                 success: function(msg){
                     

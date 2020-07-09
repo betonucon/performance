@@ -31,6 +31,77 @@ function bulan($bulan)
    return $bulan;
 }
 
+function color($id){
+    if($id==1){
+        $color="#f9fb82";
+    }
+    if($id==2){
+        $color="#fff";
+    }
+    if($id==3){
+        $color="#f9f4fb";
+    }
+
+    return $color;
+}
+function bulan_validasi($b)
+{
+   if($b>11){
+       $bulan=1;
+   }else{
+       $bulan=$b+1;
+   }
+
+   if($bulan==1){
+       $bul=='01';
+   }
+   if($bulan==2){
+       $bul=='02';
+   }
+   if($bulan==3){
+       $bul=='03';
+   }
+   if($bulan==4){
+       $bul=='04';
+   }
+   if($bulan==5){
+       $bul=='05';
+   }
+   if($bulan==6){
+       $bul=='06';
+   }
+   if($bulan==7){
+       $bul=='07';
+   }
+   if($bulan==8){
+       $bul=='08';
+   }
+   if($bulan==9){
+       $bul=='9';
+   }
+   if($bulan==10){
+       $bul==10;
+   }
+   if($bulan==11){
+       $bul==11;
+   }
+   if($bulan==12){
+       $bul==12;
+   }
+   return $bul;
+}
+
+function bulan_db($b)
+{
+   if($b>9){
+       $bulan=$b;
+   }else{
+       $bulan='0'.$b;
+   }
+
+   return $bulan;
+}
+
 function bul($bulan)
 {
    Switch ($bulan){
@@ -74,7 +145,7 @@ function cek_role($id){
     }
 }
 function tgl($tgl=null){
-    if($tgl==''){
+    if($tgl=='' || $tgl==0){
         $data=0;
     }else{
         $data=date('d/m/y',strtotime($tgl));
@@ -93,7 +164,17 @@ function ttd(){
     return $data;
 }
 
+function validasi_tanggal(){
+    $data=App\Tanggalvalidasi::orderBy('tahun','Asc')->get();
 
+    return $data;
+}
+
+function tgl_validasi($tahun){
+    $data=App\Tanggalvalidasi::where('tahun',$tahun)->first();
+
+    return $data['tanggal'];
+}
 
 
 function array_mandatori(){
@@ -324,9 +405,9 @@ function deployment_realisasi($kode=null,$tahun=null){
 
 function deployment_realisasi_atasan($kode=null,$tahun=null){
     if($kode!=''){
-        $data=App\Deployment::where('sts',0)->where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
+        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
     }else{
-        $data=App\Deployment::where('sts',0)->where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
+        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
     }
     
 
@@ -696,10 +777,22 @@ function total_bobot_mandatori($tahun){
 function potongan($tgl,$tahun,$bulan){
     $tg=explode('-',$tgl);
     $awal  = $tgl;
-    $akhir = $tg[0].'-'.$tg[1].'-15'; // waktu sekarang
+    $akhir = $tahun.'-'.bulan_validasi($bulan).'-'.tgl_validasi($tahun); 
 
     if($tahun==2020){
-        $data = 0;
+        if($bulan>6){
+            if($awal>$akhir){
+                $tanggal1 = date_create(date('Y-m-d h:i:s',strtotime($awal)));
+                $tanggal2 = date_create(date('Y-m-d h:i:s',strtotime($akhir)));
+                $perbedaan = $tanggal1->diff($tanggal2);
+                $data = $perbedaan->days;
+            }else{
+                $data = 0;
+            }
+        }else{
+            $data = 0;
+        }
+        
     }else{
         if($awal>$akhir){
             $tanggal1 = date_create(date('Y-m-d h:i:s',strtotime($awal)));
@@ -797,40 +890,109 @@ function akumulasi_realisasi($id){
     return $total;
 }
 
-function akumulasi_capaian($id){
+function akumulasi_capaian($id,$target=null,$realisasi=null){
     $data=App\Deployment::where('id',$id)->first();
-    $detail=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->get();
-    $jumlah=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->count();
+    $capaian=$data['rumus_capaian'];
+    if($capaian==3){
+        if(is_null($target) || $target==0){
+            $cap=100;
+        }else{
+            if($realisasi==0 || $realisasi==''){
+                $cap=0;
+            }else{
+                $tanggal1 = date_create(date('Y-m-d h:i:s',strtotime($realisasi)));
+                $tanggal2 = date_create(date('Y-m-d h:i:s',strtotime($target)));
+                $perbedaan = $tanggal1->diff($tanggal2);
 
-    
-        if($data['rumus_akumulasi']==1){
+                // if($target>=$realisasi){
+       
+                //     $cap=(1+(-$perbedaan->days/30))*100;
+                // }else{
+                //     $cap=(1+(-$perbedaan->days/30))*100;
+                // }
+
+                $cap=(1+($perbedaan->days/30))*100;
+                
+            }
             
-            $total=0;
-            foreach($detail as $tar){
-                $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi']);
-            }
-        } 
-
-        if($data['rumus_akumulasi']==2){
-            $tot=0;
-            foreach($detail as $tar){
-                $tot+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi']);
-            }
-            $total=$tot/$jumlah;
+        }
+        
+        if($cap>120){
+            $nicap=120;
+        }else{
+            $nicap=$cap;
         }
 
-        if($data['rumus_akumulasi']==3){
-            $detailcapaian=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->max('realisasi');
-           
-            $total=hitung_capaian($data['rumus_capaian'],$detailcapaian['target'],$detailcapaian['realisasi']);
-            
-            
-            
-        } 
+        $nil= round($nicap);
+
+    }
     
+    if($capaian==4){
+        if($target==0){
+            $cap=100;
+        }else{
+            $expld=explode("-",$target);
+            if($expld[0]>$realisasi){
+                $cap=(1-(($expld[0]-$realisasi)/$expld[0]))*100;
+            }else{
+                $cap=(1-(($realisasi-$expld[1])/$expld[1]))*100;
+            }
+        }
+        
+        if($cap>120){
+            $nicap=120;
+        }else{
+            $nicap=$cap;
+        }
+
+        $nil= round($nicap);
+
+    }
     
-     
-    return $total;
+    if($capaian==1){
+        if($target==0){
+            $cap=100;
+        }else{
+            if($realisasi==0){
+                $cap=0;
+            }else{
+                 $cap=(1-(($target-$realisasi)/$target))*100;
+            }
+        }
+        
+        if($cap>120){
+            $nicap=120;
+        }else{
+            $nicap=$cap;
+        }
+        $nil= round($nicap);
+    }
+
+    if($capaian==2){
+        if($target==0){
+            $cap=100;
+        }else{
+            if($realisasi==0){
+                $cap=0;
+            }else{
+                 $cap=(1+(($target-$realisasi)/$target))*100;
+            }
+        }
+        
+        if($cap>120){
+            $nicap=120;
+        }else{
+            $nicap=$cap;
+        }
+        $nil= round($nicap);
+    }
+    
+    if($nil<0){
+        $nils=0;
+    }else{
+        $nils=$nil;
+    }
+    return $nils;
 }
 
 function score($id,$capaian){

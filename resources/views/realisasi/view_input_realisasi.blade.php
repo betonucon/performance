@@ -43,8 +43,9 @@
                                     <li class="list-group-item"><b>Kode Unit</b> <a class="pull-right">{{$data['kode_unit']}}</a></li>
                                     <li class="list-group-item"><b>Nama Unit</b> <a class="pull-right">{{cek_unit($data['kode_unit'])['nama']}}</a></li>
                                     <li class="list-group-item"><b>Kode KPI</b> <a class="pull-right">{{$data['kode_kpi']}}</a></li>
+                                    <li class="list-group-item"><b>KPI</b> <a class="pull-right">{{cek_kpi($data['kode_kpi'])['kpi']}}</a></li>
                                     <li class="list-group-item"><b>Level</b> <a class="pull-right">{{cek_level($data['level'])}}</a></li>
-                                    <li class="list-group-item"><b>Status Target</b> <a class="pull-right">{{status($data['status_id'])}}</a></li>
+                                    
                                 </ul>
                             </div>
                             <div class="col-md-6">
@@ -53,7 +54,7 @@
                                     <li class="list-group-item"><b>Capaian</b> <a class="pull-right">{{cek_capaian($data['rumus_capaian'])}}</a></li>
                                     <li class="list-group-item"><b>Bobot Tahunan</b> <a class="pull-right">{{$data['bobot_tahunan']}}</a></li>
                                     <li class="list-group-item"><b>Target Tahunan</b> <a class="pull-right">{{$data['target_tahunan']}}</a></li>
-                                    <li class="list-group-item"><b>Status Realisasi</b> <a class="pull-right">{{status($data['status_realisasi'])}}</a></li>
+                                    <li class="list-group-item"><b>Status</b> <a class="pull-right">{{status($data['status_id'])}}</a></li>
                                 </ul>
                             </div>
                         </div>

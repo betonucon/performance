@@ -394,6 +394,7 @@
   $(function () {
     $('.textarea').wysihtml5()
   })
+  
   function simpan_transaksi(){
         var form=document.getElementById('mytransaksi');
         var kode_bayar=$('#kode_bayar').val();

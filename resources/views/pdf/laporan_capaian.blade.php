@@ -53,8 +53,15 @@
                 <tbody>
                     <?php $score=0; ?>
                     @foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data)
-                        <?php $score+=score($data['id'],akumulasi_capaian($data['id']));?>
-                    <?php if($no%2==0){$color="#fff";}else{$color="#f9f4fb";} ?>
+                        <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
+                        <?php 
+                            if($data['sts']==1){
+                                $color=color(1);
+                            }else{
+                                if($no%2==0){$color=color(2);}
+                                else{$color=color(3);} 
+                            }
+                        ?>
                         <tr style="background:{{$color}}">
                             <td rowspan="3">{{$data->kode_kpi}}</td>
                             <td rowspan="3">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
@@ -71,7 +78,7 @@
                                     @endif
                                 @endforeach
                             <td>{{akumulasi_target($data['id'])}}</td>
-                            <td rowspan="3">{{score($data['id'],akumulasi_capaian($data['id']))}}</td>
+                            <td rowspan="3">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
                         </tr>
                         <tr style="background:{{$color}}">
                             <td>R</td>
@@ -89,7 +96,7 @@
                             @foreach(get_target($data['id']) as $detail)
                                 <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</th>
                             @endforeach
-                            <td>{{akumulasi_capaian($data['id'])}}</td>
+                            <td>{{akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))}}</td>
                         </tr>
                     @endforeach
                     @if($kode!='')

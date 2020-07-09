@@ -27,6 +27,13 @@ Route::group(['middleware'    => 'auth'],function(){
         
     });
 
+    Route::group(['prefix' => 'pengaturan'], function(){
+        Route::get('/', 'PengaturanController@index');
+        Route::post('/simpan_tanggal_validasi', 'PengaturanController@simpan_tanggal_validasi');
+        Route::post('/edit_simpan_tanggal_validasi/{id}', 'PengaturanController@edit_simpan_tanggal_validasi');
+        
+    });
+
     Route::group(['prefix' => 'deployment'], function(){
         Route::get('/', 'DeploymentController@index');
         Route::get('/mandatori', 'DeploymentController@index_mandatori');

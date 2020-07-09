@@ -53,6 +53,7 @@ class DeploymentController extends Controller
             $data->target_tahunan       =   $request->target_tahunan;
             $data->rumus_akumulasi      =   $request->rumus_akumulasi;
             $data->rumus_capaian        =   $request->rumus_capaian;
+            $data->sts        =   $request->sts;
             $data->save();
 
             

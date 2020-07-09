@@ -72,7 +72,7 @@
                                     <tr>
                                         <td>{{$no+1}}</td>
                                         <td><b>{{$data->kode_unit}}</b><br>{{cek_unit($data->kode_unit)['nama']}}</td>
-                                        <td>{{$data->kode_kpi}}</td>
+                                        <td><b>{{$data->kode_kpi}}</b><br>{{cek_kpi($data['kode_kpi'])['kpi']}}</td>
                                         <td>{{$data->target_tahunan}}</td>
                                         <td>{{$data->bobot_tahunan}}</td>
                                         <td>{{akumulasi($data->kode_kpi)}}</td>

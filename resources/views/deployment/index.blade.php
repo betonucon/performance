@@ -70,7 +70,7 @@
                                 @foreach(deployment() as $no=>$data)
                                     <tr>
                                         <td>{{$no+1}}</td>
-                                        <td>{{cek_level($data->level)}}</td>
+                                        <td>{{cek_level($data->level)}} -{{$data->id}}</td>
                                         <td><b>{{$data->kode_unit}}</b><br>{{cek_unit($data->kode_unit)['nama']}}</td>
                                         <td>{{$data->kode_kpi}}</td>
                                         <td>{{$data->target_tahunan}}</td>

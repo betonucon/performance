@@ -631,6 +631,10 @@
         + '<br>'
         + Math.round(series.percent) + '%</div>'
     }
+    
+   function pengaturan(){
+     window.location.assign("{{url('/pengaturan')}}");
+   }
 </script>
 </body>
 </html>

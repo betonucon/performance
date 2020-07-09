@@ -21,9 +21,11 @@ Route::group(['middleware'    => 'auth'],function(){
 
     Route::group(['prefix' => 'unit'], function(){
         Route::get('/', 'UnitController@index');
+        Route::get('/index_tingkatan', 'UnitController@index_tingkatan');
         Route::get('/edit/{id}', 'UnitController@edit');
         Route::post('/simpan/{id}', 'UnitController@simpan');
         Route::get('/cek_nik/{act}/{id}', 'UnitController@cek_nik');
+        Route::post('/import_data_unit', 'UnitController@import_data');
         
     });
 
@@ -73,6 +75,7 @@ Route::group(['middleware'    => 'auth'],function(){
 
     Route::group(['prefix' => 'laporan'], function(){
         Route::get('/', 'RealisasiController@laporan');
+        Route::get('/bertingkat/{id}', 'RealisasiController@laporan_tingkatan');
         Route::get('/mandatori', 'RealisasiController@laporan_mandatori');
     });
     Route::group(['prefix' => 'realisasi'], function(){

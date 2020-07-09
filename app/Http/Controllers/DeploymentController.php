@@ -40,7 +40,7 @@ class DeploymentController extends Controller
         $nama_file = rand().$filess->getClientOriginalName();
         $filess->move('file_excel',$nama_file);
         Excel::import(new DeploymentImport, public_path('/file_excel/'.$nama_file));
-        Session::flash('sukses','Data Siswa Berhasil Diimport!');
+        Session::flash('sukses','Data Berhasil Diimport!');
     }
 
     public function simpan(request $request,$id){

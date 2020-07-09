@@ -8,4 +8,5 @@ class Unit extends Model
 {
     protected $table = 'unit_kerja';
     public $timestamps = false;
+    protected $fillable = ['kode_unit'];
 }

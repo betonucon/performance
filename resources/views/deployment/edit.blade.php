@@ -171,6 +171,7 @@
             }
         });
     }
+    
 
     function simpan_data(){
         var form=document.getElementById('mydata');

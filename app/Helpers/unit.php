@@ -16,6 +16,52 @@ function unit(){
 
     return $data;
 }
+function unit_subdit(){
+    $data=App\Unit::where('unit_id',1)->where('nik_atasan',Auth::user()['nik'])->orderBy('nama','Asc')->get();
+
+    return $data;
+}
+function cek_subdit(){
+    $data=App\Unit::where('unit_id',1)->where('nik_atasan',Auth::user()['nik'])->count();
+
+    return $data;
+}
+function unit_direktorat(){
+    $data=App\Unit::where('unit_id',5)->where('nik_atasan',Auth::user()['nik'])->orderBy('nama','Asc')->get();
+
+    return $data;
+}
+function get_unit_subdit($id){
+    $data=App\Unit::where('kode_unit',$id)->orderBy('nama','Asc')->get();
+
+    return $data;
+}
+
+function array_subdit(){
+    
+
+    $data  = array_column(
+        App\Unit::where('unit_id',5)->where('nik_atasan',Auth::user()['nik'])
+        ->get()
+        ->toArray(),'kode'
+     );
+
+    $subdata=App\Unit::where('unit_id',1)->whereIn('kode_unit',$data)->orderBy('nama','Asc')->get();
+
+    return $subdata;
+}
+
+
+function cek_direktorat(){
+    $data=App\Unit::where('unit_id',5)->where('nik_atasan',Auth::user()['nik'])->count();
+
+    return $data;
+}
+function unit_tingkatan(){
+    $data=App\Unit::whereIn('unit_id',[3,1])->orderBy('unit_id','Asc')->get();
+
+    return $data;
+}
 
 function cek_unit($id){
     $data=App\Unit::where('kode',$id)->first();

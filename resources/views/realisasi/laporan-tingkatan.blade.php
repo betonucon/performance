@@ -41,8 +41,8 @@
                         <div class="mailbox-controls" style="background:#f8f8fb;margin-bottom:10px;margin-top:5px;margin-bottom:20px">
                             <select id="kode" class="form-control" style="width: 30%;display: inline;">
                                 <option value="">Pilih Unit</option>
-                                @foreach(array_user() as $unit)
-                                    <option value="{{$unit}}" @if($unit==$kode) selected @endif>{{cek_unit($unit)['nama']}}</option>
+                                @foreach(get_unit_subdit($id) as $unit)
+                                    <option value="{{$unit['kode']}}" @if($unit==$kode) selected @endif>{{$unit['nama']}}</option>
                                 @endforeach
                             </select>
                             <select id="tahun" class="form-control" style="width: 10%;display: inline;">
@@ -53,7 +53,9 @@
                             <span  id="upload" class="btn btn-primary btn-sm"   onclick="cari()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-search"></i> Cari</span>
                             @if($kode!='')
                             <span  id="pdf" class="btn btn-success btn-sm"   onclick="pdf()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-pdf"></i> Download PDF</span>
-                            <span  id="excel" class="btn btn-success btn-sm"   onclick="excel()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-excel"></i> Download Excel</span>
+                                @if(Auth::user()['role_id']==1)
+                                <span  id="excel" class="btn btn-success btn-sm"   onclick="excel()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-excel"></i> Download Excel</span>
+                                @endif
                             @endif
                         </div>
                         
@@ -82,14 +84,14 @@
                                     <?php $score=0; ?>
                                     @foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data)
                                         <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
-                                        <?php 
-                                            if($data['sts']==1){
-                                                $color=color(1);
-                                            }else{
-                                                if($no%2==0){$color=color(2);}
-                                                else{$color=color(3);} 
-                                            }
-                                        ?>
+                                    <?php 
+                                      if($data['sts']==1){
+                                        $color=color(1);
+                                      }else{
+                                        if($no%2==0){$color=color(2);}
+                                        else{$color=color(3);} 
+                                      }
+                                    ?>
                                         <tr style="background:{{$color}}">
                                             <td rowspan="3">{{$data->kode_kpi}}</td>
                                             <td rowspan="3">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
@@ -130,45 +132,45 @@
                                     @if($kode!='')
                                     <tr style="background:{{$color}}">
                                         <td colspan="7">VALIDASI</td>
-                                         @for($x=1;$x<13;$x++)
+                                         @foreach(get_target($data['id']) as $detail)
                                             <td> 
-                                            @if(cek_validasi_atasan($kode,$tahun,$x)==array_deploymen_target($kode,$tahun,$x))
-                                                {{tgl(tgl_validasi_atasan($kode,$tahun,$x))}}
+                                            @if(cek_validasi_atasan($kode,$tahun,$detail['bulan'])==array_deploymen_target($kode,$tahun,$detail['bulan']))
+                                                {{tgl(tgl_validasi_atasan($kode,$tahun,$detail['bulan']))}}
                                             @else
-                                                @if(array_deploymen_realisasi($kode,$tahun,$x)==array_deploymen_target($kode,$tahun,$x))
-                                                <span class="btn btn-success btn-xs" onclick="validasi_bulanan({{$kode}},{{$tahun}},{{$x}})">Validasi</span>
+                                                @if(array_deploymen_realisasi($kode,$tahun,$detail['bulan'])==array_deploymen_target($kode,$tahun,$detail['bulan']))
+                                                    Proses
                                                 @else
-                                                    {{array_deploymen_target($kode,$tahun,$x)}}-
-                                                    {{array_deploymen_realisasi($kode,$tahun,$x)}}
+                                                    {{array_deploymen_target($kode,$tahun,$detail['bulan'])}}-
+                                                    {{array_deploymen_realisasi($kode,$tahun,$detail['bulan'])}}
                                                 @endif
                                             @endif
                                             
                                             </td>
-                                        @endfor
+                                        @endforeach
                                         <td colspan="2"></td>
                                     </tr>
                                     
                                     <tr style="background:{{$color}}">
                                         <td colspan="7">TOTAL CAPAIAN</td>
-                                         @for($x=1;$x<13;$x++)
-                                            <td>{{total_capaian($kode,$tahun,$x)}}%</th>
-                                        @endfor
+                                         @foreach(get_target($data['id']) as $detail)
+                                            <td>{{total_capaian($kode,$tahun,$detail['bulan'])}}%</th>
+                                        @endforeach
                                         <td colspan="2" align="right">{{$score}}</td>
                                     </tr>
 
                                     <tr style="background:{{$color}}">
                                         <td colspan="7">TOTAL BOBOT</td>
-                                         @for($x=1;$x<13;$x++)
+                                         @foreach(get_target($data['id']) as $detail)
                                             <td>{{total_bobot($kode,$tahun)}}%</th>
-                                        @endfor
+                                        @endforeach
                                         <td colspan="2" align="right">{{total_bobot($kode,$tahun)}}</td>
                                     </tr>
 
                                     <tr style="background:{{$color}}">
                                         <td colspan="7">TOTAL CAPAIAN/TOTAL BOBOT</td>
-                                         @for($x=1;$x<13;$x++)
-                                            <td>{{substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun))*100,0,4)}}%</th>
-                                        @endfor
+                                         @foreach(get_target($data['id']) as $detail)
+                                            <td>{{substr((total_capaian($kode,$tahun,$detail['bulan'])/total_bobot($kode,$tahun))*100,0,4)}}%</th>
+                                        @endforeach
                                         <td colspan="2" align="right">{{($score/total_bobot($kode,$tahun))*100}}</td>
                                     </tr>
 
@@ -193,7 +195,7 @@
                                          @for($x=1;$x<13;$x++)
                                             <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x))}}%</th>
                                          @endfor
-                                        <td colspan="2">{{((($score/total_bobot($kode,$tahun))*100)-($potongan/12))}}</td>
+                                        <td colspan="2" align="right">{{((($score/total_bobot($kode,$tahun))*100)-($potongan/12))}}</td>
                                     </tr>
                                     @endif
                                 </tbody>
@@ -243,30 +245,40 @@
         if(kode==''){
             alert('Pilih Unit Kerja');
         }else{
-            window.location.assign("{{url('/realisasi')}}?kode="+kode+"&tahun="+tahun);
+            window.location.assign("{{url('/laporan/bertingkat/'.$id)}}?kode="+kode+"&tahun="+tahun);
         }
         
     }
+    function upload(){
+        var form=document.getElementById('mydata');
+        
+            $.ajax({
+                type: 'POST',
+                url: "{{url('/deployment/import_data')}}",
+                data: new FormData(form),
+                contentType: false,
+                cache: false,
+                processData:false,
+                beforeSend: function(){
+                    $('#upload').hide();
+                    $('#proses_loading').html('Proses Pembayaran ....................');
+                },
+                success: function(msg){
+                    
+                    // if(msg=='ok'){
+                    //     window.location.assign("{{url('/unit/')}}");
+                    // }else{
+                    //     $('#upload').show();
+                    //     $('#proses_loading').html('');
+                    //     $('#modalnotifikasi').modal('show');
+                    //     $('#notifikasi').html(msg);
+                    // }
+                    alert(msg);
+                    
+                    
+                }
+            });
 
-    function validasi_bulanan(kode,tahun,a){
-        // $.ajax({
-        //     type: 'GET',
-        //     url: "{{url('/unit/cek_nik/atasan')}}/"+a,
-        //     data: "id="+a,
-        //     beforeSend: function(){
-        //         $('#nama_atasan').val('');
-        //     },
-        //     success: function(msg){
-        //         if(msg=='terdaftar'){
-        //             alert('Sudah Terdaftar sebagai PIC');
-        //         }else{
-        //             $('#nama_atasan').val(msg);
-        //         }
-                
-                
-        //     }
-        // });
-        alert(kode+"/"+tahun+"/"+a);
-    }
+    }  
 </script>
 @endpush

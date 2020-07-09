@@ -364,15 +364,21 @@ function cek_validasi_atasan_mandatori($tahun,$bulan){
      return $target;
 }
 
-function tgl_validasi_atasan($kode,$tahun,$bulan){
+function tgl_validasi_atasan($kode=null,$tahun=null,$bulan=null){
     $data  = array_column(
         App\Deployment::where('kode_unit',$kode)->where('sts',0)->where('tahun',$tahun)
         ->get()
         ->toArray(),'id'
     );
 
-    $tgl=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->orderBy('id','desc')->firstOrFail();
-    return $tgl['tgl_validasi_atasan'];
+    $cek=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->count();
+    if($cek>0){
+        $tgl=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->orderBy('id','desc')->firstOrFail();
+        return $tgl['tgl_validasi_atasan'];
+    }else{
+        return 0;
+    }
+    
 }
 
 function tgl_validasi_atasan_mandatori($tahun,$bulan){

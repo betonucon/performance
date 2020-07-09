@@ -7,8 +7,21 @@
         </li>
         
         @if(Auth::user()['role_id']==1)
-        <li><a href="{{url('/unit/')}}" style="font-weight: 500;"><i class="fa fa-home"></i> Unit Kerja</a></li>
         
+          <li class="treeview">
+              <a href="#" style="background:#f9fafc;font-weight: 500;">
+                <i class="fa fa-folder"></i>
+                <span>Unit Kerja</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="background:#f3f6fb">
+                <li><a href="{{url('/unit/')}}"><i class="fa fa-check"></i> Unit Kerja</a></li>
+             
+                <li><a href="{{url('/unit/index_tingkatan')}}"><i class="fa fa-check"></i>Tingkatan Unit Kerja</a></li>
+              </ul>
+          </li>
           <li class="treeview">
               <a href="#" style="background:#f9fafc;font-weight: 500;">
                 <i class="fa fa-folder"></i>
@@ -75,6 +88,7 @@
               <ul class="treeview-menu" style="background:#f3f6fb;color:#000;font-size:1vw">
                 <li><a href="{{url('/laporan/')}}"><i class="fa fa-check"></i> Non Mandatori</a></li>
                 <li><a href="{{url('/laporan/mandatori')}}"><i class="fa fa-check"></i> Mandatori</a></li>
+                
               </ul>
           </li>
         @endif   
@@ -117,8 +131,63 @@
               </a>
               <ul class="treeview-menu" style="background:#f3f6fb;color:#000;font-size:1vw">
                 <li><a href="{{url('/laporan/')}}"><i class="fa fa-check"></i> Capaian</a></li>
+                
               </ul>
           </li>
+          @if(cek_direktorat()>0)
+              <li class="treeview">
+                  <a href="#" style="background:#f9fafc;font-weight: 500;">
+                    <i class="fa fa-folder"></i>
+                    <span>Capaian Direktorat</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="background:#f3f6fb;color:#000;font-size:1vw">
+                    @foreach(unit_direktorat() as $direk)
+                      <li><a href="{{url('/laporan/bertingkat/'.$direk['kode'])}}"><i class="fa fa-check"></i> {{substr(cek_unit($direk['kode'])['nama'],0,23)}}</a></li>
+                    @endforeach
+                    
+                    
+                  </ul>
+              </li>
+              <li class="treeview">
+                  <a href="#" style="background:#f9fafc;font-weight: 500;">
+                    <i class="fa fa-folder"></i>
+                    <span>Capaian Subdit</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="background:#f3f6fb;color:#000;font-size:1vw">
+                    @foreach(array_subdit() as $sub)
+                      <li><a href="{{url('/laporan/bertingkat/'.$sub['kode'])}}"><i class="fa fa-check"></i> {{substr(cek_unit($sub['kode'])['nama'],0,23)}}</a></li>
+                    @endforeach
+                    
+                    
+                  </ul>
+              </li>
+          @endif
+
+          @if(cek_subdit()>0 && cek_direktorat()==0)
+              
+              <li class="treeview">
+                  <a href="#" style="background:#f9fafc;font-weight: 500;">
+                    <i class="fa fa-folder"></i>
+                    <span>Capaian Subdit</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="background:#f3f6fb;color:#000;font-size:1vw">
+                    @foreach(array_subdit() as $sub)
+                      <li><a href="{{url('/laporan/bertingkat/'.$sub['kode'])}}"><i class="fa fa-check"></i> {{substr(cek_unit($sub['kode'])['nama'],0,23)}}</a></li>
+                    @endforeach
+                    
+                    
+                  </ul>
+              </li>
+          @endif
         @endif   
 
         @if(Auth::user()['role_id']==2)
@@ -159,6 +228,10 @@
               </a>
               <ul class="treeview-menu" style="background:#f3f6fb;color:#000;font-size:1vw">
                 <li><a href="{{url('/laporan/')}}"><i class="fa fa-check"></i>Capaian</a></li>
+                
+                
+                
+               
               </ul>
           </li>
         @endif    

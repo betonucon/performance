@@ -63,7 +63,7 @@
                                         <td><b>{{$data->kode_unit}}</b><br>{{cek_unit($data->kode_unit)['nama']}}</td>
                                         <td>{{cek_unit($data['kode_unit'])['nik_atasan']}}<br>{{cek_nik(cek_unit($data['kode_unit'])['nik_atasan'])}}</td>
                                         
-                                        <td><a href="{{url('unit/edit/'.$data['id'])}}"><span class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></span></a></td>
+                                        <td><a href="{{url('unit/edit_tingkatan/'.$data['id'])}}"><span class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></span></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -28,6 +28,11 @@ class UnitController extends Controller
         $data=Unit::where('id',$id)->first();
         return view('unit.edit',compact('judul','data','id'));
     }
+    public function edit_tingkatan($id){
+        $judul='Unit Kerja';
+        $data=Unit::where('id',$id)->first();
+        return view('unit.edit_tingkatan',compact('judul','data','id'));
+    }
 
     public function import_data(request $request)
     {
@@ -107,6 +112,19 @@ class UnitController extends Controller
 
             }
 
+            echo'ok';
+        }
+    }
+
+    public function simpan_tingkatan(request $request,$id){
+        if (trim($request->kode_unit) == '') {$error[] = '- Pilih Unit Kerja Atasan';}
+        if (isset($error)) {echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br />'.implode('<br />', $error).'</p>';} 
+        else{
+            $data            =   Unit::find($id);
+            $data->kode_unit       =   $request->kode_unit;
+            $data->save();
+
+            
             echo'ok';
         }
     }

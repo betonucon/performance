@@ -31,8 +31,21 @@ function unit_direktorat(){
 
     return $data;
 }
+
 function get_unit_subdit($id){
     $data=App\Unit::where('kode_unit',$id)->orderBy('nama','Asc')->get();
+
+    return $data;
+}
+
+function get_unit_atasan($id){
+    if($id==1){
+        $data=App\Unit::where('unit_id',5)->orderBy('nama','Asc')->get();
+    }
+    if($id==3){
+        $data=App\Unit::where('unit_id',1)->orderBy('nama','Asc')->get();
+    }
+    
 
     return $data;
 }

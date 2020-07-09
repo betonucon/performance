@@ -23,7 +23,9 @@ Route::group(['middleware'    => 'auth'],function(){
         Route::get('/', 'UnitController@index');
         Route::get('/index_tingkatan', 'UnitController@index_tingkatan');
         Route::get('/edit/{id}', 'UnitController@edit');
+        Route::get('/edit_tingkatan/{id}', 'UnitController@edit_tingkatan');
         Route::post('/simpan/{id}', 'UnitController@simpan');
+        Route::post('/simpan_tingkatan/{id}', 'UnitController@simpan_tingkatan');
         Route::get('/cek_nik/{act}/{id}', 'UnitController@cek_nik');
         Route::post('/import_data_unit', 'UnitController@import_data');
         

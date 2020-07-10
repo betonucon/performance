@@ -7,7 +7,7 @@ use App\Deployment;
 use App\Target;
 use Session;
 
-use App\Imports\KpiImport;
+use App\Imports\TargetImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -75,8 +75,8 @@ class TargetController extends Controller
         $filess = $request->file('file');
         $nama_file = rand().$filess->getClientOriginalName();
         $filess->move('file_excel',$nama_file);
-        Excel::import(new KpiImport, public_path('/file_excel/'.$nama_file));
-        Session::flash('sukses','Data Kpi Sukses!');
+        Excel::import(new TargetImport, public_path('/file_excel/'.$nama_file));
+        Session::flash('sukses','Data Berhasil Diimport!');
     }
 
     

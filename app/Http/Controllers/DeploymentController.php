@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Deployment;
 use Session;
 
+use App\Imports\TargetImport;
 use App\Imports\DeploymentImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
@@ -31,6 +32,11 @@ class DeploymentController extends Controller
         $data=Deployment::where('id',$id)->first();
         return view('deployment.edit',compact('judul','data','id'));
     }
+    public function edit_mandatori($id){
+        $judul='Deployment';
+        $data=Deployment::where('id',$id)->first();
+        return view('deployment.edit_mandatori',compact('judul','data','id'));
+    }
 
     public function import_data(request $request)
     {
@@ -40,6 +46,17 @@ class DeploymentController extends Controller
         $nama_file = rand().$filess->getClientOriginalName();
         $filess->move('file_excel',$nama_file);
         Excel::import(new DeploymentImport, public_path('/file_excel/'.$nama_file));
+        Session::flash('sukses','Data Berhasil Diimport!');
+    }
+
+    public function import_data_mandatori(request $request)
+    {
+       error_reporting(0);
+		// menangkap file excel
+        $filess = $request->file('file');
+        $nama_file = rand().$filess->getClientOriginalName();
+        $filess->move('file_excel',$nama_file);
+        Excel::import(new TargetImport, public_path('/file_excel/'.$nama_file));
         Session::flash('sukses','Data Berhasil Diimport!');
     }
 

@@ -35,7 +35,14 @@
             <div class="box">
                 <div class="box-body" style="padding:10px">
                     
-                        
+                        <div class="input-group ">
+                            <form method="post" id="mydataini" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="file" style="width: 40%;" class="form-control" >    
+                                <span  id="upload" class="btn btn-primary btn-sm"   onclick="upload_data_unit()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-search"></i> Upload</span>
+                                <span  class="btn btn-default btn-sm" onclick="reload()"  style="margin-left:5px;margin-top:2px" ><i class="fa fa-refresh"></i> Reload</span>
+                            </form>
+                        </div>
                         
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
@@ -66,7 +73,7 @@
                                         <td>{{capaian($data->kode_kpi)}}</td>
                                         <td>{{akumulasi($data->kode_kpi)}}</td>
                                         <td>{{cek_unit($data->kode_unit)['nama']}}</td>
-                                        <td><a href="{{url('deployment/edit/'.$data['id'])}}"><span class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></span></a></td>
+                                        <td><a href="{{url('deployment/edit_mandatori/'.$data['id'])}}"><span class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></span></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -99,12 +106,12 @@
         })
     });  
 
-    function upload(){
-        var form=document.getElementById('mydata');
+    function upload_data_unit(){
+        var form=document.getElementById('mydataini');
         
             $.ajax({
                 type: 'POST',
-                url: "{{url('/deployment/import_data')}}",
+                url: "{{url('/deployment/import_data_mandatori')}}",
                 data: new FormData(form),
                 contentType: false,
                 cache: false,

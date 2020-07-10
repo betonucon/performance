@@ -72,6 +72,7 @@
                                         @endfor
                                     </tr>
                                 </thead>
+                            @if(cek_deployment_mandatori_capaian($tahun)>0)
                                 <tbody>
                                     <?php $score=0; ?>
                                     @foreach(deployment_mandatori_capaian($tahun) as $no=>$data)
@@ -182,7 +183,7 @@
                                         <td colspan="2" align="right">{{((($score/total_bobot_mandatori($tahun))*100)-($potongan/12))}}</td>
                                     </tr>
                                 </tbody>
-                                
+                             @endif   
                             </table>
                         </div>
                 

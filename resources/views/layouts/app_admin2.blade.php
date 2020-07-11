@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>PERFORMANCE</title>
-  <link href="{{url('/icon/fav.png')}}" rel="icon">
+  <title>Performance Management System</title>
+  <link href="{{url('/icon/favfav.png')}}" rel="icon">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -80,9 +80,7 @@
 </head>
 
 <body class="hold-transition skin-purple-light sidebar-mini">
-<?php
-    header('X-Frame-Options: GOFORIT'); 
-?>
+
 <div class="wrapper" style="background-color: #ecf0f5;">
 
   <header class="main-header" style="position: fixed;width: 100%;">
@@ -150,7 +148,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright © 2014-2019 <a href="http://olla-market.com">assas</a>.</strong>
+    <strong>Copyright © 2020 <a href="#">Performance Management System</a>.</strong>
     All rights
     reserved.
   </footer>

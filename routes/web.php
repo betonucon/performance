@@ -14,15 +14,24 @@
 Route::get('login', function () {
     return redirect('http://sso.krakatausteel.com/');
 });
-Route::get('logout', function () {
-    return redirect('http://sso.krakatausteel.com/');
+Route::get('login_ucon', function () {
+    return view('auth.login');
 });
+
+Route::post('login', 'Auth\LoginController@login')->name('login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Route::get('logout', function () {
+//     return redirect('http://sso.krakatausteel.com/');
+// })->name('logout');
+
 Route::get('a/{personnel_no}/', 'Auth\LoginController@programaticallyEmployeeLogin')->name('login.a');
 
 Route::group(['middleware'    => 'auth'],function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('rolee/', 'UnitController@rolee');
+    
 
     Route::group(['prefix' => 'unit'], function(){
         Route::get('/', 'UnitController@index');

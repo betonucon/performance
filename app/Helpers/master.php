@@ -743,7 +743,7 @@ function hitung_capaian($capaian,$target,$realisasi){
             if($realisasi==0){
                 $cap=0;
             }else{
-                 $cap=(1-(($target-$realisasi)/$target))*100;
+                 $cap=(1-((($target)-($realisasi))/($target)))*100;
             }
         }
         
@@ -762,7 +762,7 @@ function hitung_capaian($capaian,$target,$realisasi){
             if($realisasi==0){
                 $cap=0;
             }else{
-                 $cap=(1+(($target-$realisasi)/$target))*100;
+                 $cap=(1+(($target)-($realisasi))/($target))*100;
             }
         }
         

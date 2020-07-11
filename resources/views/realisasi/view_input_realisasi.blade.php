@@ -101,7 +101,7 @@
                                                 <span class="btn btn-default btn-sm" disabled><i class="fa fa-remove"></i></span>
                                                 <a class="pull-right"></a>
                                             @else
-                                                <a href="{{url('_file_upload/'.$target['file'])}}"><span class="btn btn-primary btn-sm"><i class="fa fa-file"></i></span></a>
+                                                <a href="{{url('_file_upload/'.$target['file'])}}" target="_blank"><span class="btn btn-primary btn-sm"><i class="fa fa-file"></i></span></a>
                                                 <a class="pull-right">
                                                     <span class="btn btn-warning btn-sm" data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#modalmasalah{{$target['id']}}"><i class="fa fa-comment"></i> Masalah</span>
                                                 </a>

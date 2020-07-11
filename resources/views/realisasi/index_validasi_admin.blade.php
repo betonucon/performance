@@ -126,7 +126,7 @@
                                                 @if($detail['file']=='')
                                                     <td>&nbsp;</th>
                                                 @else
-                                                    <td><a href="{{url('_file_upload/'.$detail['file'])}}"><span class="btn btn-success btn-xs">File</span></a></td>
+                                                    <td><a href="{{url('_file_upload/'.$detail['file'])}}" target="_blank"><span class="btn btn-success btn-xs">File</span></a></td>
                                                 @endif
                                             @endforeach
                                             <td></td>

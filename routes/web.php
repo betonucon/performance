@@ -11,7 +11,12 @@
 |
 */
 
-
+Route::get('login', function () {
+    return redirect('http://sso.krakatausteel.com/');
+});
+Route::get('logout', function () {
+    return redirect('http://sso.krakatausteel.com/');
+});
 Route::get('a/{personnel_no}/', 'Auth\LoginController@programaticallyEmployeeLogin')->name('login.a');
 
 Route::group(['middleware'    => 'auth'],function(){
@@ -106,7 +111,7 @@ Route::group(['middleware'    => 'auth'],function(){
 
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/pdf', 'HomeController@pdf')->name('pdf');

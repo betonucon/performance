@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
+/public/file_excel
+/public/file_upload
 /storage/*.key
 /vendor
 .env

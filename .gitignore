@@ -3,6 +3,7 @@
 /public/storage
 /public/file_excel
 /public/file_upload
+/public
 /storage/*.key
 /vendor
 .env

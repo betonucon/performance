@@ -892,20 +892,14 @@ function akumulasi_target($id){
         }
 
         if($data['rumus_akumulasi']==3){
-            $cek=App\Target::where('deployment_id',$id)->where('target','!=',0)->count();
-            if($cek>0){
-                $prog=App\Target::where('deployment_id',$id)->where('target','!=',0)->orderBy('id','desc')->firstOrFail();
-                $data  = array_column(
-                    App\Target::where('deployment_id',$id)->where('target','!=',0)
-                    ->get()
-                    ->toArray(),'realisasi'
-                );
-                $max=max($data);
-                $total=$max;
-            }else{
-                $total=0;
-            }
-            
+            $prog=App\Target::where('deployment_id',$id)->where('target','!=',0)->orderBy('id','desc')->firstOrFail();
+            $data  = array_column(
+                App\Target::where('deployment_id',$id)->where('target','!=',0)
+                ->get()
+                ->toArray(),'realisasi'
+            );
+            $max=max($data);
+            $total=$max;
         } 
     
     }

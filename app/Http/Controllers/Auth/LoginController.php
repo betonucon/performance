@@ -28,6 +28,16 @@ class LoginController extends Controller
      * @var string
      */
 
+
+    public function logout(Request $request)
+    {
+        // do the normal logout
+        $this->performLogout($request);
+        
+        // redirecto to sso
+        return redirect()->away('https://sso.krakatausteel.com');
+    }
+
     protected function credentials(\Illuminate\Http\Request $request)
     {
         if(is_numeric($request->get('email'))){

@@ -52,9 +52,11 @@
                             </select>
                             <span  id="upload" class="btn btn-primary btn-sm"   onclick="cari()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-search"></i> Cari</span>
                             @if($kode!='')
-                            <span  id="pdf" class="btn btn-success btn-sm"   onclick="pdf()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-pdf"></i> Download PDF</span>
-                                @if(Auth::user()['role_id']==1)
-                                <span  id="excel" class="btn btn-success btn-sm"   onclick="excel()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-excel"></i> Download Excel</span>
+                                @if(cek_deployment_realisasi_atasan($kode,$tahun)>0)
+                                    <span  id="pdf" class="btn btn-success btn-sm"   onclick="pdf()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-pdf"></i> Download PDF</span>
+                                    @if(Auth::user()['role_id']==1)
+                                    <span  id="excel" class="btn btn-success btn-sm"   onclick="excel()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-excel"></i> Download Excel</span>
+                                    @endif
                                 @endif
                             @endif
                         </div>
@@ -80,7 +82,9 @@
                                         @endfor
                                     </tr>
                                 </thead>
+                                @if(cek_deployment_realisasi_atasan($kode,$tahun)>0)
                                 <tbody>
+                                
                                     <?php $score=0; ?>
                                     @foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data)
                                         <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
@@ -199,7 +203,7 @@
                                     </tr>
                                     @endif
                                 </tbody>
-                                
+                                @endif
                             </table>
                         </div>
                 

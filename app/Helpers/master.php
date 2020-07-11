@@ -462,6 +462,16 @@ function deployment_realisasi_atasan($kode=null,$tahun=null){
 
     return $data;
 }
+function cek_deployment_realisasi_atasan($kode=null,$tahun=null){
+    if($kode!=''){
+        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->count();
+    }else{
+        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->count();
+    }
+    
+
+    return $data;
+}
 
 function deployment_realisasi_atasan_mandatori($tahun=null){
     if($tahun!=''){

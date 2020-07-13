@@ -203,13 +203,14 @@ class RealisasiController extends Controller
                 if (trim($request->masalah) == '') {$error[] = '- Isi masalah ';}
                 if (isset($error)) {echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br />'.implode('<br />', $error).'</p>';} 
                 else{
+                    //cekk
                     $cek=explode('/',$_FILES['file']['type']);
                     $file_tmp=$_FILES['file']['tmp_name'];
                     $file=explode('.',$_FILES['file']['name']);
                     $filename=md5(date('Ymdhis')).'.'.$file[1];
                     $lokasi='_file_upload/';
                     
-                    if($cek[0]=='image'){
+                    if($file[1]=='pdf'){
                         if(move_uploaded_file($file_tmp, $lokasi.$filename)){
                             $data           = Target::find($id);
                             $data->realisasi= $request->realisasi;
@@ -223,7 +224,7 @@ class RealisasiController extends Controller
                             }
                         }
                     }else{
-                        echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br /> Format file harus gambar</p>';
+                        echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br /> Format file harus Pdf</p>';
                     }
                 }
 

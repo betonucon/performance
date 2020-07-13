@@ -169,7 +169,7 @@
                                          @for($x=1;$x<13;$x++)
                                             <td>{{substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun))*100,0,4)}}%</th>
                                         @endfor
-                                        <td colspan="2" align="right">{{($score/total_bobot($kode,$tahun))*100}}</td>
+                                        <td colspan="2" align="right">{{substr(($score/total_bobot($kode,$tahun))*100,0,5)}}</td>
                                     </tr>
 
                                     <tr style="background:{{$color}}">
@@ -193,7 +193,7 @@
                                          @for($x=1;$x<13;$x++)
                                             <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x))}}%</th>
                                          @endfor
-                                        <td colspan="2">{{((($score/total_bobot($kode,$tahun))*100)-($potongan/12))}}</td>
+                                        <td colspan="2">{{substr((($score/total_bobot($kode,$tahun))*100)-($potongan/12),0,5)}}</td>
                                     </tr>
                                     @endif
                                 </tbody>

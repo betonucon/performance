@@ -24,11 +24,16 @@
                 font-family: sans-serif;
                 vertical-align:top;
             }
-            
+            .cont{
+                margin-top: 30px;
+                height: 100%;
+                width: 100%;
+                padding:10px;
+            }
         </style>
     </head> 
     <body>     
-        <div style="padding:10px">
+        <div class="cont">
             <center><h3>LAPORAN CAPAIAN PERIODE {{$tahun}}<br>{{cek_unit($kode)['nama']}}</h3></center>
             <table  width="100%" border="1" >
                 <thead>
@@ -63,38 +68,50 @@
                             }
                         ?>
                         <tr style="background:{{$color}}">
-                            <td rowspan="3">{{$data->kode_kpi}}</td>
-                            <td rowspan="3">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
-                            <td rowspan="3" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
-                            <td rowspan="3">{{$data->bobot_tahunan}}</td>
-                            <td rowspan="3">{{$data->target_tahunan}}</td>
-                            <td rowspan="3">{{cek_kpi($data->kode_kpi)['satuan']}}</td>
+                            <td>{{$data->kode_kpi}}</td>
+                            <td>{{cek_kpi($data->kode_kpi)['kpi']}}</td>
+                            <td style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
+                            <td>{{$data->bobot_tahunan}}</td>
+                            <td>{{$data->target_tahunan}}</td>
+                            <td>{{cek_kpi($data->kode_kpi)['satuan']}}</td>
                             <td>T</td>
                                 @foreach(get_target($data['id']) as $detail)
                                     @if($data['rumus_capaian']==3)
-                                    <td>{{tgl($detail['target'])}}</th>
+                                    <td>{{tgl($detail['target'])}}</td>
                                     @else
-                                    <td>{{$detail['target']}}</th>
+                                    <td>{{$detail['target']}}</td>
                                     @endif
                                 @endforeach
                             <td>{{akumulasi_target($data['id'])}}</td>
                             <td rowspan="3">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
                         </tr>
                         <tr style="background:{{$color}}">
+                        <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
                             <td>R</td>
                             @foreach(get_target($data['id']) as $detail)
                                 @if($data['rumus_capaian']==3)
-                                    <td>{{tgl($detail['realisasi'])}}</th>
+                                    <td>{{tgl($detail['realisasi'])}}</td>
                                 @else
-                                    <td>{{$detail['realisasi']}}</th>
+                                    <td>{{$detail['realisasi']}}</td>
                                 @endif
                             @endforeach
                             <td>{{akumulasi_realisasi($data['id'])}}</td>
                         </tr>
                         <tr style="background:{{$color}}">
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
                             <td>C</td>
                             @foreach(get_target($data['id']) as $detail)
-                                <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</th>
+                                <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</td>
                             @endforeach
                             <td>{{akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))}}</td>
                         </tr>
@@ -105,7 +122,7 @@
                     <tr style="background:{{$color}}">
                         <td colspan="7">TOTAL CAPAIAN</td>
                             @foreach(get_target($data['id']) as $detail)
-                            <td>{{total_capaian($kode,$tahun,$detail['bulan'])}}%</th>
+                            <td>{{total_capaian($kode,$tahun,$detail['bulan'])}}%</td>
                         @endforeach
                         <td colspan="2" align="right">{{$score}}</td>
                     </tr>
@@ -113,7 +130,7 @@
                     <tr style="background:{{$color}}">
                         <td colspan="7">TOTAL BOBOT</td>
                             @foreach(get_target($data['id']) as $detail)
-                            <td>{{total_bobot($kode,$tahun)}}%</th>
+                            <td>{{total_bobot($kode,$tahun)}}%</td>
                         @endforeach
                         <td colspan="2" align="right">{{total_bobot($kode,$tahun)}}</td>
                     </tr>
@@ -121,7 +138,7 @@
                     <tr style="background:{{$color}}">
                         <td colspan="7">TOTAL CAPAIAN/TOTAL BOBOT</td>
                             @foreach(get_target($data['id']) as $detail)
-                            <td>{{substr((total_capaian($kode,$tahun,$detail['bulan'])/total_bobot($kode,$tahun))*100,0,4)}}%</th>
+                            <td>{{substr((total_capaian($kode,$tahun,$detail['bulan'])/total_bobot($kode,$tahun))*100,0,4)}}%</td>
                         @endforeach
                         <td colspan="2" align="right">{{($score/total_bobot($kode,$tahun))*100}}</td>
                     </tr>
@@ -145,7 +162,7 @@
                     <tr style="background:{{$color}}">
                         <td colspan="7">CAPAIAN AKHIR </td>
                             @for($x=1;$x<13;$x++)
-                            <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x))}}%</th>
+                            <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x))}}%</td>
                             @endfor
                         <td colspan="2" align="right">{{((($score/total_bobot($kode,$tahun))*100)-($potongan/12))}}</td>
                     </tr>

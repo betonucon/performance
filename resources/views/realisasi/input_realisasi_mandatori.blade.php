@@ -183,11 +183,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Masalah</label><br>
-                                    <textarea disabled name="masalah" id="masalah{{$target['id']}}" style="width:100%" rows="3" ></textarea>
+                                    <textarea disabled name="masalah" id="masalah{{$target['id']}}" style="width:100%" rows="3" >{{$target['masalah']}}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Rencana</label><br>
-                                    <textarea disabled name="rencana" id="rencana{{$target['id']}}" style="width:100%" rows="3" ></textarea>
+                                    <textarea disabled name="rencana" id="rencana{{$target['id']}}" style="width:100%" rows="3" >{{$target['rencana']}}</textarea>
                                 </div>
                             </form>
                     </div>

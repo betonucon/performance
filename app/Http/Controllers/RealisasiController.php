@@ -215,6 +215,7 @@ class RealisasiController extends Controller
                             $data           = Target::find($id);
                             $data->realisasi= $request->realisasi;
                             $data->masalah= $request->masalah;
+                            $data->rencana= $request->rencana;
                             $data->status_realisasi=1;
                             $data->file= $filename;
                             $data->save();

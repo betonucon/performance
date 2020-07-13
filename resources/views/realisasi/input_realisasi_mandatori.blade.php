@@ -185,6 +185,10 @@
                                     <label>Masalah</label><br>
                                     <textarea disabled name="masalah" id="masalah{{$target['id']}}" style="width:100%" rows="3" ></textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label>Rencana</label><br>
+                                    <textarea disabled name="rencana" id="rencana{{$target['id']}}" style="width:100%" rows="3" ></textarea>
+                                </div>
                             </form>
                     </div>
                     <div class="modal-footer">
@@ -204,7 +208,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">Masalah </h4>
+                        <h4 class="modal-title"> </h4>
                     </div>
                     <div class="modal-body">
                         <div id="notifikasi_realisasi{{$target['id']}}"></div>
@@ -212,7 +216,12 @@
                                 @csrf
                                 
                                 <div class="form-group">
+                                    <label>Masalah</label>
                                     <textarea disabled name="masalah"  style="width:100%" rows="3" >{{$target['masalah']}}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Rencana</label>
+                                    <textarea disabled name="rencana"  style="width:100%" rows="3" >{{$target['rencana']}}</textarea>
                                 </div>
                             </form>
                     </div>
@@ -244,9 +253,11 @@
                 if(cap>95){
                 $("#file{{$target['id']}}").prop( "disabled", true );
                 $("#masalah{{$target['id']}}").prop( "disabled", true );
+                $("#rencana{{$target['id']}}").prop( "disabled", true );
             }else{
                 $("#file{{$target['id']}}").prop( "disabled", false );
                 $("#masalah{{$target['id']}}").prop( "disabled", false );
+                $("#rencana{{$target['id']}}").prop( "disabled", false );
             }
             }
             
@@ -274,11 +285,13 @@
             success: function(msg){
                 if(msg>95){
                     $("#file"+id).prop( "disabled", true );
-                    $("#masalah"+id).prop( "disabled", true );
+                    $("#masalah"+id).prop( "disabled", true ); 
+                    $("#rencana"+id).prop( "disabled", true ); 
                     $('#capaian'+id).val(msg);
                 }else{
                     $("#file"+id).prop( "disabled", false );
                     $("#masalah"+id).prop( "disabled", false );
+                    $("#rencana"+id).prop( "disabled", false );
                     $('#capaian'+id).val(msg);
                 }
                

@@ -136,7 +136,8 @@
                                                 {{tgl(tgl_validasi_atasan($kode,$tahun,$x))}}
                                             @else
                                                 @if(array_deploymen_realisasi($kode,$tahun,$x)==array_deploymen_target($kode,$tahun,$x))
-                                                <span class="btn btn-success btn-xs" onclick="validasi_bulanan({{$kode}},{{$tahun}},{{$x}})">Validasi</span>
+                                                <span class="btn btn-success btn-xs" id="validasi_bulanan{{$x}}" onclick="validasi_bulanan({{$kode}},{{$tahun}},{{$x}})">Validasi</span>
+                                                <div id="not_validasi_bulanan{{$x}}"></div>
                                                 @else
                                                     {{array_deploymen_target($kode,$tahun,$x)}}-
                                                     {{array_deploymen_realisasi($kode,$tahun,$x)}}
@@ -249,24 +250,21 @@
     }
 
     function validasi_bulanan(kode,tahun,a){
-        // $.ajax({
-        //     type: 'GET',
-        //     url: "{{url('/unit/cek_nik/atasan')}}/"+a,
-        //     data: "id="+a,
-        //     beforeSend: function(){
-        //         $('#nama_atasan').val('');
-        //     },
-        //     success: function(msg){
-        //         if(msg=='terdaftar'){
-        //             alert('Sudah Terdaftar sebagai PIC');
-        //         }else{
-        //             $('#nama_atasan').val(msg);
-        //         }
+        $.ajax({
+            type: 'GET',
+            url: "{{url('/realisasi/validasi_bulanan')}}/"+kode+"/"+a+"/"+tahun,
+            data: "id="+a,
+            beforeSend: function(){
+                $('#validasi_bulanan'+a).hide();
+                $('#not_validasi_bulanan'+a).html('Proses');
+            },
+            success: function(msg){
                 
+                location.reload();
                 
-        //     }
-        // });
-        alert(kode+"/"+tahun+"/"+a);
+            }
+        });
+        // alert(kode+"/"+tahun+"/"+a);
     }
 </script>
 @endpush

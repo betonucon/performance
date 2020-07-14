@@ -109,6 +109,7 @@ Route::group(['middleware'    => 'auth'],function(){
         Route::post('/simpan/{id}', 'RealisasiController@simpan');
         Route::post('/simpan_realisasi/{id}', 'RealisasiController@simpan_realisasi');
         Route::get('/perhitungan/', 'RealisasiController@perhitungan');
+        Route::get('/validasi_bulanan/{kode}/{bulan}/{tahun}', 'RealisasiController@validasi_bulanan');
     });
 
     Route::group(['prefix' => 'kpi'], function(){

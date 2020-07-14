@@ -82,7 +82,7 @@
                                     <td>{{$detail['target']}}</td>
                                     @endif
                                 @endforeach
-                            <td>{{akumulasi_target($data['id'])}}</td>
+                            <td>{{number_format(akumulasi_target($data['id']),2)}}</td>
                             <td rowspan="3">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
                         </tr>
                         <tr style="background:{{$color}}">
@@ -100,7 +100,7 @@
                                     <td>{{$detail['realisasi']}}</td>
                                 @endif
                             @endforeach
-                            <td>{{akumulasi_realisasi($data['id'])}}</td>
+                            <td>{{number_format(akumulasi_realisasi($data['id']),2)}}</td>
                         </tr>
                         <tr style="background:{{$color}}">
                             <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>

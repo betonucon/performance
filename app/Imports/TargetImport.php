@@ -17,6 +17,11 @@ class TargetImport implements ToModel, WithStartRow
     public function model(array $row)
     {
         // $cek=Deployment::where('kode_unit',$row['0'])->where('kode_kpi',$row['2'])->first();
+        $tarex=explode(',',$row[4]);
+        $realex=explode(',',$row[5]);
+        if($tarex[1]==''){$nilaitarget=$row[4];}else{$nilaitarget=$nilaitarget;}
+        if($realex[1]==''){$nilairealisasi=$row[4];}else{$nilairealisasi=$nilairealisasi;}
+
         if($row['0']=='all'){
             $get_deploy             =Deployment::where('kode_kpi',$row['1'])->where('tahun',$row['2'])->get();
             
@@ -30,15 +35,15 @@ class TargetImport implements ToModel, WithStartRow
                     $cektarget =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->count();
                     if($cektarget>0){
                         $target             =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->first();
-                        $target->target     = number_format($row[4],2);
-                        $target->realisasi     = number_format($row[5],2);
+                        $target->target     = $nilaitarget;
+                        $target->realisasi     = $nilairealisasi;
                         $target->save();
                     }else{
                         $target             = new Target;
                         $target->deployment_id     = $deploy['id'];
                         $target->bulan     = $row[3];
-                        $target->target     = number_format($row[4],2);
-                        $target->realisasi     = number_format($row[5],2);
+                        $target->target     = $nilaitarget;
+                        $target->realisasi     = $nilairealisasi;
                         $target->status_realisasi     = 1;
                         $target->save();
                     }
@@ -62,15 +67,15 @@ class TargetImport implements ToModel, WithStartRow
                     $cektarget =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->count();
                     if($cektarget>0){
                         $target             =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->first();
-                        $target->target     = number_format($row[4],2);
-                        $target->realisasi     = number_format($row[5],2);
+                        $target->target     = $nilaitarget;
+                        $target->realisasi     = $nilairealisasi;
                         $target->save();
                     }else{
                         $target             = new Target;
                         $target->deployment_id     = $deploy['id'];
                         $target->bulan     = $row[3];
-                        $target->target     = number_format($row[4],2);
-                        $target->realisasi     = number_format($row[5],2);
+                        $target->target     = $nilaitarget;
+                        $target->realisasi     = $nilairealisasi;
                         $target->status_realisasi     = 1;
                         $target->save();
                     }

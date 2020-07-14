@@ -100,7 +100,7 @@
                                     @foreach(get_target($data['id']) as $target)
                                         <li class="list-group-item" style="padding: 5px 0px 5px 7px;">
                                             @if(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])>95)
-                                                <span class="btn btn-default btn-sm" disabled><i class="fa fa-check"></i></span>
+                                            <a href="{{url('_file_upload/'.$target['file'])}}" target="_blank"><span class="btn btn-primary btn-sm"><i class="fa fa-file"></i></span></a>
                                                 <a class="pull-right"></a>
                                             @elseif(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])==0)
                                                 <span class="btn btn-default btn-sm" disabled><i class="fa fa-remove"></i></span>
@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>file</label>
-                                    <input type="file" name="file" disabled id="file{{$target['id']}}"  class="form-control">
+                                    <input type="file" name="file"  class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Masalah</label><br>
@@ -260,11 +260,10 @@
 
             }else{
                 if(cap>95){
-                $("#file{{$target['id']}}").prop( "disabled", true );
+                
                 $("#masalah{{$target['id']}}").prop( "disabled", true );
                 $("#rencana{{$target['id']}}").prop( "disabled", true );
             }else{
-                $("#file{{$target['id']}}").prop( "disabled", false );
                 $("#masalah{{$target['id']}}").prop( "disabled", false );
                 $("#rencana{{$target['id']}}").prop( "disabled", false );
             }
@@ -293,12 +292,10 @@
             data: "id="+id+"&akumulasi="+akumulasi+"&capaian="+capaian+"&target="+target+"&realisasi="+realisasi,
             success: function(msg){
                 if(msg>95){
-                    $("#file"+id).prop( "disabled", true );
                     $("#masalah"+id).prop( "disabled", true );
                     $("#rencana"+id).prop( "disabled", true );
                     $('#capaian'+id).val(msg);
                 }else{
-                    $("#file"+id).prop( "disabled", false );
                     $("#masalah"+id).prop( "disabled", false );
                     $("#rencana"+id).prop( "disabled", false );
                     $('#capaian'+id).val(msg);

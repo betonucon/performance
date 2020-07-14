@@ -30,15 +30,15 @@ class TargetImport implements ToModel, WithStartRow
                     $cektarget =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->count();
                     if($cektarget>0){
                         $target             =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->first();
-                        $target->target     = $row[4];
-                        $target->realisasi     = $row[5];
+                        $target->target     = number_format($row[4],2);
+                        $target->realisasi     = number_format($row[5],2);
                         $target->save();
                     }else{
                         $target             = new Target;
                         $target->deployment_id     = $deploy['id'];
                         $target->bulan     = $row[3];
-                        $target->target     = $row[4];
-                        $target->realisasi     = $row[5];
+                        $target->target     = number_format($row[4],2);
+                        $target->realisasi     = number_format($row[5],2);
                         $target->status_realisasi     = 1;
                         $target->save();
                     }
@@ -51,27 +51,32 @@ class TargetImport implements ToModel, WithStartRow
         
         
         else{
-            $deploy             =Deployment::where('kode_unit',$row['0'])->where('kode_kpi',$row['1'])->where('tahun',$row['2'])->first();
-            $deploy->sts        = 1;
-            $deploy->save();
+            $cekdep =Deployment::where('kode_unit',$row['0'])->where('kode_kpi',$row['1'])->where('tahun',$row['2'])->count();
+            if($cekdep>0){
+                $deploy             =Deployment::where('kode_unit',$row['0'])->where('kode_kpi',$row['1'])->where('tahun',$row['2'])->first();
+                $deploy->sts        = 1;
+                $deploy->save();
 
-            if($deploy){
-                
-                $cektarget =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->count();
-                if($cektarget>0){
-                    $target             =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->first();
-                    $target->target     = $row[4];
-                    $target->realisasi     = $row[5];
-                    $target->save();
-                }else{
-                    $target             = new Target;
-                    $target->deployment_id     = $deploy['id'];
-                    $target->bulan     = $row[3];
-                    $target->target     = $row[4];
-                    $target->realisasi     = $row[5];
-                    $target->status_realisasi     = 1;
-                    $target->save();
+                if($deploy){
+                    
+                    $cektarget =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->count();
+                    if($cektarget>0){
+                        $target             =Target::where('deployment_id',$deploy['id'])->where('bulan',$row[3])->first();
+                        $target->target     = number_format($row[4],2);
+                        $target->realisasi     = number_format($row[5],2);
+                        $target->save();
+                    }else{
+                        $target             = new Target;
+                        $target->deployment_id     = $deploy['id'];
+                        $target->bulan     = $row[3];
+                        $target->target     = number_format($row[4],2);
+                        $target->realisasi     = number_format($row[5],2);
+                        $target->status_realisasi     = 1;
+                        $target->save();
+                    }
+                    
                 }
+            }else{
                 
             }
         }

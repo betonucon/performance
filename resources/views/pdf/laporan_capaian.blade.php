@@ -68,13 +68,13 @@
                             }
                         ?>
                         <tr style="background:{{$color}}">
-                            <td>{{$data->kode_kpi}}</td>
-                            <td>{{cek_kpi($data->kode_kpi)['kpi']}}</td>
-                            <td style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
-                            <td>{{$data->bobot_tahunan}}</td>
-                            <td>{{$data->target_tahunan}}</td>
-                            <td>{{cek_kpi($data->kode_kpi)['satuan']}}</td>
-                            <td>T</td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;">{{$data->kode_kpi}}</td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;">{{$data->bobot_tahunan}}</td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;">{{$data->target_tahunan}}</td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;">{{cek_kpi($data->kode_kpi)['satuan']}}</td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;">T</td>
                                 @foreach(get_target($data['id']) as $detail)
                                     @if($data['rumus_capaian']==3)
                                     <td>{{tgl($detail['target'])}}</td>

@@ -36,9 +36,11 @@
                 <div class="box-body" style="padding:10px">
                     
                         <div class="input-group ">
+                            <!-- <form method="post" action="{{url('/deployment/import_data_mandatori')}}" enctype="multipart/form-data"> -->
                             <form method="post" id="mydataini" enctype="multipart/form-data">
                                 @csrf
-                                <input type="file" name="file" style="width: 40%;" class="form-control" >    
+                                <div id="proses_upload_loading"></div>
+                                <input type="file" name="file"  style="width: 40%;" class="form-control" >    
                                 <span  id="upload" class="btn btn-primary btn-sm"   onclick="upload_data_unit()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-search"></i> Upload</span>
                                 <span  class="btn btn-default btn-sm" onclick="reload()"  style="margin-left:5px;margin-top:2px" ><i class="fa fa-refresh"></i> Reload</span>
                             </form>
@@ -117,8 +119,9 @@
                 cache: false,
                 processData:false,
                 beforeSend: function(){
+                    $('#file_upload').hide();
                     $('#upload').hide();
-                    $('#proses_loading').html('Proses Pembayaran ....................');
+                    $('#proses_upload_loading').html('Proses Import Data ....................');
                 },
                 success: function(msg){
                     
@@ -130,7 +133,8 @@
                     //     $('#modalnotifikasi').modal('show');
                     //     $('#notifikasi').html(msg);
                     // }
-                    alert(msg);
+                    // alert(msg);
+                    loaction.reload();
                     
                     
                 }

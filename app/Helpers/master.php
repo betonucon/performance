@@ -33,7 +33,7 @@ function bulan($bulan)
 
 function color($id){
     if($id==1){
-        $color="#f9fb82";
+        $color="#e2e2ca";
     }
     if($id==2){
         $color="#fff";

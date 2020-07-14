@@ -125,16 +125,13 @@
                 },
                 success: function(msg){
                     
-                    // if(msg=='ok'){
-                    //     window.location.assign("{{url('/unit/')}}");
-                    // }else{
-                    //     $('#upload').show();
-                    //     $('#proses_loading').html('');
-                    //     $('#modalnotifikasi').modal('show');
-                    //     $('#notifikasi').html(msg);
-                    // }
-                    // alert(msg);
-                    loaction.reload();
+                    if(msg=='ok'){
+                        location.reload();
+                    }else{
+                        location.reload();
+                    }
+                   
+                    
                     
                     
                 }

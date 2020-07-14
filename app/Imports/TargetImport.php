@@ -17,8 +17,8 @@ class TargetImport implements ToModel, WithStartRow
     public function model(array $row)
     {
         // $cek=Deployment::where('kode_unit',$row['0'])->where('kode_kpi',$row['2'])->first();
-        $tarex=explode(',',$row[4]);
-        $realex=explode(',',$row[5]);
+        $tarex=explode('.',$row[4]);
+        $realex=explode('.',$row[5]);
         if($tarex[1]==''){$nilaitarget=$row[4];}else{$nilaitarget=$nilaitarget;}
         if($realex[1]==''){$nilairealisasi=$row[4];}else{$nilairealisasi=$nilairealisasi;}
 

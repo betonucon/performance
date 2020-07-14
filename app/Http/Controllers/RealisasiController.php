@@ -37,6 +37,7 @@ class RealisasiController extends Controller
         $judul='Laporan Capaian';
         $kode=$request->kode;
         $tahun=$request->tahun;
+        
         return view('realisasi.laporan',compact('judul','kode','tahun'));
     }
     public function laporan_tingkatan(request $request,$id){

@@ -39,12 +39,28 @@
                 <div class="box-body" style="padding:10px">
                     
                         <div class="mailbox-controls" style="background:#f8f8fb;margin-bottom:10px;margin-top:5px;margin-bottom:20px">
+                            @if(Auth::user()['role_id']==2)
+                            <select id="kode" class="form-control" style="width: 30%;display: inline;">
+                                <option value="">Pilih Unit</option>
+                                {!!array_unit_user()!!}
+                            </select>
+                                
+                            @endif
+                            @if(Auth::user()['role_id']==3)
+                            <select id="kode" class="form-control" style="width: 30%;display: inline;">
+                                <option value="">Pilih Unit</option>
+                                {!!array_unit_atasan()!!}
+                            </select>
+                                
+                            @endif
+                            @if(Auth::user()['role_id']==1)
                             <select id="kode" class="form-control" style="width: 30%;display: inline;">
                                 <option value="">Pilih Unit</option>
                                 @foreach(array_user() as $unit)
                                     <option value="{{$unit}}" @if($unit==$kode) selected @endif>{{cek_unit($unit)['nama']}}</option>
                                 @endforeach
                             </select>
+                            @endif
                             <select id="tahun" class="form-control" style="width: 10%;display: inline;">
                                 @for($x=2019;$x<2030;$x++)
                                     <option value="{{$x}}" @if($x==$tahun) selected @endif>{{$x}}</option>

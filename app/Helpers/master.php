@@ -273,6 +273,65 @@ function persen($tahun,$bulan){
      return $realisasi;
 }
 
+function array_unit_user(){
+    $data  = array_column(
+        App\Unit::where('nik', Auth::user()['nik'])
+        ->get()
+        ->toArray(),'kode'
+     );
+
+     foreach($data as $dat){
+         echo'<option value="'.$dat.'">'.cek_unit($dat)['nama'].'</option>';
+         if(cek_unit($dat)['unit_id']==5){
+             $datasub=App\Unit::where('kode_unit',$dat)->get();
+             foreach($datasub as $sub){
+                echo'<option value="'.$sub['kode'].'">- '.$sub['nama'].'</option>';
+                $datadiv=App\Unit::where('kode_unit',$sub['kode'])->get();
+                foreach($datadiv as $div){
+                    echo'<option value="'.$div['kode'].'">&nbsp;&nbsp;- '.$div['nama'].'</option>';
+                }
+             }
+         }
+
+         if(cek_unit($dat)['unit_id']==1){
+             $datadiv=App\Unit::where('kode_unit',$dat)->get();
+             foreach($datadiv as $div){
+                echo'<option value="'.$div['kode'].'">&nbsp;&nbsp;- '.$div['nama'].'</option>';
+                
+             }
+         }
+     }
+}
+function array_unit_atasan(){
+    $data  = array_column(
+        App\Unit::where('nik_atasan', Auth::user()['nik'])
+        ->get()
+        ->toArray(),'kode'
+     );
+
+     foreach($data as $dat){
+         echo'<option value="'.$dat.'">'.cek_unit($dat)['nama'].'</option>';
+         if(cek_unit($dat)['unit_id']==5){
+             $datasub=App\Unit::where('kode_unit',$dat)->get();
+             foreach($datasub as $sub){
+                echo'<option value="'.$sub['kode'].'">&nbsp;&nbsp;- '.$sub['nama'].'</option>';
+                $datadiv=App\Unit::where('kode_unit',$sub['kode'])->get();
+                foreach($datadiv as $div){
+                    echo'<option value="'.$div['kode'].'">&nbsp;&nbsp;&nbsp;&nbsp;- '.$div['nama'].'</option>';
+                }
+             }
+         }
+
+         if(cek_unit($dat)['unit_id']==1){
+             $datadiv=App\Unit::where('kode_unit',$dat)->get();
+             foreach($datadiv as $div){
+                echo'<option value="'.$div['kode'].'">&nbsp;&nbsp;&nbsp;&nbsp;- '.$div['nama'].'</option>';
+                
+             }
+         }
+     }
+}
+
 function array_user(){
     if(Auth::user()['role_id']==2){
         $data  = array_column(

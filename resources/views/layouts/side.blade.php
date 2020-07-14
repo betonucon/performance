@@ -86,8 +86,7 @@
                 </span>
               </a>
               <ul class="treeview-menu" style="background:#f3f6fb;color:#000;font-size:1vw">
-                <li><a href="{{url('/laporan/')}}"><i class="fa fa-check"></i> Non Mandatori</a></li>
-                <li><a href="{{url('/laporan/mandatori')}}"><i class="fa fa-check"></i> Mandatori</a></li>
+                <li><a href="{{url('/laporan/')}}"><i class="fa fa-check"></i> Capaian</a></li>
                 
               </ul>
           </li>

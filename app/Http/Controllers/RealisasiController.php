@@ -262,6 +262,23 @@ class RealisasiController extends Controller
         }
     }
 
+    public function simpan_realisasi_mandatori(request $request,$id){
+        if (trim($request->realisasi) == '') {$error[] = '- Isi Nilai Realisasi';}
+        if (isset($error)) {echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br />'.implode('<br />', $error).'</p>';} 
+        else{
+            
+            $data           = Target::find($id);
+            $data->realisasi= $request->realisasi;
+            $data->save();
+
+            if($data){
+                echo'ok';
+            }
+                    
+            
+        }
+    }
+
     public function pdf(request $request){
         error_reporting(0);
         $kode=$request->kode;

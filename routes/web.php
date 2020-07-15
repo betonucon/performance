@@ -108,6 +108,7 @@ Route::group(['middleware'    => 'auth'],function(){
         Route::get('/validasi_admin_realisasi/{id}', 'RealisasiController@validasi_admin_realisasi');
         Route::post('/simpan/{id}', 'RealisasiController@simpan');
         Route::post('/simpan_realisasi/{id}', 'RealisasiController@simpan_realisasi');
+        Route::post('/simpan_realisasi_mandatori/{id}', 'RealisasiController@simpan_realisasi_mandatori');
         Route::get('/perhitungan/', 'RealisasiController@perhitungan');
         Route::get('/validasi_bulanan/{kode}/{bulan}/{tahun}', 'RealisasiController@validasi_bulanan');
     });

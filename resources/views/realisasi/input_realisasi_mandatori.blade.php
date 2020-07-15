@@ -177,7 +177,7 @@
                                     <label>Capaian</label>
                                     <input type="text" readonly name="capaian" id="capaian{{$target['id']}}"  value="{{hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])}}" class="form-control">
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>file</label>
                                     <input type="file" name="file" disabled id="file{{$target['id']}}"  class="form-control">
                                 </div>
@@ -188,7 +188,7 @@
                                 <div class="form-group">
                                     <label>Rencana</label><br>
                                     <textarea disabled name="rencana" id="rencana{{$target['id']}}" style="width:100%" rows="3" >{{$target['rencana']}}</textarea>
-                                </div>
+                                </div> -->
                             </form>
                     </div>
                     <div class="modal-footer">
@@ -307,7 +307,7 @@
       
             $.ajax({
                 type: 'POST',
-                url: "{{url('/realisasi/simpan_realisasi')}}/"+a,
+                url: "{{url('/realisasi/simpan_realisasi_mandatori')}}/"+a,
                 data: new FormData(form),
                 contentType: false,
                 cache: false,

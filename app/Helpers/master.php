@@ -358,16 +358,7 @@ function array_user(){
      return $data;
 }
 
-function array_deploymen_target($kode,$tahun,$bulan){
-    $data  = array_column(
-        App\Deployment::where('kode_unit',$kode)->where('sts',0)->where('tahun',$tahun)
-        ->get()
-        ->toArray(),'id'
-     );
 
-     $target=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->where('target','!=',0)->count();
-     return $target;
-}
 
 function array_deploymen_target_mandatori($tahun,$bulan){
     $data  = array_column(
@@ -380,6 +371,26 @@ function array_deploymen_target_mandatori($tahun,$bulan){
      return $target;
 }
 
+function array_deploymen_target($kode,$tahun,$bulan){
+    $data  = array_column(
+        App\Deployment::where('kode_unit',$kode)->where('sts',0)->where('tahun',$tahun)
+        ->get()
+        ->toArray(),'id'
+     );
+
+     $target=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->where('target','!=',0)->count();
+     return $target;
+}
+function array_deploymen_target_val($kode,$tahun,$bulan){
+    $data  = array_column(
+        App\Deployment::where('kode_unit',$kode)->where('sts',0)->where('tahun',$tahun)
+        ->get()
+        ->toArray(),'id'
+     );
+
+     $target=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->count();
+     return $target;
+}
 function array_deploymen_realisasi($kode,$tahun,$bulan){
     $data  = array_column(
         App\Deployment::where('kode_unit',$kode)->where('sts',0)->where('tahun',$tahun)
@@ -387,7 +398,7 @@ function array_deploymen_realisasi($kode,$tahun,$bulan){
         ->toArray(),'id'
      );
 
-     $target=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->where('target','!=',0)->where('realisasi','!=',0)->count();
+     $target=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->whereIn('status_realisasi',[1,2])->where('realisasi','!=',0)->count();
      return $target;
 }
 

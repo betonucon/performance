@@ -132,11 +132,11 @@
                                         <td colspan="7">VALIDASI</td>
                                          @for($x=1;$x<13;$x++)
                                             <td> 
-                                            @if(cek_validasi_atasan($kode,$tahun,$x)==array_deploymen_target($kode,$tahun,$x))
+                                            @if(cek_validasi_atasan($kode,$tahun,$x)==array_deploymen_target_val($kode,$tahun,$x))
                                                 {{tgl(tgl_validasi_atasan($kode,$tahun,$x))}}
                                             @else
                                                 @if(array_deploymen_realisasi($kode,$tahun,$x)==array_deploymen_target($kode,$tahun,$x))
-                                                <span class="btn btn-success btn-xs" id="validasi_bulanan{{$x}}" onclick="validasi_bulanan({{$kode}},{{$tahun}},{{$x}})">Validasi</span>
+                                                <span class="btn btn-success btn-xs" id="validasi_bulanan{{$x}}" onclick="proses_validasi_bulanan('{{$kode}}','{{$x}}','{{$tahun}}')">Validasi</span>
                                                 <div id="not_validasi_bulanan{{$x}}"></div>
                                                 @else
                                                     {{array_deploymen_target($kode,$tahun,$x)}}-
@@ -249,14 +249,14 @@
         
     }
 
-    function validasi_bulanan(kode,tahun,a){
+    function proses_validasi_bulanan(kode,bulan,tahun){
         $.ajax({
             type: 'GET',
-            url: "{{url('/realisasi/validasi_bulanan')}}/"+kode+"/"+a+"/"+tahun,
-            data: "id="+a,
+            url: "{{url('/realisasi/validasi_bulanan')}}/"+kode+"/"+bulan+"/"+tahun,
+            data: "id="+bulan,
             beforeSend: function(){
-                $('#validasi_bulanan'+a).hide();
-                $('#not_validasi_bulanan'+a).html('Proses');
+                $('#validasi_bulanan'+bulan).hide();
+                $('#not_validasi_bulanan'+bulan).html('Proses');
             },
             success: function(msg){
                 

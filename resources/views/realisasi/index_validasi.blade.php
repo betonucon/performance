@@ -132,6 +132,7 @@
                                         <td colspan="7">VALIDASI</td>
                                          @for($x=1;$x<13;$x++)
                                             <td> 
+                                            
                                             @if(cek_validasi_atasan($kode,$tahun,$x)==array_deploymen_target_val($kode,$tahun,$x))
                                                 {{tgl(tgl_validasi_atasan($kode,$tahun,$x))}}
                                             @else

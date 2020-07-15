@@ -209,20 +209,25 @@ class RealisasiController extends Controller
                 $cek=explode('/',$_FILES['file']['type']);
                 $file_tmp=$_FILES['file']['tmp_name'];
                 $file=explode('.',$_FILES['file']['name']);
-                $filename=md5(date('Ymdhis')).'.'.$file[1];
+                $filename=md5(date('Ymdhis')).'.'.$cek[1];
                 $lokasi='_file_upload/';
                 
-                if($file[1]=='pdf'){
-                    if(move_uploaded_file($file_tmp, $lokasi.$filename)){
-                        $data           = Target::find($id);
-                        $data->realisasi= $request->realisasi;
-                        $data->status_realisasi=1;
-                        $data->file= $filename;
-                        $data->save();
+                if($_FILES['file']['type']=='application/pdf'){
+                    if($_FILES['file']['size']<=600000){
+                        if(move_uploaded_file($file_tmp, $lokasi.$filename)){
+                            $data           = Target::find($id);
+                            $data->realisasi= $request->realisasi;
+                            $data->status_realisasi=1;
+                            $data->file= $filename;
+                            $data->save();
 
-                        if($data){
-                            echo'ok';
+                            if($data){
+                                echo'ok';
+                            }
+                            
                         }
+                    }else{
+                        echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br /> Maximal size file 500kb</p>'; 
                     }
                 }else{
                     echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br /> Format file harus Pdf</p>';
@@ -236,22 +241,27 @@ class RealisasiController extends Controller
                     $cek=explode('/',$_FILES['file']['type']);
                     $file_tmp=$_FILES['file']['tmp_name'];
                     $file=explode('.',$_FILES['file']['name']);
-                    $filename=md5(date('Ymdhis')).'.'.$file[1];
+                    $filename=md5(date('Ymdhis')).'.'.$cek[1];
                     $lokasi='_file_upload/';
                     
-                    if($file[1]=='pdf'){
-                        if(move_uploaded_file($file_tmp, $lokasi.$filename)){
-                            $data           = Target::find($id);
-                            $data->realisasi= $request->realisasi;
-                            $data->masalah= $request->masalah;
-                            $data->rencana= $request->rencana;
-                            $data->status_realisasi=1;
-                            $data->file= $filename;
-                            $data->save();
+                    if($_FILES['file']['type']=='application/pdf'){
+                        if($_FILES['file']['size']<=600000){
+                            if(move_uploaded_file($file_tmp, $lokasi.$filename)){
+                                $data           = Target::find($id);
+                                $data->realisasi= $request->realisasi;
+                                $data->masalah= $request->masalah;
+                                $data->rencana= $request->rencana;
+                                $data->status_realisasi=1;
+                                $data->file= $filename;
+                                $data->save();
 
-                            if($data){
-                                echo'ok';
+                                if($data){
+                                    echo'ok';
+                                }
+                                
                             }
+                        }else{
+                            echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br /> Maximal size file 500kb</p>'; 
                         }
                     }else{
                         echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br /> Format file harus Pdf</p>';

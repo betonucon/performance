@@ -2,7 +2,7 @@
 /public/hot
 /public/storage
 /public/file_excel/*
-/public/file_upload/*
+/public/_file_upload/*
 /storage/*.key
 /vendor
 .env

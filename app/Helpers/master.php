@@ -398,7 +398,7 @@ function array_deploymen_realisasi($kode,$tahun,$bulan){
         ->toArray(),'id'
      );
 
-     $target=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->whereIn('status_realisasi',[1,2])->where('realisasi','!=',0)->count();
+     $target=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->where('target','!=',0)->where('realisasi','!=',0)->count();
      return $target;
 }
 

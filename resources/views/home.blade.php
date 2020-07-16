@@ -84,7 +84,7 @@
                                         <td>{{$no+1}}</td>
                                         <td>{{$data['nama']}}</td>
                                         @for($x=1;$x<13;$x++)
-                                        <td>{{array_kode($data['kode'],$tahun,$x)}}</td>
+                                        <td>@if(array_kode($data['kode'],$tahun,$x)==1)<i class="fa fa-check"></i> @endif</td>
                                         @endfor
                                     </tr>
                                 @endforeach

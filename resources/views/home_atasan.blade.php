@@ -85,9 +85,9 @@
                                         <td>{{cek_unit($data)['nama']}}</td>
                                         @for($x=1;$x<13;$x++)
                                             @if(array_kode($data,$tahun,$x)==1)
-                                                <td style="background:#bda2a2"></td>
+                                                <td style="background:#3519a9"></td>
                                             @else
-                                                <td style="background:#f1d059bf"></td>
+                                                <td style="background:#f31250"></td>
                                             @endif
                                         
                                         @endfor

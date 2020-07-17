@@ -154,7 +154,7 @@
                                         <td colspan="7">VALIDASI</td>
                                          @foreach(get_target($data['id']) as $detail)
                                             <td> 
-                                            @if(cek_validasi_atasan($kode,$tahun,$detail['bulan'])==array_deploymen_target($kode,$tahun,$detail['bulan']))
+                                            @if(cek_validasi_atasan($kode,$tahun,$detail['bulan'])==array_deploymen_target_val($kode,$tahun,$detail['bulan']))
                                                 {{tgl(tgl_validasi_atasan($kode,$tahun,$detail['bulan']))}}
                                             @else
                                                 @if(array_deploymen_realisasi($kode,$tahun,$detail['bulan'])==array_deploymen_target($kode,$tahun,$detail['bulan']))

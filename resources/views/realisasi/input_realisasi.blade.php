@@ -81,7 +81,11 @@
                                             @if($target['target']==0)
                                             <span class="btn btn-default btn-sm"><i class="fa fa-pencil"></i></span>
                                             @else
-                                            <span class="btn btn-success btn-sm" data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#inputrealisasi{{$target['id']}}"><i class="fa fa-pencil"></i></span>
+                                                @if($target['tgl_validasi_atasan']!=null)
+                                                <span class="btn btn-default btn-sm"><i class="fa fa-pencil"></i></span>
+                                                @else
+                                                <span class="btn btn-success btn-sm" data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#inputrealisasi{{$target['id']}}"><i class="fa fa-pencil"></i></span>
+                                                @endif
                                             @endif
                                                 
                                         </a></li>

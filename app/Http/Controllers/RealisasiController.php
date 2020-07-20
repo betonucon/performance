@@ -183,6 +183,21 @@ class RealisasiController extends Controller
         
     }
 
+    public function unvalidasi_bulanan($kode,$bulan,$tahun){
+        $deploy=Deployment::where('tahun',$tahun)->where('kode_unit',$kode)->where('sts',0)->get();
+
+        foreach($deploy as $dep){
+            // $data           = Target::where('deployment_id',$dep['id'])->where('bulan',$bulan)->first();
+            // $data->status_realisasi= 2;
+            // $data->tgl_validasi_atasan= date('Y-m-d');
+            // $data->save();
+            $data= Target::where('deployment_id',$dep['id'])->where('bulan',$bulan)->update(
+                ['tgl_validasi_atasan'=>null,'status_realisasi'=>1]
+            );
+        }
+        
+    }
+
     public function validasi_atasan_realisasi($id){
 
     }

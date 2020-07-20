@@ -111,6 +111,7 @@ Route::group(['middleware'    => 'auth'],function(){
         Route::post('/simpan_realisasi_mandatori/{id}', 'RealisasiController@simpan_realisasi_mandatori');
         Route::get('/perhitungan/', 'RealisasiController@perhitungan');
         Route::get('/validasi_bulanan/{kode}/{bulan}/{tahun}', 'RealisasiController@validasi_bulanan');
+        Route::get('/unvalidasi_bulanan/{kode}/{bulan}/{tahun}', 'RealisasiController@unvalidasi_bulanan');
     });
 
     Route::group(['prefix' => 'kpi'], function(){

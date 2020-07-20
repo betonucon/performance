@@ -152,7 +152,27 @@
                                         @endfor
                                         <td colspan="2"></td>
                                     </tr>
-                                    
+                                    @if(Auth::user()['role_id']==1)
+                                        <tr style="background:{{$color}}">
+                                            <td colspan="7">UNVALIDASI</td>
+                                            @for($x=1;$x<13;$x++)
+                                                <td> 
+                                                @if(cek_validasi_atasan($kode,$tahun,$x)==array_deploymen_target_val($kode,$tahun,$x))
+                                                    <span class="btn btn-danger btn-xs" id="unvalidasi_bulanan{{$x}}" onclick="proses_unvalidasi_bulanan('{{$kode}}','{{$x}}','{{$tahun}}')">UNValid</span>
+                                                    <div id="not_validasi_bulanan{{$x}}"></div>
+                                                @else
+                                                    @if(array_deploymen_realisasi($kode,$tahun,$x)==array_deploymen_target($kode,$tahun,$x))
+                                                        
+                                                    @else
+                                                        
+                                                    @endif
+                                                @endif
+                                                
+                                                </td>
+                                            @endfor
+                                            <td colspan="2"></td>
+                                        </tr>
+                                    @endif
                                     <tr style="background:{{$color}}">
                                         <td colspan="7">TOTAL CAPAIAN</td>
                                          @foreach(get_target($data['id']) as $detail)
@@ -283,5 +303,23 @@
             });
 
     }  
+
+    function proses_unvalidasi_bulanan(kode,bulan,tahun){
+        $.ajax({
+            type: 'GET',
+            url: "{{url('/realisasi/unvalidasi_bulanan')}}/"+kode+"/"+bulan+"/"+tahun,
+            data: "id="+bulan,
+            beforeSend: function(){
+                $('#unvalidasi_bulanan'+bulan).hide();
+                $('#not_validasi_bulanan'+bulan).html('Proses');
+            },
+            success: function(msg){
+                
+                location.reload();
+                
+            }
+        });
+        // alert(kode+"/"+tahun+"/"+a);
+    }
 </script>
 @endpush

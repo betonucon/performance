@@ -3,7 +3,7 @@
     
     <li class="messages-menu" title="Panduan Performance Management System">
         <a href="{{url('icon/Panduan Performance Management System Reborn 22.07.2020 PDF.pdf')}}" target="_blank">
-        <i class="fa fa-book"></i>
+        <i class="fa fa-book"></i> Panduan Performance Management System 
         </a>
     </li>
     <li class="dropdown user user-menu">

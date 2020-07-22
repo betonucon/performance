@@ -1,6 +1,11 @@
 <ul class="nav navbar-nav">
    
     
+    <li class="messages-menu" title="Panduan Performance Management System">
+        <a href="{{url('icon/Panduan Performance Management System Reborn 22.07.2020 PDF.pdf')}}" target="_blank">
+        <i class="fa fa-book"></i>
+        </a>
+    </li>
     <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="{{url('/icon/akun.png')}}" class="user-image" alt="User Image">

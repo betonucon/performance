@@ -261,16 +261,23 @@
         $( document ).ready(function() {
             var cap= $('#capaian{{$target['id']}}').val();
             if(cap=='' || cap==0){
-
+                if(cap==0){
+                    $("#masalah{{$target['id']}}").prop( "disabled", false );
+                    $("#rencana{{$target['id']}}").prop( "disabled", false );
+                }else{
+                    $("#masalah{{$target['id']}}").prop( "disabled", true );
+                    $("#rencana{{$target['id']}}").prop( "disabled", true );
+                }
+                
             }else{
                 if(cap>95){
                 
-                $("#masalah{{$target['id']}}").prop( "disabled", true );
-                $("#rencana{{$target['id']}}").prop( "disabled", true );
-            }else{
-                $("#masalah{{$target['id']}}").prop( "disabled", false );
-                $("#rencana{{$target['id']}}").prop( "disabled", false );
-            }
+                    $("#masalah{{$target['id']}}").prop( "disabled", true );
+                    $("#rencana{{$target['id']}}").prop( "disabled", true );
+                }else{
+                    $("#masalah{{$target['id']}}").prop( "disabled", false );
+                    $("#rencana{{$target['id']}}").prop( "disabled", false );
+                }
             }
             
 

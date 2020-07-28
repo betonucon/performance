@@ -284,6 +284,8 @@ class RealisasiController extends Controller
                     }else{
                         echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br /> Format file harus Pdf</p>';
                     }
+
+                    // echo $filename;
                 }
 
             }

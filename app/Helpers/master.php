@@ -939,8 +939,8 @@ function potongan($tgl,$tahun,$bulan){
 
 function akumulasi_target($id){
     $data=App\Deployment::where('id',$id)->first();
-    $detail=App\Target::where('deployment_id',$id)->where('target','!=',0)->get();
-    $jumlah=App\Target::where('deployment_id',$id)->where('target','!=',0)->count();
+    $detail=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->get();
+    $jumlah=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->count();
 
     if($data['rumus_capaian']==3){
         $total=0;

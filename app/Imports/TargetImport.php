@@ -28,6 +28,7 @@ class TargetImport implements ToModel, WithStartRow
             foreach($get_deploy as $get){
                 $deploy             =Deployment::where('id',$get['id'])->first();
                 $deploy->sts        = 1;
+                $deploy->status_id  = 4;
                 $deploy->save();
 
                 if($deploy){
@@ -60,6 +61,7 @@ class TargetImport implements ToModel, WithStartRow
             if($cekdep>0){
                 $deploy             =Deployment::where('kode_unit',$row['0'])->where('kode_kpi',$row['1'])->where('tahun',$row['2'])->first();
                 $deploy->sts        = 1;
+                $deploy->status_id  = 4;
                 $deploy->save();
 
                 if($deploy){

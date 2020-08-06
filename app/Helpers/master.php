@@ -891,7 +891,6 @@ function total_bobot($kode,$tahun){
 }
 
 
-
 function total_bobot_mandatori($tahun){
     $total=0;
     foreach(deployment_realisasi_atasan_mandatori($tahun) as $no=>$data){
@@ -906,7 +905,7 @@ function total_bobot_mandatori($tahun){
 function potongan($tgl,$tahun,$bulan){
     $tg=explode('-',$tgl);
     $awal  = $tgl;
-    $akhir = $tahun.'-'.bulan_validasi($bulan).'-'.tgl_validasi($tahun); 
+    $akhir = $tahun.'-'.$bulan.'-'.tgl_validasi($tahun); 
 
     if($tahun==2020){
         if($bulan>6){

@@ -88,11 +88,13 @@ Route::group(['middleware'    => 'auth'],function(){
 
     Route::group(['prefix' => 'excel'], function(){
         Route::get('/capaian', 'RealisasiController@excel');
+        Route::get('/capaian/subdit', 'RealisasiController@excel_subdit');
         Route::get('/capaian-mandatori', 'RealisasiController@excel_mandatori');
     });
 
     Route::group(['prefix' => 'laporan'], function(){
         Route::get('/', 'RealisasiController@laporan');
+        Route::get('/subdit', 'RealisasiController@laporan_subdit');
         Route::get('/bertingkat/{id}', 'RealisasiController@laporan_tingkatan');
         Route::get('/mandatori', 'RealisasiController@laporan_mandatori');
     });

@@ -87,6 +87,7 @@
               </a>
               <ul class="treeview-menu" style="background:#f3f6fb;color:#000;font-size:1vw">
                 <li><a href="{{url('/laporan/')}}"><i class="fa fa-check"></i> Capaian</a></li>
+                <li><a href="{{url('/laporan/subdit')}}"><i class="fa fa-check"></i> Capaian Persubdit</a></li>
                 
               </ul>
           </li>

@@ -40,6 +40,14 @@ class RealisasiController extends Controller
         
         return view('realisasi.laporan',compact('judul','kode','tahun'));
     }
+    public function laporan_subdit(request $request){
+        error_reporting(0);
+        $judul='Laporan Capaian';
+        $kode=$request->kode;
+        $tahun=$request->tahun;
+        
+        return view('realisasi.laporan_subdit',compact('judul','kode','tahun'));
+    }
     public function laporan_tingkatan(request $request,$id){
         $judul='Laporan Capaian';
         $kode=$request->kode;
@@ -342,6 +350,14 @@ class RealisasiController extends Controller
         
 
         return view('excel.laporan_capaian', compact('kode','tahun'));
+    }
+    public function excel_subdit(request $request){
+        error_reporting(0);
+        $kode=$request->kode;
+        $tahun=$request->tahun;
+        
+
+        return view('excel.laporan_capaian_subdit', compact('kode','tahun'));
     }
 
     public function excel_mandatori(request $request){

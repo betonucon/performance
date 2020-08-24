@@ -302,6 +302,24 @@ function array_unit_user(){
          }
      }
 }
+
+function array_unit_atasan_subdit($atsan){
+    $data  = array_column(
+        App\Unit::where('kode_unit', $atsan)
+        ->get()
+        ->toArray(),'kode'
+     );
+
+     return $data;
+}
+
+function subdit(){
+    $datasub=App\Unit::where('unit_id',1)->get();
+    foreach($datasub as $dat){
+        echo'<option value="'.$dat['kode'].'">&nbsp;&nbsp;- '.$dat['nama'].'</option>';
+    }
+    
+}
 function array_unit_atasan(){
     $data  = array_column(
         App\Unit::where('nik_atasan', Auth::user()['nik'])

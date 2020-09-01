@@ -72,6 +72,78 @@ class UnitController extends Controller
             
     }
 
+    public function api_unit($tahun){
+        foreach(unit() as $o){
+           
+            $show[]=array(
+                "id" =>$o['id'],
+                "kode" =>$o['kode'],
+                "name" =>$o['nama'],
+                "jan" =>array_kode($o['kode'],$tahun,1),
+                "feb" =>array_kode($o['kode'],$tahun,2),
+                "mar" =>array_kode($o['kode'],$tahun,3),
+                "apr" =>array_kode($o['kode'],$tahun,4),
+                "mei" =>array_kode($o['kode'],$tahun,5),
+                "jun" =>array_kode($o['kode'],$tahun,6),
+                "jul" =>array_kode($o['kode'],$tahun,7),
+                "agus" =>array_kode($o['kode'],$tahun,8),
+                "sept" =>array_kode($o['kode'],$tahun,9),
+                "okt" =>array_kode($o['kode'],$tahun,10),
+                "nov" =>array_kode($o['kode'],$tahun,11),
+                "des" =>array_kode($o['kode'],$tahun,12)
+                
+            );
+        }
+        echo json_encode($show);
+    }
+
+    public function api_unit_foot($tahun){
+      $jan=0;
+      $feb=0;
+      $mar=0;
+      $apr=0;
+      $mei=0;
+      $jun=0;
+      $jul=0;
+      $ags=0;
+      $sep=0;
+      $okt=0;
+      $nov=0;
+      $des=0;
+      foreach(unit() as $o){
+          $jan+=array_kode($o['kode'],$tahun,1);
+          $feb+=array_kode($o['kode'],$tahun,2);
+          $mar+=array_kode($o['kode'],$tahun,3);
+          $apr+=array_kode($o['kode'],$tahun,4);
+          $mei+=array_kode($o['kode'],$tahun,5);
+          $jun+=array_kode($o['kode'],$tahun,6);
+          $jul+=array_kode($o['kode'],$tahun,7);
+          $ags+=array_kode($o['kode'],$tahun,8);
+          $sep+=array_kode($o['kode'],$tahun,9);
+          $okt+=array_kode($o['kode'],$tahun,10);
+          $nov+=array_kode($o['kode'],$tahun,11);
+          $des+=array_kode($o['kode'],$tahun,12);
+      }
+           
+            $show[]=array(
+                "total"=>'Total Tahun '.$tahun,
+                "jan" =>round($jan*(100/jumlah_unit())).'%',
+                "feb" =>round($feb*(100/jumlah_unit())).'%',
+                "mar" =>round($mar*(100/jumlah_unit())).'%',
+                "apr" =>round($apr*(100/jumlah_unit())).'%',
+                "mei" =>round($mei*(100/jumlah_unit())).'%',
+                "jun" =>round($jun*(100/jumlah_unit())).'%',
+                "jul" =>round($jul*(100/jumlah_unit())).'%',
+                "ags" =>round($ags*(100/jumlah_unit())).'%',
+                "sep" =>round($sep*(100/jumlah_unit())).'%',
+                "okt" =>round($okt*(100/jumlah_unit())).'%',
+                "nov" =>round($nov*(100/jumlah_unit())).'%',
+                "des" =>round($des*(100/jumlah_unit())).'%'
+                
+            );
+        
+        echo json_encode($show);
+    }
     public function simpan(request $request,$id){
         if (trim($request->nik) == '') {$error[] = '- Masukan Nik PIC';}
         if (trim($request->nama_pic) == '') {$error[] = '- Masukan Nama PIC';}

@@ -35,6 +35,8 @@ Route::group(['middleware'    => 'auth'],function(){
 
     Route::group(['prefix' => 'unit'], function(){
         Route::get('/', 'UnitController@index');
+        Route::get('/api/{tahun}', 'UnitController@api_unit');
+        Route::get('/api/foot/{tahun}', 'UnitController@api_unit_foot');
         Route::get('/index_tingkatan', 'UnitController@index_tingkatan');
         Route::get('/edit/{id}', 'UnitController@edit');
         Route::get('/edit_tingkatan/{id}', 'UnitController@edit_tingkatan');

@@ -26,6 +26,7 @@
   <!-- Select2 -->
   <link rel="stylesheet" href="{{url('/adminlte/bower_components/select2/dist/css/select2.min.css')}}">
   <!-- DataTables -->
+
   <link rel="stylesheet" href="{{url('/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url('/adminlte/dist/css/AdminLTE.min.css')}}">
@@ -353,6 +354,10 @@
     <!-- Bootstrap 3.3.7 -->
     <script src="{{url('/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <!-- FastClick -->
+    <!-- DataTables -->
+  <script src="{{url('/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+  <script src="{{url('/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+
     <script src="{{url('/adminlte/bower_components/fastclick/lib/fastclick.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{url('/adminlte/dist/js/adminlte.min.js')}}"></script>
@@ -367,6 +372,7 @@
     <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
     <script src="{{url('/adminlte/bower_components/Flot/jquery.flot.categories.js')}}"></script>
     <!-- Page script -->
+    @stack('simpan')
     <script>
     $(function () {
         /*

@@ -49,7 +49,7 @@
                         </div>
                         
                         <div class="callout callout-info">
-                            <h4>Traffic E-performance {{bul($bulan)}} {{$tahun}}</h4>
+                            <h4>Traffic E-performance {{bul($bulan)}} {{$tahun}} </h4>
                         </div>
                         <div id="donut-chart" style="height: 300px;background:#f3f3e0;margin: 2%;"></div>
                         

@@ -597,8 +597,8 @@
         */
 
         var donutData = [
-        { label: 'Selesai', data: {{round($total[$bulan]*(100/jumlah_unit()))}}, color: '#3519a9' },
-        { label: 'Proses', data: {{100-round($total[$bulan]*(100/jumlah_unit()))}}, color: '#f31250' }
+        { label: 'Selesai', data: {{round(donut($bulan,$tahun))}}, color: '#3519a9' },
+        { label: 'Proses', data: {{100-round(donut($bulan,$tahun))}}, color: '#f31250' }
         ]
         $.plot('#donut-chart', donutData, {
         series: {

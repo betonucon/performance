@@ -303,9 +303,9 @@ function array_unit_user(){
      }
 }
 
-function array_unit_atasan_subdit($atsan){
+function array_unit_atasan_subdit($atasan){
     $data  = array_column(
-        App\Unit::where('kode_unit', $atsan)
+        App\Unit::where('kode_unit', $atasan)->orWhere('kode',$atasan)
         ->get()
         ->toArray(),'kode'
      );
@@ -1152,5 +1152,16 @@ function score($id,$capaian){
     $total=$capaian*($data['bobot_tahunan']/100);
 
     return $total;
+}
+
+function donut($bln,$tahun){
+    $bulan=0;
+    foreach(unit() as $o){
+        $bulan+=array_kode($o['kode'],$tahun,$bln);
+    }
+
+    $data=round($bulan*(100/jumlah_unit()));
+
+    return $data;
 }
 ?>

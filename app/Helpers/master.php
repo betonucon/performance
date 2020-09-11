@@ -927,13 +927,23 @@ function total_bobot_mandatori($tahun){
 }
 
 function potongan($tgl,$tahun,$bulan){
+
+
+    if($bulan==12){
+        $bul='01';
+        $thn=$tahun+1;
+    }else{
+        $bul=$bulan+1;
+        $thn=$tahun;
+    }
+
     $tg=explode('-',$tgl);
     $awal  = $tgl;
-    $akhir = $tahun.'-'.$bulan.'-'.tgl_validasi($tahun); 
+    $akhir = $thn.'-'.$bul.'-'.tgl_validasi($tahun); 
 
     if($tahun==2020){
         if($bulan>6){
-            if($awal>$akhir || $awal==0){
+            if($awal>$akhir || $awal==0 || $awal==$akhir){
                 $data = '0';
                 
             }else{
@@ -958,7 +968,12 @@ function potongan($tgl,$tahun,$bulan){
     }
       
     $potong=0.5*$data;
-    return $potong;
+    if($potong>10){
+        $nilpot=10;
+    }else{
+        $nilpot=$potong;
+    }
+    return $nilpot;
 }
 
 function akumulasi_target($id){

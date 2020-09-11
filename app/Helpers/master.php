@@ -927,13 +927,14 @@ function potongan($tgl,$tahun,$bulan){
 
     if($tahun==2020){
         if($bulan>6){
-            if($awal>$akhir){
+            if($awal>$akhir || $awal==0){
+                $data = '0';
+                
+            }else{
                 $tanggal1 = date_create(date('Y-m-d h:i:s',strtotime($awal)));
                 $tanggal2 = date_create(date('Y-m-d h:i:s',strtotime($akhir)));
                 $perbedaan = $tanggal1->diff($tanggal2);
                 $data = $perbedaan->days;
-            }else{
-                $data = 0;
             }
         }else{
             $data = 0;

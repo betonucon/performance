@@ -312,6 +312,12 @@ function array_unit_atasan_subdit($atasan){
 
      return $data;
 }
+function cek_array_unit_atasan_subdit($atasan){
+    $data  =App\Unit::where('kode_unit', $atasan)->orWhere('kode',$atasan)
+        ->count();
+
+     return $data;
+}
 
 function subdit(){
     $datasub=App\Unit::where('unit_id',1)->get();

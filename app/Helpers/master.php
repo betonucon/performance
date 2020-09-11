@@ -968,11 +968,9 @@ function potongan($tgl,$tahun,$bulan){
     }
       
     $potong=0.5*$data;
-    if($potong>10){
-        $nilpot=10;
-    }else{
-        $nilpot=$potong;
-    }
+    
+    $nilpot=($potong*10)/100;
+    
     return $nilpot;
 }
 

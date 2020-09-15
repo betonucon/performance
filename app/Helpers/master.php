@@ -926,7 +926,7 @@ function total_bobot_mandatori($tahun){
     return $total;
 }
 
-function potongan($tgl,$tahun,$bulan){
+function potongan($tgl,$tahun,$bulan,$cap){
 
 
     if($bulan==12){
@@ -943,7 +943,7 @@ function potongan($tgl,$tahun,$bulan){
 
     if($tahun==2020){
         if($bulan>6){
-            if($awal>$akhir || $awal==0 || $awal==$akhir){
+            if($tg[2]<tgl_validasi($tahun)){
                 $data = '0';
                 
             }else{
@@ -957,21 +957,23 @@ function potongan($tgl,$tahun,$bulan){
         }
         
     }else{
-        if($awal>$akhir){
+        
+        if($awal>=$akhir || $awal==0 ){
+            $data = '0';
+            
+        }else{
             $tanggal1 = date_create(date('Y-m-d h:i:s',strtotime($awal)));
             $tanggal2 = date_create(date('Y-m-d h:i:s',strtotime($akhir)));
             $perbedaan = $tanggal1->diff($tanggal2);
             $data = $perbedaan->days;
-        }else{
-            $data = 0;
         }
+        
     }
-      
-    $potong=0.5*$data;
+    $capaian=($cap*10)/100;
+    $potong=(0.5*$data)*$capaian;
     
-    $nilpot=($potong*10)/100;
     
-    return $nilpot;
+    return $potong;
 }
 
 function akumulasi_target($id){

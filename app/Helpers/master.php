@@ -943,7 +943,7 @@ function potongan($tgl,$tahun,$bulan,$cap){
 
     if($tahun==2020){
         if($bulan>6){
-            if($tg[2]<tgl_validasi($tahun)){
+            if($tg[2]<=tgl_validasi($tahun)){
                 $data = '0';
                 
             }else{
@@ -969,8 +969,8 @@ function potongan($tgl,$tahun,$bulan,$cap){
         }
         
     }
-    $capaian=($cap*10)/100;
-    $potong=(0.5*$data)*$capaian;
+    $capaian=round(($cap*10)/100,1);
+    $potong=round((0.5*$data)*$capaian,1);
     
     
     return $potong;

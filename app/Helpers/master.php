@@ -969,8 +969,13 @@ function potongan($tgl,$tahun,$bulan,$cap){
         }
         
     }
-    $capaian=round(($cap*10)/100,1);
-    $potong=round((0.5*$data)*$capaian,1);
+    if($data>20){
+        $capaian=($cap*10)/100;
+    }else{
+        $capaian=$cap;
+    }
+    
+    $potong=round((0.5*$capaian*$data)/100,1);
     
     
     return $potong;

@@ -187,7 +187,7 @@
                                             ?>
                                             @for($x=1;$x<13;$x++)
                                                 <?php 
-                                                    $potongan+=potongan(tgl_validasi_atasan($kodediv,$tahun,$x,total_capaian($kode,$tahun,$x)),$tahun,$x); 
+                                                    $potongan+=potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)); 
                                                     
                                                 ?>
                                                 

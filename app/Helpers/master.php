@@ -942,7 +942,7 @@ function potongan($tgl,$tahun,$bulan,$cap){
     $akhir = $thn.'-'.$bul.'-'.tgl_validasi($tahun); 
 
     if($tahun==2020){
-        if($bulan>7){
+        if($bulan>8){
             if($tg[2]<=tgl_validasi($tahun)){
                 $data = '0';
                 

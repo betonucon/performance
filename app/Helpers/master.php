@@ -975,7 +975,7 @@ function potongan($tgl,$tahun,$bulan,$cap){
         $capaian=$cap;
     }
     
-    $potong=round((0.5*$capaian*$data)/100,1);
+    $potong=substr((0.5*$capaian*$data)/100,0,4);
     
     
     return $potong;

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Imports;
-use App\Bobot;
+use App\Masterbobot;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
@@ -15,7 +15,15 @@ class ImportBobot implements ToCollection
     public function model(array $row)
     {
 
-
+        return new Masterbobot([
+            'kode_kpi'      => $row[0],
+            'kode_unit'     => $row[1],
+            'tahun'         => $row[3], 
+            'bulan'         => $row[4],
+            'bobot'         => $row[5]
+            
+            
+        ]);
     }
 
     /**

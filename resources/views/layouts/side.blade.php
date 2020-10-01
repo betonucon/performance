@@ -49,7 +49,7 @@
                 <li><a href="{{url('/deployment/non')}}"><i class="fa fa-check"></i> Deployment Non Mandatori</a></li>
               </ul>
           </li>
-
+          <li><a href="{{url('/bobot')}}"><i class="fa fa-folder"></i> Master Bobot</a></li>
           <li class="treeview">
             <a href="#" style="background:#f9fafc;font-weight: 500;">
               <i class="fa fa-folder"></i>

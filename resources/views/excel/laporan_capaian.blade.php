@@ -116,18 +116,18 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
 
                     <tr style="background:{{$color}}">
                         <td colspan="7">TOTAL BOBOT</td>
-                            @foreach(get_target($data['id']) as $detail)
-                            <td>{{total_bobot($kode,$tahun)}}%</th>
-                        @endforeach
-                        <td colspan="2" align="right">{{total_bobot($kode,$tahun)}}</td>
+                        @for($x=1;$x<13;$x++)
+                            <td>{{total_bobot($kode,$tahun,$x)}}%</th>
+                        @endfor
+                        <td colspan="2" align="right">{{total_bobot($kode,$tahun,$x)}}</td>
                     </tr>
 
                     <tr style="background:{{$color}}">
                         <td colspan="7">TOTAL CAPAIAN/TOTAL BOBOT</td>
-                            @foreach(get_target($data['id']) as $detail)
-                            <td>{{substr((total_capaian($kode,$tahun,$detail['bulan'])/total_bobot($kode,$tahun))*100,0,4)}}%</th>
-                        @endforeach
-                        <td colspan="2" align="right">{{($score/total_bobot($kode,$tahun))*100}}</td>
+                        @for($x=1;$x<13;$x++)
+                            <td>{{substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)}}%</th>
+                        @endfor
+                        <td colspan="2" align="right">{{($score/total_bobot($kode,$tahun,$x))*100}}</td>
                     </tr>
 
                     <tr style="background:{{$color}}">
@@ -149,9 +149,9 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                     <tr style="background:{{$color}}">
                         <td colspan="7">CAPAIAN AKHIR </td>
                             @for($x=1;$x<13;$x++)
-                            <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
+                            <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
                             @endfor
-                        <td colspan="2" align="right">{{((($score/total_bobot($kode,$tahun))*100)-($potongan/12))}}</td>
+                        <td colspan="2" align="right">{{((($score/total_bobot($kode,$tahun,$x))*100)-($potongan/12))}}</td>
                     </tr>
                     @endif
                 </tbody>

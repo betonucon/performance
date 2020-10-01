@@ -8,6 +8,6 @@ class Bobot extends Model
 {
     protected $table = 'bobot';
     public $timestamps = false;
-    protected $fillable = ['kode_unit','kode_kpi','bulan','bobot','tahun'];
+    protected $fillable = ['kode_kpi','kode_unit','bulan','bobot','tahun'];
 }
 

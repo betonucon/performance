@@ -618,6 +618,12 @@ function cek_kpi($kode){
 
     return $data;
 }
+
+function cek_bobot($kode,$kode_kpi,$tahun,$bulan){
+    $data=App\Masterbobot::where('kode_kpi',$kode_kpi)->where('kode_unit',$kode)->where('tahun',$tahun)->where('bulan',$bulan)->first();
+
+    return $data['bobot'];
+}
 function cek_nik($nik){
     $data=App\User::where('nik',$nik)->first();
 
@@ -903,15 +909,9 @@ function total_capaian_mandatori($tahun,$bulan){
 
 
 
-function total_bobot($kode,$tahun){
-    $total=0;
-    foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data){
-       
-           $total+=$data['bobot_tahunan'];
-       
-    }
-     
-    return $total;
+function total_bobot($kode,$tahun,$bulan){
+    $data=App\Masterbobot::where('kode_unit',$kode)->where('tahun',$tahun)->where('bulan',$bulan)->sum('bobot');
+    return $data;
 }
 
 

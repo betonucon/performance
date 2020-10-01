@@ -37,12 +37,12 @@
                     
                         <div class="mailbox-controls" style="background:#f8f8fb;margin-bottom:10px;margin-top:5px;margin-bottom:20px">
                             <div class="input-group ">
-                                <form method="post" id="mydata"  enctype="multipart/form-data">
+                                <form method="post" id="mydata" action="{{url('/bobot/import_data_bobot')}}" enctype="multipart/form-data">
                                     @csrf
                                     <input type="file" name="file" style="width: 40%;" class="form-control" >    
                                     <span  id="upload" class="btn btn-primary btn-sm"   onclick="upload()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-search"></i> Upload</span>
                                     <span  class="btn btn-default btn-sm" onclick="reload()"  style="margin-left:5px;margin-top:2px" ><i class="fa fa-refresh"></i> Reload</span>
-                                   
+                                    <input type="submit">
 
                                 </form>
                             </div>

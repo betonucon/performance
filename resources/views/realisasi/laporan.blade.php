@@ -188,9 +188,9 @@
 
                                     <tr style="background:{{$color}}">
                                         <td colspan="7">TOTAL CAPAIAN/TOTAL BOBOT</td>
-                                         @foreach(get_target($data['id']) as $detail)
-                                            <td>{{substr((total_capaian($kode,$tahun,$detail['bulan'])/total_bobot($kode,$tahun,$x))*100,0,4)}}%</th>
-                                        @endforeach
+                                        @for($x=1;$x<13;$x++)
+                                            <td>{{substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)}}%</th>
+                                        @endfor
                                         <td colspan="2" align="right">{{substr(($score/total_bobot($kode,$tahun,$x))*100,0,5)}}</td>
                                     </tr>
 

@@ -15,7 +15,14 @@ class KpiImport implements ToModel, WithStartRow
     */
     public function model(array $row)
     {
-        
+        $cek=Kpi::where('kode_kpi',$row[0])->count();
+        if($cek>0){
+            $data         = Kpi::where('kode_kpi',$row[0])->first();
+            $data->kpi  = $row[1];
+            $data->rumus_capaian  = $row[4];
+            $data->rumus_akumulasi  = $row[5];
+            $data->save();
+        }else{
             return new Kpi([
                 'kode_kpi'              => $row[0],
                 'kpi'                   => $row[1],
@@ -28,6 +35,7 @@ class KpiImport implements ToModel, WithStartRow
                 
                 
             ]);
+        }
             
     }
 

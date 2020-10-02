@@ -312,6 +312,16 @@ function array_unit_atasan_subdit($atasan){
 
      return $data;
 }
+
+function array_deployment($kode,$tahun){
+    $data  = array_column(
+        App\Deployment::where('kode_unit',$kode)->where('tahun',$tahun)
+        ->get()
+        ->toArray(),'id'
+     );
+
+     return $data;
+}
 function cek_array_unit_atasan_subdit($atasan){
     $data  =App\Unit::where('kode_unit', $atasan)->orWhere('kode',$atasan)
         ->count();

@@ -77,6 +77,7 @@
                 <li><a href="{{url('/realisasi/mandatori')}}"><i class="fa fa-check"></i> Realisasi Mandatori</a></li>
               </ul>
           </li>
+          <li ><a href="{{url('/validasi')}}"><i class="fa fa-folder"></i> Tanggal Validasi</a></li>
           <li class="treeview">
               <a href="#" style="background:#f9fafc;font-weight: 500;">
                 <i class="fa fa-folder"></i>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Deployment;
+use App\Target;
 use App\Masterbobot;
 use Session;
 
@@ -30,12 +31,28 @@ class DeploymentController extends Controller
     }
     public function index_bobot(){
         $judul='Master Bobot';
+        
         return view('bobot.index',compact('judul'));
+    }
+    public function index_validasi(request $request){
+        if($request->tahun==''){
+            $tahun=date('Y');
+        }else{
+            $tahun=$request->tahun;
+        }
+        $judul='Tanggal Validasi';
+        return view('deployment.index_validasi',compact('judul','tahun'));
     }
     public function edit($id){
         $judul='Deployment';
         $data=Deployment::where('id',$id)->first();
         return view('deployment.edit',compact('judul','data','id'));
+    }
+    public function edit_validasi(request $request){
+        $judul='Ubah Tanggal Validasi';
+        $kode=$request->kode;
+        $tahun=$request->tahun;
+        return view('deployment.edit_validasi',compact('judul','kode','tahun'));
     }
     public function edit_mandatori($id){
         $judul='Deployment';
@@ -106,6 +123,56 @@ class DeploymentController extends Controller
                 "Okt" =>cek_bobot($o['kode_unit'],$o['kode_kpi'],$o['tahun'],10),
                 "Nov" =>cek_bobot($o['kode_unit'],$o['kode_kpi'],$o['tahun'],11),
                 "Des" =>cek_bobot($o['kode_unit'],$o['kode_kpi'],$o['tahun'],12)
+            );
+        }
+        
+        echo json_encode($show);
+        
+    }
+
+    public function simpan_validasi(request $request){
+        error_reporting(0);
+        $jum=count($request->bulan);
+        
+        $dep=Target::whereIn('deployment_id',array_deployment($request->kode_unit,$request->tahun))->get();
+        foreach($dep as $o){
+            for($x=0;$x<$jum;$x++){
+                if($request->tanggal[$x]==0 || $request->tanggal[$x]==''){
+    
+                }else{
+                    $data                      = Target::where('deployment_id',$o['deployment_id'])->where('bulan',$request->bulan[$x])->where('tahun',$request->tahun)->first();
+                    $data->tgl_validasi_atasan = $request->tanggal[$x];
+                    $data->save();
+                }
+            }
+        }
+                    
+            
+        
+        echo 'ok';
+    }
+    public function api_validasi($tahun){
+        error_reporting(0);
+        $data=Deployment::select('kode_unit','tahun')->where('tahun',$tahun)->groupBy('kode_unit')->groupBy('tahun')->get();
+        
+        foreach($data as $o){
+        
+            $show[]=array(
+                "kode_unit" =>$o['kode_unit'],
+                "tahun" =>$o['tahun'],
+                "name_unit" =>cek_unit($o['kode_unit'])['nama'],
+                "Jan" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],1)),
+                "Feb" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],2)),
+                "Mar" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],3)),
+                "Apr" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],4)),
+                "Mei" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],5)),
+                "Jun" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],6)),
+                "Jul" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],7)),
+                "Ags" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],8)),
+                "Sep" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],9)),
+                "Okt" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],10)),
+                "Nov" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],11)),
+                "Des" =>tgl(tgl_validasi_atasan($o['kode_unit'],$o['tahun'],12))
             );
         }
         

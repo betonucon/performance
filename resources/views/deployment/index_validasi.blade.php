@@ -15,7 +15,7 @@
             padding:5px;
             border:solid 1px #bf9898;
             color: #575282;
-            font-size: 0.86vw;
+            font-size: 0.8vw;
             font-family: sans-serif;
         }
     }
@@ -36,15 +36,16 @@
                 <div class="box-body" style="padding:10px">
                     
                         <div class="mailbox-controls" style="background:#f8f8fb;margin-bottom:10px;margin-top:5px;margin-bottom:20px">
-                            <div class="input-group ">
-                                <form method="post" id="mydata" action="{{url('/bobot/import_data_bobot')}}" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="file" name="file" style="width: 40%;" class="form-control" >    
-                                    <span  id="upload" class="btn btn-primary btn-sm"   onclick="upload()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-search"></i> Upload</span>
-                                    <span  class="btn btn-default btn-sm" onclick="reload()"  style="margin-left:5px;margin-top:2px" ><i class="fa fa-refresh"></i> Reload</span>
-                                    <!-- <input type="submit"> -->
-
-                                </form>
+                            <div class="input-group " style="width: 30%;">
+                                
+                                    <select id="tahun" style="width: 70%;display:inline" class="form-control" >  
+                                        @for($th=2019;$th<2040;$th++) 
+                                            <option value="{{$th}}" @if($th==$tahun) selected @endif>{{$th}}</option>
+                                        @endfor 
+                                    </select>
+                                    <span   class="btn btn-primary btn-sm"   onclick="cari()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-search"></i> Cari</span>
+                                   
+                                
                             </div>
                             <div class="pull-right">
                             
@@ -63,23 +64,7 @@
     </div>
 </section>
 
-<div class="modal fade" id="modalloadinggg" >
-    <div class="modal-dialog">
-        <div class="modal-content" style="background: #fff;">
-            <div class="modal-header">
-                <button type="button" class="close" >
-                    <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Loading ........ </h4>
-            </div>
-            <div class="modal-body" style="text-align:center">
-                <img src="{{url('icon/loading.gif')}}" width="50%">
-            </div>
-            <div class="modal-footer">
-               
-            </div>
-        </div>
-    </div>
-</div>
+
 
 @endsection
 
@@ -110,7 +95,8 @@
                 cache: false,
                 processData:false,
                 beforeSend: function(){
-                    $('#modalloadinggg').modal({backdrop: 'static', keyboard: false});
+                    $('#upload').hide();
+                    $('#proses_loading').html('Proses Pembayaran ....................');
                 },
                 success: function(msg){
                     
@@ -144,7 +130,7 @@
                     oLanguage: {"sSearch": "<span class='btn btn-default btn sm'><i class='fa fa-search'></i></span>" },
                     "ajax": {
                         "type": "GET",
-                        "url": "{{url('/bobot/api_bobot/')}}",
+                        "url": "{{url('/validasi/api/'.$tahun)}}",
                         "timeout": 120000,
                         "dataSrc": function (json) {
                             if(json != null){
@@ -176,9 +162,9 @@
                         },
                         {
                             "mData": null,
-                            "title": "Kode KPI",
+                            "title": "Tahun",
                             "render": function (data, row, type, meta) {
-                                return data.kode_kpi;
+                                return data.tahun;
                             }
                         },
                         {
@@ -276,9 +262,32 @@
                             "render": function (data, row, type, meta) {
                                 return data.Des;
                             }
+                        },
+                        {
+                            "mData": null,
+                            "title": "",
+                            "width":"3%",
+                            "sortable": false,
+                            "render": function (data, row, type, meta) {
+                                let btn = '';
+
+                                
+                                        btn += '<span class="btn btn-success btn-xs" onclick="ubah('+data.kode_unit+','+data.tahun+')"><i class="fa fa-pencil"></i></span>';
+                                    
+
+                                return btn;
+                            }
                         }
                     ]
                 });
     });
+
+    function cari(){
+        var tahun=$('#tahun').val();
+        window.location.assign("{{url('validasi')}}?tahun="+tahun);
+    }
+    function ubah(kode,tahun){
+        window.location.assign("{{url('validasi/ubah')}}?kode="+kode+"&tahun="+tahun);
+    }
 </script>
 @endpush

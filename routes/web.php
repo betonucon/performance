@@ -94,6 +94,14 @@ Route::group(['middleware'    => 'auth'],function(){
         Route::post('/import_data_bobot', 'DeploymentController@import_data_bobot');
     });
 
+    Route::group(['prefix' => 'validasi'], function(){
+        Route::get('/', 'DeploymentController@index_validasi');
+        Route::get('/ubah', 'DeploymentController@edit_validasi');
+        Route::post('/simpan', 'DeploymentController@simpan_validasi');
+        Route::get('/api/{tahun}', 'DeploymentController@api_validasi');
+        Route::post('/import_data_bobot', 'DeploymentController@import_data_bobot');
+    });
+
     Route::group(['prefix' => 'excel'], function(){
         Route::get('/capaian', 'RealisasiController@excel');
         Route::get('/capaian/subdit', 'RealisasiController@excel_subdit');

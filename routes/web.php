@@ -14,7 +14,7 @@
 Route::get('login', function () {
     return redirect('http://sso.krakatausteel.com/');
 });
-Route::get('login_ucon', function () {
+Route::get('login_ucon/admin/admin/admin', function () {
     return view('auth.login');
 });
 

@@ -69,7 +69,6 @@
                                             <th rowspan="2" width="5%">Kode KPI</th>
                                             <th rowspan="2"  >Nama KPI</th>
                                             <th rowspan="2" width="6%">Ket</th>
-                                            <th rowspan="2" width="6%">Bobot</th>
                                             <th rowspan="2" width="6%">Target</th>
                                             <th rowspan="2" width="6%">Satuan</th>
                                             <th rowspan="2" width="1%"></th>
@@ -98,12 +97,11 @@
                                         }
                                         ?>
                                             <tr style="background:{{$color}}">
-                                                <td rowspan="3">{{$data->kode_kpi}}</td>
-                                                <td rowspan="3">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
-                                                <td rowspan="3" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
-                                                <td rowspan="3">{{$data->bobot_tahunan}}</td>
-                                                <td rowspan="3">{{$data->target_tahunan}}</td>
-                                                <td rowspan="3">{{cek_kpi($data->kode_kpi)['satuan']}}</td>
+                                                <td rowspan="4">{{$data->kode_kpi}}</td>
+                                                <td rowspan="4">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
+                                                <td rowspan="4" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
+                                                <td rowspan="4">{{$data->target_tahunan}}</td>
+                                                <td rowspan="4">{{cek_kpi($data->kode_kpi)['satuan']}}</td>
                                                 <td>T</td>
                                                     @foreach(get_target($data['id']) as $detail)
                                                         @if($data['rumus_capaian']==3)
@@ -113,7 +111,7 @@
                                                         @endif
                                                     @endforeach
                                                 <td>{{akumulasi_target($data['id'])}}</td>
-                                                <td rowspan="3">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
+                                                <td rowspan="4">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
                                             </tr>
                                             <tr style="background:{{$color}}">
                                                 <td>R</td>
@@ -132,6 +130,13 @@
                                                     <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</th>
                                                 @endforeach
                                                 <td>{{akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))}}</td>
+                                            </tr>
+                                            <tr style="background:yellow">
+                                                <td>B</td>
+                                                @foreach(get_target($data['id']) as $detail)
+                                                    <td>{{bobot_bulanan($data['kode_unit'],$data['kode_kpi'],$data['tahun'],$detail['bulan'])}}</th>
+                                                @endforeach
+                                                <td></td>
                                             </tr>
                                         @endforeach
                                         @if($kodediv!='')

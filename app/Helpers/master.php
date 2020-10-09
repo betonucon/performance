@@ -329,6 +329,11 @@ function cek_array_unit_atasan_subdit($atasan){
      return $data;
 }
 
+function bobot_bulanan($kode_unit,$kode_kpi,$tahun,$bulan){
+    $data=App\Masterbobot::where('kode_kpi',$kode_kpi)->where('kode_unit',$kode_unit)->where('tahun',$tahun)->where('bulan',$bulan)->first();
+
+    return $data['bobot'];
+}
 function subdit(){
     $datasub=App\Unit::where('unit_id',1)->get();
     foreach($datasub as $dat){

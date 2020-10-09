@@ -709,10 +709,10 @@ function icon_status_realisasi($id){
     $data=App\Status::where('id',$id)->first();
     $text='Realisasi';
     if(is_null($id) || $id==''){
-        $sts='<span class="label label-success">Menunggu Penyelesaian Target</span>';
+        $sts='<span class="label label-primary">Realisasi</span>';
     }
     if($id==1){
-        $sts='<span class="label label-success">'.$data['name'].' '.$text.'</span>';
+        $sts='<span class="label label-primary">Realisasi</span>';
     }
     if($id==2){
         $sts='<span class="label label-warning">'.$data['name'].'</span>';

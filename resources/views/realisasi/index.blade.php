@@ -62,7 +62,6 @@
                                     <th>Target</th>
                                     <th>Akumulasi</th>
                                     <th>Tahun</th>
-                                    <th>Status</th>
                                     <th width="7%"></th>
                                 </tr>
                             </thead>
@@ -75,7 +74,6 @@
                                         <td>{{$data->target_tahunan}}</td>
                                         <td>{{akumulasi($data->kode_kpi)}}</td>
                                         <td>{{$data->tahun}}</td>
-                                        <td>{!!icon_status_realisasi($data['status_realisasi'])!!}</td>
                                         <td><a href="{{url('realisasi/input/'.$data['id'])}}"><span class="btn btn-primary btn-sm"><i class="fa fa-gear"></i></span></a></td>
                                     </tr>
                                 @endforeach

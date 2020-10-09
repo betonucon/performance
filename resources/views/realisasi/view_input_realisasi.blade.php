@@ -52,7 +52,6 @@
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item"><b>Rumus Akumulasi</b> <a class="pull-right">{{cek_akumulasi($data['rumus_akumulasi'])}}</a></li>
                                     <li class="list-group-item"><b>Capaian</b> <a class="pull-right">{{cek_capaian($data['rumus_capaian'])}}</a></li>
-                                    <li class="list-group-item"><b>Bobot Tahunan</b> <a class="pull-right">{{$data['bobot_tahunan']}}</a></li>
                                     <li class="list-group-item"><b>Target Tahunan</b> <a class="pull-right">{{$data['target_tahunan']}}</a></li>
                                     <li class="list-group-item"><b>Status</b> <a class="pull-right">{{status($data['status_id'])}}</a></li>
                                 </ul>

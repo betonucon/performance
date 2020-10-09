@@ -83,11 +83,11 @@
                                         <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
                                     <?php if($no%2==0){$color="#fff";}else{$color="#f9f4fb";} ?>
                                         <tr style="background:{{$color}}">
-                                            <td rowspan="4">{{$data->kode_kpi}}</td>
-                                            <td rowspan="4">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
-                                            <td rowspan="4" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
-                                            <td rowspan="4">{{$data->target_tahunan}}</td>
-                                            <td rowspan="4">{{cek_kpi($data->kode_kpi)['satuan']}}</td>
+                                            <td rowspan="5">{{$data->kode_kpi}}</td>
+                                            <td rowspan="5">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
+                                            <td rowspan="5" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
+                                            <td rowspan="5">{{$data->target_tahunan}}</td>
+                                            <td rowspan="5">{{cek_kpi($data->kode_kpi)['satuan']}}</td>
                                             <td>T</td>
                                                 @foreach(get_target($data['id']) as $detail)
                                                     @if($data['rumus_capaian']==3)
@@ -97,7 +97,7 @@
                                                     @endif
                                                 @endforeach
                                             <td>{{akumulasi_target($data['id'])}}</td>
-                                            <td rowspan="4">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
+                                            <td rowspan="5">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
                                         </tr>
                                         <tr style="background:{{$color}}">
                                             <td>R</td>
@@ -116,6 +116,17 @@
                                                 <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</th>
                                             @endforeach
                                             <td>{{akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))}}</td>
+                                        </tr>
+                                        <tr style="background:{{$color}}">
+                                            <td></td>
+                                            @foreach(get_target($data['id']) as $detail)
+                                                @if($detail['file']=='')
+                                                    <td>&nbsp;</th>
+                                                @else
+                                                    <td><a href="{{url('_file_upload/'.$detail['file'])}}" target="_blank"><span class="btn btn-success btn-xs">File</span></a></td>
+                                                @endif
+                                            @endforeach
+                                            <td></td>
                                         </tr>
                                         <tr style="background:yellow">
                                             <td>B</td>

@@ -127,7 +127,7 @@
                                     @endforeach
                                     @if($kode!='')
                                     <tr style="background:{{$color}}">
-                                        <td colspan="7">VALIDASI</td>
+                                        <td colspan="6">VALIDASI</td>
                                          @for($x=1;$x<13;$x++)
                                             <td> 
                                             
@@ -149,7 +149,7 @@
                                     </tr>
                                     
                                     <tr style="background:{{$color}}">
-                                        <td colspan="7">TOTAL CAPAIAN</td>
+                                        <td colspan="6">TOTAL CAPAIAN</td>
                                          @for($x=1;$x<13;$x++)
                                             <td>{{total_capaian($kode,$tahun,$x)}}%</th>
                                         @endfor
@@ -157,7 +157,7 @@
                                     </tr>
 
                                     <tr style="background:{{$color}}">
-                                        <td colspan="7">TOTAL BOBOT</td>
+                                        <td colspan="6">TOTAL BOBOT</td>
                                          @for($x=1;$x<13;$x++)
                                             <td>{{total_bobot($kode,$tahun,$x)}}%</th>
                                         @endfor
@@ -165,7 +165,7 @@
                                     </tr>
 
                                     <tr style="background:{{$color}}">
-                                        <td colspan="7">TOTAL CAPAIAN/TOTAL BOBOT</td>
+                                        <td colspan="6">TOTAL CAPAIAN/TOTAL BOBOT</td>
                                          @for($x=1;$x<13;$x++)
                                             <td>{{substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)}}%</th>
                                         @endfor
@@ -173,7 +173,7 @@
                                     </tr>
 
                                     <tr style="background:{{$color}}">
-                                        <td colspan="7">POTONGAN KETERLAMBATAN</td>
+                                        <td colspan="6">POTONGAN KETERLAMBATAN</td>
                                         <?php 
                                             $potongan=0; 
                                             
@@ -189,7 +189,7 @@
                                         <td colspan="2" align="right">{{($potongan/12)}}</td>
                                     </tr>
                                     <tr style="background:{{$color}}">
-                                        <td colspan="7">CAPAIAN AKHIR </td>
+                                        <td colspan="6">CAPAIAN AKHIR </td>
                                          @for($x=1;$x<13;$x++)
                                             <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
                                          @endfor

@@ -60,7 +60,6 @@
                                     <th>Unit Kerja</th>
                                     <th>KPI</th>
                                     <th>T Tahunan</th>
-                                    <th>Bobot</th>
                                     <th>Tahun</th>
                                     <th>R Capaian</th>
                                     <th>R Akumulasi</th>
@@ -76,7 +75,6 @@
                                         <td><b>{{$data->kode_unit}}</b><br>{{cek_unit($data->kode_unit)['nama']}}</td>
                                         <td><b>{{$data->kode_kpi}}</b><br>{{cek_kpi($data['kode_kpi'])['kpi']}}</td>
                                         <td>{{$data->target_tahunan}}</td>
-                                        <td>{{$data->bobot_tahunan}}</td>
                                         <td>{{$data->tahun}}</td>
                                         <td>{{capaian($data->kode_kpi)}}</td>
                                         <td>{{akumulasi($data->kode_kpi)}}</td>

@@ -64,7 +64,6 @@
                                     <th>Unit Kerja</th>
                                     <th>KPI</th>
                                     <th>Target</th>
-                                    <th>Bobot</th>
                                     <th>Akumulasi</th>
                                     <th>Tahun</th>
                                     <th>Status</th>
@@ -78,7 +77,6 @@
                                         <td><b>{{$data->kode_unit}}</b><br>{{cek_unit($data->kode_unit)['nama']}}</td>
                                         <td><b>{{$data->kode_kpi}}</b><br>{{cek_kpi($data['kode_kpi'])['kpi']}}</td>
                                         <td>{{$data->target_tahunan}}</td>
-                                        <td>{{$data->bobot_tahunan}}</td>
                                         <td>{{akumulasi($data->kode_kpi)}}</td>
                                         <td>{{$data->tahun}}</td>
                                         <td>{!!icon_status($data['status_id'])!!}</td>

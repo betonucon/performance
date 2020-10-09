@@ -85,10 +85,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Bobot Tahunan</label>
-                                        <input type="text"  name="bobot_tahunan" id="bobot_tahunan" value="{{$data['bobot_tahunan']}}" class="form-control">
-                                    </div>
+                                    
                                     <div class="form-group">
                                         <label>Target Tahunan</label>
                                         <input type="text"  name="target_tahunan" id="target_tahunan" value="{{$data['target_tahunan']}}" class="form-control">

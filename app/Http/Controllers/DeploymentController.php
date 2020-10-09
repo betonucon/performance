@@ -83,12 +83,10 @@ class DeploymentController extends Controller
     }
 
     public function simpan(request $request,$id){
-        if (trim($request->bobot_tahunan) == '') {$error[] = '- Isi Bobot Tahunan';}
         if (trim($request->target_tahunan) == '') {$error[] = '- Isi Target Tahunan';}
         if (isset($error)) {echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br />'.implode('<br />', $error).'</p>';} 
         else{
             $data                       =   Deployment::find($id);
-            $data->bobot_tahunan        =   $request->bobot_tahunan;
             $data->target_tahunan       =   $request->target_tahunan;
             $data->rumus_akumulasi      =   $request->rumus_akumulasi;
             $data->rumus_capaian        =   $request->rumus_capaian;

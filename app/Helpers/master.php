@@ -855,11 +855,25 @@ function hitung_capaian($capaian,$target,$realisasi){
         if($target==0){
             $cap=100;
         }else{
-            if($realisasi==0){
-                $cap=0;
+            if($target<0){
+                if($realisasi==0){
+                    $cap=0;
+                }else{
+                     $cap=(1+(($target)-($realisasi))/($target))*100;
+                }
             }else{
-                 $cap=(1-((($target)-($realisasi))/($target)))*100;
+                if($realisasi==0){
+                    $cap=0;
+                }else{
+                     $cap=(1-((($target)-($realisasi))/($target)))*100;
+                }
             }
+            // if($realisasi==0){
+            //     $cap=0;
+            // }else{
+            //      $cap=(1-((($target)-($realisasi))/($target)))*100;
+            // }
+            
         }
         
         if($cap>120){

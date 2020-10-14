@@ -925,15 +925,11 @@ function total_capaian($kode,$tahun,$bulan){
     foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data){
         $detail=App\Target::where('deployment_id',$data['id'])->where('bulan',$bulan)->get();
         foreach($detail as $tar){
-           $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'])*($data['bobot_tahunan']/100);
+           $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'])*cek_bobot($kode,$data['kode_kpi'],$tahun,$bulan);
         }
     }
-    if($total>120){
-        $tot=120;
-    }else{
-        $tot=$total;
-    }
-    return $tot;
+    $hsl=$total/total_capaian($kode,$tahun,$bulan);
+    return $hsl;
 }
 
 function total_capaian_mandatori($tahun,$bulan){

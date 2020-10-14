@@ -928,7 +928,7 @@ function total_capaian($kode,$tahun,$bulan){
            $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'])*cek_bobot($kode,$data['kode_kpi'],$tahun,$bulan);
         }
     }
-    $hsl=$total/total_capaian($kode,$tahun,$bulan);
+    $hsl=$total/100;
     return $hsl;
 }
 

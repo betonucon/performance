@@ -162,7 +162,7 @@
                                         
                                         <tr style="background:{{$color}}">
                                             <td colspan="6">TOTAL CAPAIAN</td>
-                                            @for($x=1;$x<13;$x++)
+                                                @for($x=1;$x<13;$x++)
                                                 <td>{{total_capaian($kodediv,$tahun,$x)}}%</th>
                                             @endfor
                                             <td colspan="2" align="right">{{$score}}</td>
@@ -170,7 +170,7 @@
 
                                         <tr style="background:{{$color}}">
                                             <td colspan="6">TOTAL BOBOT</td>
-                                            @for($x=1;$x<13;$x++)
+                                                @for($x=1;$x<13;$x++)
                                                 <td>{{total_bobot($kodediv,$tahun,$x)}}%</th>
                                             @endfor
                                             <td colspan="2" align="right">{{total_bobot($kodediv,$tahun,$x)}}</td>
@@ -178,10 +178,14 @@
 
                                         <tr style="background:{{$color}}">
                                             <td colspan="6">TOTAL CAPAIAN/TOTAL BOBOT</td>
+                                            <?php
+                                                $totbot=0;
+                                            ?>
                                             @for($x=1;$x<13;$x++)
-                                                <td>{{substr((total_capaian($kodediv,$tahun,$x)/total_bobot($kodediv,$tahun,$x))*100,0,4)}}%</th>
+                                                <?php $totbot+=total_bobot($kodediv,$tahun,$x); ?>
+                                                <td>{{substr(nilai_max((total_capaian($kodediv,$tahun,$x)/total_bobot($kodediv,$tahun,$x))*100),0,4)}}%</th>
                                             @endfor
-                                            <td colspan="2" align="right">{{substr(($score/total_bobot($kodediv,$tahun,$x))*100,0,5)}}</td>
+                                            <td colspan="2" align="right">{{substr(nilai_max(($score/$totbot)*100),0,5)}}</td>
                                         </tr>
 
                                         <tr style="background:{{$color}}">
@@ -192,20 +196,20 @@
                                             ?>
                                             @for($x=1;$x<13;$x++)
                                                 <?php 
-                                                    $potongan+=potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)); 
+                                                    $potongan+=potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kodediv,$tahun,$x)); 
                                                     
                                                 ?>
                                                 
-                                                <td>{{potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x))}}%</td>
+                                                <td>{{potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kodediv,$tahun,$x))}}%</td>
                                             @endfor
                                             <td colspan="2" align="right">{{($potongan/12)}}</td>
                                         </tr>
                                         <tr style="background:{{$color}}">
                                             <td colspan="6">CAPAIAN AKHIR </td>
-                                            @for($x=1;$x<13;$x++)
-                                                <td>{{(substr((total_capaian($kodediv,$tahun,$x)/total_bobot($kodediv,$tahun,$x))*100,0,4)-potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
-                                            @endfor
-                                            <td colspan="2" align="right">{{substr((($score/total_bobot($kodediv,$tahun,$x))*100)-($potongan/12),0,5)}}</td>
+                                                @for($x=1;$x<13;$x++)
+                                                <td>{{(substr(nilai_max((total_capaian($kodediv,$tahun,$x)/total_bobot($kodediv,$tahun,$x))*100),0,4)-potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kodediv,$tahun,$x)))}}%</th>
+                                                @endfor
+                                            <td colspan="2" align="right">{{substr(nilai_max((($score/$totbot)*100)-($potongan/12)),0,5)}}</td>
                                         </tr>
                                         @endif
                                     </tbody>

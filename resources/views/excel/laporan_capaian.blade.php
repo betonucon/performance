@@ -38,9 +38,8 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                 <thead>
                     <tr>
                         <th rowspan="2" width="5%">Kode KPI</th>
-                        <th rowspan="2" width="10%" >Nama KPI</th>
+                        <th rowspan="2" width="14%" >Nama KPI</th>
                         <th rowspan="2" width="4%">Ket</th>
-                        <th rowspan="2" width="4%">Bobot</th>
                         <th rowspan="2" width="4%">Target</th>
                         <th rowspan="2" width="6%">Satuan</th>
                         <th rowspan="2" width="1%"></th>
@@ -70,7 +69,6 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                             <td rowspan="4">{{$data->kode_kpi}}</td>
                             <td rowspan="4">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
                             <td rowspan="4" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
-                            <td rowspan="4">{{$data->bobot_tahunan}}</td>
                             <td rowspan="4">{{$data->target_tahunan}}</td>
                             <td rowspan="4">{{cek_kpi($data->kode_kpi)['satuan']}}</td>
                             <td>T</td>
@@ -114,31 +112,35 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                     
                     
                     <tr style="background:{{$color}}">
-                        <td colspan="7">TOTAL CAPAIAN</td>
-                            @foreach(get_target($data['id']) as $detail)
-                            <td>{{total_capaian($kode,$tahun,$detail['bulan'])}}%</th>
-                        @endforeach
+                        <td colspan="6">TOTAL CAPAIAN</td>
+                            @for($x=1;$x<13;$x++)
+                            <td>{{total_capaian($kode,$tahun,$x)}}%</th>
+                        @endfor
                         <td colspan="2" align="right">{{$score}}</td>
                     </tr>
 
                     <tr style="background:{{$color}}">
-                        <td colspan="7">TOTAL BOBOT</td>
-                        @for($x=1;$x<13;$x++)
+                        <td colspan="6">TOTAL BOBOT</td>
+                            @for($x=1;$x<13;$x++)
                             <td>{{total_bobot($kode,$tahun,$x)}}%</th>
                         @endfor
                         <td colspan="2" align="right">{{total_bobot($kode,$tahun,$x)}}</td>
                     </tr>
 
                     <tr style="background:{{$color}}">
-                        <td colspan="7">TOTAL CAPAIAN/TOTAL BOBOT</td>
+                        <td colspan="6">TOTAL CAPAIAN/TOTAL BOBOT</td>
+                        <?php
+                            $totbot=0;
+                        ?>
                         @for($x=1;$x<13;$x++)
-                            <td>{{substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)}}%</th>
+                            <?php $totbot+=total_bobot($kode,$tahun,$x); ?>
+                            <td>{{substr(nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100),0,4)}}%</th>
                         @endfor
-                        <td colspan="2" align="right">{{($score/total_bobot($kode,$tahun,$x))*100}}</td>
+                        <td colspan="2" align="right">{{substr(nilai_max(($score/$totbot)*100),0,5)}}</td>
                     </tr>
 
                     <tr style="background:{{$color}}">
-                        <td colspan="7">POTONGAN KETERLAMBATAN</td>
+                        <td colspan="6">POTONGAN KETERLAMBATAN</td>
                         <?php 
                             $potongan=0; 
                             
@@ -154,11 +156,11 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                         <td colspan="2" align="right">{{($potongan/12)}}</td>
                     </tr>
                     <tr style="background:{{$color}}">
-                        <td colspan="7">CAPAIAN AKHIR </td>
+                        <td colspan="6">CAPAIAN AKHIR </td>
                             @for($x=1;$x<13;$x++)
-                            <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
+                            <td>{{(substr(nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100),0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
                             @endfor
-                        <td colspan="2" align="right">{{((($score/total_bobot($kode,$tahun,$x))*100)-($potongan/12))}}</td>
+                        <td colspan="2" align="right">{{substr(nilai_max((($score/$totbot)*100)-($potongan/12)),0,5)}}</td>
                     </tr>
                     @endif
                 </tbody>

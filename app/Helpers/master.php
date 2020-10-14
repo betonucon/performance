@@ -912,6 +912,14 @@ function hitung_capaian($capaian,$target,$realisasi){
     
 }
 
+function nilai_max($nil){
+    if($nil>120){
+        $tot=120;
+    }else{
+        $tot=$nil;
+    }
+    return $tot;
+}
 function total_capaian($kode,$tahun,$bulan){
     $total=0;
     foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data){
@@ -920,8 +928,12 @@ function total_capaian($kode,$tahun,$bulan){
            $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'])*($data['bobot_tahunan']/100);
         }
     }
-     
-    return $total;
+    if($total>120){
+        $tot=120;
+    }else{
+        $tot=$total;
+    }
+    return $tot;
 }
 
 function total_capaian_mandatori($tahun,$bulan){

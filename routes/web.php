@@ -1,6 +1,5 @@
 <?php
-ini_set('max_execution_time', 1800);
-ini_set('max_input_time', 1800);
+ini_set('max_execution_time', 30000);
 /*
 |--------------------------------------------------------------------------
 | Web Routes

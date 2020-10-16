@@ -1,5 +1,5 @@
 <?php
-
+ini_set('max_execution_time', 30000);
 function bulan($bulan)
 {
    Switch ($bulan){

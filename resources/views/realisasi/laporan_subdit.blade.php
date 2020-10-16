@@ -191,6 +191,22 @@
                                             <td colspan="2" align="right">{{substr(nilai_max(($score/$totbot)*100),0,5)}}</td>
                                         </tr>
 
+                                        <tr style="background:{{$color}}">
+                                            <td colspan="6">POTONGAN KETERLAMBATAN</td>
+                                            <?php 
+                                                $potongan=0; 
+                                                
+                                            ?>
+                                            @for($x=1;$x<13;$x++)
+                                                <?php 
+                                                    $potongan+=potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kodediv,$tahun,$x)); 
+                                                    
+                                                ?>
+                                                
+                                                <td>{{potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kodediv,$tahun,$x))}}%</td>
+                                            @endfor
+                                            <td colspan="2" align="right">{{($potongan/12)}}</td>
+                                        </tr>
                                         
                                         @endif
                                     </tbody>

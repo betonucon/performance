@@ -353,6 +353,7 @@ class RealisasiController extends Controller
     }
     public function excel_subdit(request $request){
         error_reporting(0);
+        ini_set('max_execution_time', 300000);
         $kode=$request->kode;
         $tahun=$request->tahun;
         

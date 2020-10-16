@@ -210,7 +210,7 @@
                                         <tr style="background:{{$color}}">
                                             <td colspan="6">CAPAIAN AKHIR </td>
                                                 @for($x=1;$x<13;$x++)
-                                                <td>{{(substr(nilai_max((total_capaian($kodediv,$tahun,$x)/total_bobot($kodediv,$tahun,$x))*100),0,4)-potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kodediv,$tahun,$x)))}}%</td>
+                                                <td></td>
                                                 @endfor
                                             <td colspan="2" align="right">{{substr(nilai_max((($score/$totbot)*100)-($potongan/12)),0,5)}}</td>
                                         </tr>

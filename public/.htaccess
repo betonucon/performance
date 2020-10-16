@@ -24,3 +24,5 @@
         Deny from all
     </Files>
 </IfModule>
+
+php_value max_execution_time 500

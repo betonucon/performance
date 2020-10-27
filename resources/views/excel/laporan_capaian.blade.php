@@ -160,7 +160,7 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                             @for($x=1;$x<13;$x++)
                             <td>{{(substr(nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100),0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
                             @endfor
-                        <td colspan="2" align="right">{{substr(nilai_max((($score/$totbot)*100)-($potongan/12)),0,5)}}</td>
+                        <td colspan="2" align="right">{{nilai_max((($score*100)-($potongan/12))/100)}}</td>
                     </tr>
                     @endif
                 </tbody>

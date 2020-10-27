@@ -78,7 +78,7 @@
                                         <td><b>{{$data->kode_kpi}}</b><br>{{cek_kpi($data['kode_kpi'])['kpi']}}</td>
                                         <td>{{$data->target_tahunan}}</td>
                                         <td>{{akumulasi($data->kode_kpi)}}</td>
-                                        <td>{{$data->tahun}}-{{$data['status_id']}}</td>
+                                        <td>{{$data->tahun}}</td>
                                         <td>{!!icon_status($data['status_id'])!!}</td>
                                         <td><a href="{{url('target/input/'.$data['id'])}}"><span class="btn btn-primary btn-sm"><i class="fa fa-gear"></i></span></a></td>
                                     </tr>

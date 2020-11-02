@@ -200,7 +200,7 @@
                                             <?php $totbot+=total_bobot($kode,$tahun,$x); ?>
                                             <td>{{substr(nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100),0,4)}}%</th>
                                         @endfor
-                                        <td colspan="2" align="right">{{substr(nilai_max(($score)*100),0,5)}}</td>
+                                        <td colspan="2" align="right">{{nilai_max(($score*100)/100)}}</td>
                                     </tr>
 
                                     <tr style="background:{{$color}}">

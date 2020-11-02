@@ -136,7 +136,7 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                             <?php $totbot+=total_bobot($kode,$tahun,$x); ?>
                             <td>{{substr(nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100),0,4)}}%</th>
                         @endfor
-                        <td colspan="2" align="right">{{substr(nilai_max(($score/$totbot)*100),0,5)}}</td>
+                        <td colspan="2" align="right">{{nilai_max(($score*$totbot)/100)}}</td>
                     </tr>
 
                     <tr style="background:{{$color}}">

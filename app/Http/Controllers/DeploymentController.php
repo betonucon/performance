@@ -138,9 +138,14 @@ class DeploymentController extends Controller
                 if($request->tanggal[$x]==0 || $request->tanggal[$x]==''){
     
                 }else{
-                    $data                      = Target::where('deployment_id',$o['deployment_id'])->where('bulan',$request->bulan[$x])->where('tahun',$request->tahun)->first();
-                    $data->tgl_validasi_atasan = $request->tanggal[$x];
-                    $data->save();
+                    
+                    Target::where('deployment_id',$o['deployment_id'])->where('bulan',$request->bulan[$x])->where('tahun',$request->tahun)->update(
+                    [
+                        'tgl_validasi_atasan' =>$request->tanggal[$x]
+                    ]);
+
+
+
                 }
             }
         }

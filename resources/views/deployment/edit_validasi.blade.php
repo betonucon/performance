@@ -110,7 +110,7 @@
                 <h4 class="modal-title">Loading ........ </h4>
             </div>
             <div class="modal-body">
-                <img src="{{url('img/loading.gif')}}" width="100%">
+                <h1>Loading..........</h1>
             </div>
             <div class="modal-footer">
                

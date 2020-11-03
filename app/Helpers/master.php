@@ -984,7 +984,12 @@ function potongan($tgl,$tahun,$bulan,$cap){
                 $tanggal1 = date_create(date('Y-m-d h:i:s',strtotime($awal)));
                 $tanggal2 = date_create(date('Y-m-d h:i:s',strtotime($akhir)));
                 $perbedaan = $tanggal1->diff($tanggal2);
-                $data = $perbedaan->days;
+                $sels = $perbedaan->days;
+                if($sels>20){
+                    $data=20;
+                }else{
+                    $data=$sels;
+                }
             
         }else{
             $data = 0;
@@ -999,7 +1004,12 @@ function potongan($tgl,$tahun,$bulan,$cap){
             $tanggal1 = date_create(date('Y-m-d h:i:s',strtotime($awal)));
             $tanggal2 = date_create(date('Y-m-d h:i:s',strtotime($akhir)));
             $perbedaan = $tanggal1->diff($tanggal2);
-            $data = $perbedaan->days;
+            $sels = $perbedaan->days;
+            if($sels>20){
+                $data=20;
+            }else{
+                $data=$sels;
+            }
         }
         
     }
@@ -1009,7 +1019,7 @@ function potongan($tgl,$tahun,$bulan,$cap){
         $capaian=$cap;
     }
     
-    $potong=substr((0.5*$capaian*$data)/100,0,4);
+    $potong=substr(((0.5*$data)*$capaian)/100,0,4);
     
     
     return $potong;

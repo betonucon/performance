@@ -132,14 +132,13 @@ class DeploymentController extends Controller
         error_reporting(0);
         $jum=count($request->bulan);
         
-        $dep=Target::whereIn('deployment_id',array_deployment($request->kode_unit,$request->tahun))->get();
-        foreach($dep as $o){
+        
+        
             for($x=0;$x<$jum;$x++){
                 if($request->tanggal[$x]==0 || $request->tanggal[$x]==''){
     
                 }else{
-                    
-                    Target::where('deployment_id',$o['deployment_id'])->where('bulan',$request->bulan[$x])->where('tahun',$request->tahun)->update(
+                    Target::whereIn('deployment_id',array_deployment($request->kode_unit,$request->tahun))->where('bulan',$request->bulan[$x])->update(
                     [
                         'tgl_validasi_atasan' =>$request->tanggal[$x]
                     ]);
@@ -148,7 +147,7 @@ class DeploymentController extends Controller
 
                 }
             }
-        }
+        
                     
             
         

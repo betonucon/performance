@@ -1123,7 +1123,7 @@ function akumulasi_realisasi($id){
     }
     
      
-    return $total;
+    return round($total,2);
 }
 
 function akumulasi_capaian($id,$target=null,$realisasi=null){
@@ -1233,9 +1233,11 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
 
 function score($id,$capaian){
     $data=App\Deployment::where('id',$id)->first();
-    $total=$capaian*($data['bobot_tahunan']/100);
+    $detail=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->orderBy('bulan','desc')->max('bulan');
+    $bobot=bobot_bulanan($data['kode_unit'],$data['kode_kpi'],$data['tahun'],$detail);
+    $total=$capaian*($bobot/100);
 
-    return $total;
+    return round($total,2);
 }
 
 function donut($bln,$tahun){

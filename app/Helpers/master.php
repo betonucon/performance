@@ -976,7 +976,7 @@ function potongan($tgl,$tahun,$bulan,$cap){
 
 
     if($bulan==12){
-        $bul='01';
+        $bul='1';
         $thn=$tahun+1;
     }else{
         $bul=$bulan+1;
@@ -1010,10 +1010,7 @@ function potongan($tgl,$tahun,$bulan,$cap){
         
     }else{
         
-        if($awal>$akhir ){
-            $data = '0';
-            
-        }else{
+        if($awal>$akhir){
             $tanggal1 = date_create(date('Y-m-d h:i:s',strtotime($awal)));
             $tanggal2 = date_create(date('Y-m-d h:i:s',strtotime($akhir)));
             $perbedaan = $tanggal1->diff($tanggal2);
@@ -1023,6 +1020,10 @@ function potongan($tgl,$tahun,$bulan,$cap){
             }else{
                 $data=$sels;
             }
+            
+            
+        }else{
+            $data = '0';
         }
         
     }

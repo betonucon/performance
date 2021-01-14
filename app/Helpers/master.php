@@ -1066,12 +1066,12 @@ function akumulasi_target($id){
 
         if($data['rumus_akumulasi']==3){
             $prog=App\Target::where('deployment_id',$id)->where('target','!=',0)->orderBy('id','desc')->firstOrFail();
-            $data  = array_column(
+            $datar  = array_column(
                 App\Target::where('deployment_id',$id)->where('target','!=',0)
                 ->get()
-                ->toArray(),'realisasi'
+                ->toArray(),'target'
             );
-            $max=max($data);
+            $max=max($datar);
             $total=$max;
         } 
     

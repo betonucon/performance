@@ -1112,19 +1112,19 @@ function akumulasi_realisasi($id){
 
         if($data['rumus_akumulasi']==3){
             // $prog=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->orderBy('id','desc')->firstOrFail();
-            $data  = array_column(
+            $datar  = array_column(
                 App\Target::where('deployment_id',$id)->where('realisasi','!=',0)
                 ->get()
                 ->toArray(),'realisasi'
             );
-            $max=max($data);
+            $max=max($datar);
             $total=$max;
         } 
     
     }
     
      
-    return round($total,2);
+    return substr($total,0,6);
 }
 
 function akumulasi_capaian($id,$target=null,$realisasi=null){

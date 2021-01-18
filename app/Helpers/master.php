@@ -1124,7 +1124,7 @@ function akumulasi_realisasi($id){
     }
     
      
-    return substr($total,0,6);
+    return substr($total,0,8);
 }
 
 function akumulasi_capaian($id,$target=null,$realisasi=null){

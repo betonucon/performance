@@ -10,7 +10,14 @@ ini_set('max_execution_time', 30000);
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
+Route::get('/config-cache', function() {
+    Artisan::call('config:cache');
+    return "Cache is cleared";
+});
 Route::get('login', function () {
     return redirect('http://sso.krakatausteel.com/');
 });

@@ -47,8 +47,14 @@ class RealisasiController extends Controller
     public function laporan_subdit(request $request){
         error_reporting(0);
         $judul='Laporan Capaian';
-        $kode=$request->kode;
-        $tahun=$request->tahun;
+        if($request->kode==''){
+            $kode=111111;
+            $tahun=date('Y');
+        }else{
+            $kode=$request->kode;
+            $tahun=$request->tahun;
+        }
+        
         
         return view('realisasi.laporan_subdit',compact('judul','kode','tahun'));
     }

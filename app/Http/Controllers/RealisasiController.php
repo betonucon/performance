@@ -45,7 +45,7 @@ class RealisasiController extends Controller
         return view('realisasi.laporan',compact('judul','kode','tahun'));
     }
     public function laporan_subdit(request $request){
-        ini_set('max_execution_time', 30000);
+        error_reporting(0);
         $judul='Laporan Capaian';
         $kode=$request->kode;
         $tahun=$request->tahun;

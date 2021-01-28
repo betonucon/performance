@@ -1,5 +1,5 @@
 @extends('layouts.app_admin')
-<?php error_reporting(0); ?>
+
 
 @section('content')
 <style>
@@ -185,7 +185,7 @@
                                                 <?php $totbot+=total_bobot($kodediv,$tahun,$x); ?>
                                                 <td>{{substr(nilai_max((total_capaian($kodediv,$tahun,$x)/total_bobot($kodediv,$tahun,$x))*100),0,4)}}%</th>
                                             @endfor
-                                            <td colspan="2" align="right">{{substr(nilai_max(($score/$totbot)*100),0,5)}}</td>
+                                            <td colspan="2" align="right">{{nilai_max(($score*$totbot)/100)}}</td>
                                         </tr>
 
                                         <tr style="background:{{$color}}">
@@ -207,7 +207,7 @@
                                         <tr style="background:{{$color}}">
                                             <td colspan="6">CAPAIAN AKHIR </td>
                                                 @for($x=1;$x<13;$x++)
-                                                <td>{{(substr(nilai_max((total_capaian($kodediv,$tahun,$x)/total_bobot($kodediv,$tahun,$x))*100),0,4)-potongan(tgl_validasi_atasan($kodediv,$tahun,$x),$tahun,$x,total_capaian($kodediv,$tahun,$x)))}}%</th>
+                                                <td></td>
                                                 @endfor
                                             <td colspan="2" align="right">{{substr(nilai_max((($score/$totbot)*100)-($potongan/12)),0,5)}}</td>
                                         </tr>

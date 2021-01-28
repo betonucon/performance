@@ -1,8 +1,5 @@
 @extends('layouts.app_admin')
-<?php 
-    set_time_limit(1800);
-    error_reporting(0); 
-?>
+
 
 @section('content')
 <style>

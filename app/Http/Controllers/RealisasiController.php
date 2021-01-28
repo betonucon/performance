@@ -11,10 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 class RealisasiController extends Controller
 {
-    public function __construct()
-    {
-        set_time_limit(8000000);
-    }
+    
     public function index(request $request){
         error_reporting(0);
         
@@ -45,6 +42,20 @@ class RealisasiController extends Controller
         return view('realisasi.laporan',compact('judul','kode','tahun'));
     }
     public function laporan_subdit(request $request){
+        error_reporting(0);
+        $judul='Laporan Capaian';
+        if($request->kode==''){
+            $kode=111111;
+            $tahun=date('Y');
+        }else{
+            $kode=$request->kode;
+            $tahun=$request->tahun;
+        }
+        
+        
+        return view('realisasi.laporan_subdit',compact('judul','kode','tahun'));
+    }
+    public function laporan_subdit_new(request $request){
         error_reporting(0);
         $judul='Laporan Capaian';
         if($request->kode==''){

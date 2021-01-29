@@ -45,7 +45,7 @@ class RealisasiController extends Controller
         error_reporting(0);
         $judul='Laporan Capaian';
         if($request->kode==''){
-            $kode=111111;
+            $kode='50000958';
             $tahun=date('Y');
         }else{
             $kode=$request->kode;

@@ -37,7 +37,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body" style="padding:10px">
-                    
+                    @if($kode!='')
                         <div class="mailbox-controls" style="background:#f8f8fb;margin-bottom:10px;margin-top:5px;margin-bottom:20px">
                             @if(Auth::user()['role_id']==1)
                             <select id="kode" class="form-control" style="width: 30%;display: inline;">
@@ -217,6 +217,7 @@
                                 </table>
                             </div>
                         @endforeach
+                    @endif
                 </div>
             </div>
        </div>
@@ -243,26 +244,7 @@
         })
     });  
 
-    function pdf(){
-        var kode="{{$kode}}";
-        var tahun="{{$tahun}}";
-        window.location.assign("{{url('/pdf/capaian')}}?kode="+kode+"&tahun="+tahun);
-    }
-    function excel(){
-        var kode="{{$kode}}";
-        var tahun="{{$tahun}}";
-        window.location.assign("{{url('/excel/capaian/subdit')}}?kode="+kode+"&tahun="+tahun);
-    }
-    function cari(){
-        var kode=$('#kode').val();
-        var tahun=$('#tahun').val();
-        if(kode==''){
-            alert('Pilih Unit Kerja');
-        }else{
-            window.location.assign("{{url('/laporan/subdit')}}?kode="+kode+"&tahun="+tahun);
-        }
-        
-    }
+   
     function upload(){
         var form=document.getElementById('mydata');
         

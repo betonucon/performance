@@ -244,7 +244,26 @@
         })
     });  
 
-   
+    function pdf(){
+        var kode="{{$kode}}";
+        var tahun="{{$tahun}}";
+        window.location.assign("{{url('/pdf/capaian')}}?kode="+kode+"&tahun="+tahun);
+    }
+    function excel(){
+        var kode="{{$kode}}";
+        var tahun="{{$tahun}}";
+        window.location.assign("{{url('/excel/capaian/subdit')}}?kode="+kode+"&tahun="+tahun);
+    }
+    function cari(){
+        var kode=$('#kode').val();
+        var tahun=$('#tahun').val();
+        if(kode==''){
+            alert('Pilih Unit Kerja');
+        }else{
+            window.location.assign("{{url('/laporan/subdit')}}?kode="+kode+"&tahun="+tahun);
+        }
+        
+    }
     function upload(){
         var form=document.getElementById('mydata');
         

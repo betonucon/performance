@@ -42,19 +42,19 @@ class RealisasiController extends Controller
         return view('realisasi.laporan',compact('judul','kode','tahun'));
     }
     public function laporan_subdit(request $request){
-        // error_reporting(0);
-        // $judul='Laporan Capaian';
-        // if($request->kode==''){
-        //     $kode='50000958';
-        //     $tahun=date('Y');
-        // }else{
-        //     $kode=$request->kode;
-        //     $tahun=$request->tahun;
-        // }
+        error_reporting(0);
+        $judul='Laporan Capaian';
+        if($request->kode==''){
+            $kode='50000958';
+            $tahun=date('Y');
+        }else{
+            $kode=$request->kode;
+            $tahun=$request->tahun;
+        }
         
         
-        // return view('realisasi.laporan_subdit',compact('judul','kode','tahun'));
-        echo'ok';
+        return view('realisasi.laporan_subdit',compact('judul','kode','tahun'));
+        
     }
     public function laporan_subdit_new(request $request){
         error_reporting(0);

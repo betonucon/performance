@@ -24,6 +24,7 @@ class DeploymentImport implements ToModel, WithStartRow
             $data->rumus_capaian      = $kpii['rumus_capaian'];
             $data->rumus_akumulasi    = $kpii['rumus_akumulasi'];
             $data->kode_unit_tingkat  = $row[5];
+            $data->update_at  = date('Y-m-d H:i:s');
             $data->save();
         }else{
             return new Deployment([
@@ -36,6 +37,7 @@ class DeploymentImport implements ToModel, WithStartRow
                 'rumus_capaian'     => rumus_capaian($row[1]),
                 'id_kpi_unix'       => $row[1].$row[4],
                 'kode_unit_tingkat' => $row[5],
+                'update_at'         => date('Y-m-d H:i:s'),
                 'level' => $row[6],
                 'sts' => $row[7],
                 'status_id' => 1,

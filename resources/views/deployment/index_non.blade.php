@@ -62,7 +62,7 @@
                                         <td>{{$data->tahun}}</td>
                                         <td>{{capaian($data->kode_kpi)}}</td>
                                         <td>{{akumulasi($data->kode_kpi)}}</td>
-                                        <td>{{cek_unit($data->kode_unit)['nama']}}</td>
+                                        <td>{{$data->updated_at}}</td>
                                         <td><a href="{{url('deployment/edit/'.$data['id'])}}"><span class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></span></a></td>
                                     </tr>
                                 @endforeach

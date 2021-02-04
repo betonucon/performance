@@ -628,8 +628,8 @@ function kpi(){
 
     return $data;
 }
-function cek_kpi($kode){
-    $data=App\Kpi::where('kode_kpi',$kode)->first();
+function cek_kpi($kode,$tahun){
+    $data=App\Kpi::where('kode_kpi',$kode)->where('tahun',$tahun)->first();
 
     return $data;
 }

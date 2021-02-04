@@ -113,10 +113,10 @@
                                     ?>
                                         <tr style="background:{{$color}}">
                                             <td rowspan="4">{{$data->kode_kpi}}</td>
-                                            <td rowspan="4">{{cek_kpi($data->kode_kpi)['kpi']}}</td>
+                                            <td rowspan="4">{{cek_kpi($data->kode_kpi,$data['tahun'])['kpi']}}</td>
                                             <td rowspan="4" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
                                             <td rowspan="4">{{$data->target_tahunan}}</td>
-                                            <td rowspan="4">{{cek_kpi($data->kode_kpi)['satuan']}}</td>
+                                            <td rowspan="4">{{cek_kpi($data->kode_kpi,$data['tahun'])['satuan']}}</td>
                                             <td>T</td>
                                                 @foreach(get_target($data['id']) as $detail)
                                                     @if($data['rumus_capaian']==3)

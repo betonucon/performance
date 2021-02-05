@@ -76,8 +76,8 @@
                                         <td><b>{{$data->kode_kpi}}</b><br>{{cek_kpi($data['kode_kpi'],$data['tahun'])['kpi']}}</td>
                                         <td>{{$data->target_tahunan}}</td>
                                         <td>{{$data->tahun}}</td>
-                                        <td>{{capaian($data->kode_kpi)}}</td>
-                                        <td>{{akumulasi($data->kode_kpi)}}</td>
+                                        <td>{{capaian($data->kode_kpi,$data->tahun)}}</td>
+                                        <td>{{akumulasi($data->kode_kpi,$data->tahun)}}</td>
                                         <td>{{cek_unit($data->kode_unit)['nama']}}</td>
                                         <td><a href="{{url('target/input-mandatori/'.$data['id'])}}"><span class="btn btn-primary btn-sm"><i class="fa fa-gear"></i></span></a></td>
                                     </tr>

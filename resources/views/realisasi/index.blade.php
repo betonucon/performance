@@ -72,7 +72,7 @@
                                         <td><b>{{$data->kode_unit}}</b><br>{{cek_unit($data->kode_unit)['nama']}}</td>
                                         <td><b>{{$data->kode_kpi}}</b><br>{{cek_kpi($data['kode_kpi'],$data['tahun'])['kpi']}}</td>
                                         <td>{{$data->target_tahunan}}</td>
-                                        <td>{{akumulasi($data->kode_kpi)}}</td>
+                                        <td>{{akumulasi($data->kode_kpi,$data->tahun)}}</td>
                                         <td>{{$data->tahun}}</td>
                                         <td><a href="{{url('realisasi/input/'.$data['id'])}}"><span class="btn btn-primary btn-sm"><i class="fa fa-gear"></i></span></a></td>
                                     </tr>

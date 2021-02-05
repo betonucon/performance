@@ -657,8 +657,8 @@ function cek_level($id){
     return $data['name'];
 }
 
-function capaian($id){
-    $net=App\Kpi::where('kode_kpi',$id)->first();
+function capaian($id,$tahun){
+    $net=App\Kpi::where('kode_kpi',$id)->where('tahun',$tahun)->first();
     $data=App\Capaian::where('id',$net['rumus_capaian'])->first();
 
     return $data['name'];
@@ -765,8 +765,8 @@ function akumulasi_all(){
     return $data;
 }
 
-function akumulasi($id){
-    $net=App\Kpi::where('kode_kpi',$id)->first();
+function akumulasi($id,$tahun){
+    $net=App\Kpi::where('kode_kpi',$id)->where('tahun',$tahun)->first();
     $data=App\Akumulasi::where('id',$net['rumus_akumulasi'])->first();
 
     return $data['name'];

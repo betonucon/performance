@@ -771,8 +771,8 @@ function akumulasi($id){
 
     return $data['name'];
 }
-function rumus_akumulasi($id){
-    $net=App\Kpi::where('kode_kpi',$id)->first();
+function rumus_akumulasi($id,$tahun){
+    $net=App\Kpi::where('kode_kpi',$id)->where('tahun',$tahun)->first();
 
     return $net['rumus_akumulasi'];
 }
@@ -787,8 +787,8 @@ function get_target($id){
 
     return $net;
 }
-function rumus_capaian($id){
-    $net=App\Kpi::where('kode_kpi',$id)->first();
+function rumus_capaian($id,$tahun){
+    $net=App\Kpi::where('kode_kpi',$id)->where('tahun',$tahun)->first();
 
     return $net['rumus_capaian'];
 }

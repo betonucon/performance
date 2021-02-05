@@ -21,8 +21,8 @@ class DeploymentImport implements ToModel, WithStartRow
             $data                     = Deployment::where('kode_unit',$row[0])->where('kode_kpi',$row[1])->where('tahun',$row[4])->first();
             $data->target_tahunan     = $row[2];
             $data->bobot_tahunan      = $row[3];
-            $data->rumus_capaian      = $kpii['rumus_capaian'];
-            $data->rumus_akumulasi    = $kpii['rumus_akumulasi'];
+            $data->rumus_capaian      = rumus_akumulasi($row[1],$row[4]);
+            $data->rumus_akumulasi    = rumus_capaian($row[1],$row[4]);
             $data->kode_unit_tingkat  = $row[5];
             $data->updated_at  = date('Y-m-d H:i:s');
             $data->save();
@@ -33,8 +33,8 @@ class DeploymentImport implements ToModel, WithStartRow
                 'target_tahunan'    => $row[2],
                 'bobot_tahunan'     => $row[3],
                 'tahun'             => $row[4],
-                'rumus_akumulasi'   => rumus_akumulasi($row[1]),
-                'rumus_capaian'     => rumus_capaian($row[1]),
+                'rumus_akumulasi'   => rumus_akumulasi($row[1],$row[4]),
+                'rumus_capaian'     => rumus_capaian($row[1],$row[4]),
                 'id_kpi_unix'       => $row[1].$row[4],
                 'kode_unit_tingkat' => $row[5],
                 'updated_at'         => date('Y-m-d H:i:s'),

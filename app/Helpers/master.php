@@ -1202,7 +1202,7 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
         }else{
             $nicap=$cap;
         }
-        $nil= round($nicap);
+        $nil= $nicap;
     }
 
     if($capaian==2){

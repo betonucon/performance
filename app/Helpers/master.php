@@ -1103,11 +1103,11 @@ function akumulasi_realisasi($id){
                 $tot+=$tar['realisasi'];
             }
             $to=$tot/$jumlah;
-            if($to>0){
+            // if($to>0){
                 $total=$tot/$jumlah;
-            }else{
-                $total=0;
-            }
+            // }else{
+            //     $total=0;
+            // }
         }
 
         if($data['rumus_akumulasi']==3){
@@ -1225,7 +1225,7 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
     }
     
     if($nil<0){
-        $nils=0;
+        $nils=$nil;
     }else{
         $nils=$nil;
     }

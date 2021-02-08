@@ -70,7 +70,7 @@
                                 <div class="col-md-6">
                                     
                                     <div class="form-group">
-                                        <label>Akumulasi</label>
+                                        <label>Akumulasi {{$data->rumus_akumulasi}}</label>
                                         <select name="rumus_akumulasi" class="form-control">
                                             @foreach(akumulasi_all() as $akumulasi)
                                                 <option value="{{$akumulasi->id}}" @if($akumulasi->id==$data->rumus_akumulasi) selected @endif>{{$akumulasi->name}}</option>
@@ -78,7 +78,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Capaian</label>
+                                        <label>Capaian {{$data->rumus_capaian}}</label>
                                         <select name="rumus_capaian" class="form-control">
                                             @foreach(capaian_all() as $capaian)
                                                 <option value="{{$capaian->id}}" @if($capaian->id==$data->rumus_capaian) selected @endif>{{$capaian->name}}</option>

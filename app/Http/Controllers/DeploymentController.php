@@ -102,6 +102,53 @@ class DeploymentController extends Controller
         }
     }
 
+    public function view_api_bobot(request $request){
+        error_reporting(0);
+        if($request->kode==''){
+            $data=Deployment::where('tahun',$request->tahun)->orderBy('id','Desc')->paginate(200);
+        }else{
+            $data=Deployment::where('tahun',$request->tahun)->where('kode_unit',$request->kode)->orderBy('id','Desc')->get();
+        }
+       
+        echo'
+            <style>
+                th{
+                    text-align:center;
+                    background:aqua;
+                    font-size:14px;
+                }
+                td{
+                    font-size:12px;
+                }
+            </style>
+            <table width="100%" >
+                <tr>
+                    <th>NO</th>
+                    <th>Kode KPI</th>
+                    <th>Unit Kerja</th>';
+                    for($b=1;$b<13;$b++){
+                        echo' <th>'.substr(bulan(bulan_db($b)),0,3).'</th>';
+                    }
+                echo'
+                </tr>';
+                foreach($data as $no=>$o){
+                    echo'
+                        <tr>
+                            <td>'.($no+1).'</td>
+                            <td>'.$o['kode_kpi'].'</td>
+                            <td>'.$o['kode_unit'].' '.cek_unit($o['kode_unit'])['nama'].'</td>';
+                            for($b=1;$b<13;$b++){
+                                echo' <td>'.cek_bobot($o['kode_unit'],$o['kode_kpi'],$o['tahun'],$b).'</td>';
+                            }
+                            echo'
+                        </tr>
+
+                    ';
+
+                }
+            echo'</table>
+        ';
+    }
     public function api_bobot(request $request){
         error_reporting(0);
         $data=Deployment::where('tahun',$request->tahun)->orderBy('id','Desc')->get();

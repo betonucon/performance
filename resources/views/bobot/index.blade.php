@@ -34,7 +34,6 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body" style="padding:10px">
-                    
                         <div class="mailbox-controls" style="background:#f8f8fb;margin-bottom:10px;margin-top:5px;margin-bottom:20px">
                             <div class="input-group ">
                                 <form method="post" id="mydata" action="{{url('/bobot/import_data_bobot')}}" enctype="multipart/form-data">
@@ -50,12 +49,22 @@
                             
                             </div>
                         </div>
-                    
-                        
-                        <table id="tabeldata" class="table table-bordered table-striped">
+                        <select id="tahun" onchange="cari_tahun(this.value)" class="form-control" style="width: 10%;display: inline;">
+                            @for($thn=2020;$thn<2030;$thn++)
+                                <option value="{{$thn}}" @if($thn==$tahun) selected @endif>{{$thn}}</option>
+                            @endfor
+                        </select>
+                        <select id="kode" onchange="cari_unit(this.value)" class="form-control" style="width: 30%;display: inline;">
+                            <option value="">Pilih Unit</option>
+                            @foreach(array_user() as $unit)
+                                <option value="{{$unit}}" @if($unit==$kode) selected @endif>{{cek_unit($unit)['nama']}}</option>
+                            @endforeach
+                        </select>
+                        <hr>
+                        <div id="tabeldata" >
                             
                             
-                        </table>
+                        </div>
                 
                 </div>
             </div>
@@ -130,155 +139,35 @@
     }  
 
     $(document).ready(function() {
-                
-                   
-
-                
-                var table = $('#tabeldata').DataTable({
-                    responsive: true,
-                    scrollY: "450px",
-                    scrollCollapse: true,
-                    ordering   : false,
-                    paging   : false,
-                    info   : false,
-                    oLanguage: {"sSearch": "<span class='btn btn-default btn sm'><i class='fa fa-search'></i></span>" },
-                    "ajax": {
-                        "type": "GET",
-                        "url": "{{url('/bobot/api_bobot?tahun='.$tahun)}}",
-                        "timeout": 120000,
-                        "dataSrc": function (json) {
-                            if(json != null){
-                                return json
-                            } else {
-                                return "No Data";
-                            }
-                        }
-                    },
-                    "sAjaxDataProp": "",
-                    "width": "100%",
-                    "order": [[ 4, "asc" ]],
-                    "aoColumns": [
-                        {
-                            "mData": null,
-                            "width":"5%",
-                            "title": "No",
-                            render: function (data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1;
-                            }
-                        },
-                        
-                        {
-                            "mData": null,
-                            "title": "Unit Kerja",
-                            "render": function (data, row, type, meta) {
-                                return '['+data.kode_unit+']'+data.name_unit;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Kode KPI",
-                            "render": function (data, row, type, meta) {
-                                return data.kode_kpi;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Jan",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Jan;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Feb",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Feb;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Mar",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Mar;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Apr",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Apr;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Mei",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Mei;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Jun",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Jun;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Jul",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Jul;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Ags",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Ags;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Sep",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Sep;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Okt",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Okt;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Nov",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Nov;
-                            }
-                        },
-                        {
-                            "mData": null,
-                            "title": "Des",
-                            "width":"4%",
-                            "render": function (data, row, type, meta) {
-                                return data.Des;
-                            }
-                        }
-                    ]
-                });
+       var tahun=$('#tahun').val();   
+        $.ajax({
+               type: 'GET',
+               url: "{{url('bobot/view_api_bobot')}}",
+               data: "tahun="+tahun,
+               beforeSend: function(){
+                    $("#tabeldata").html('<center>Proses Data.............</center>');
+               },
+               success: function(msg){
+                    $("#tabeldata").html(msg);
+                  
+               }
+           });
     });
+
+    function cari_unit(a){
+        var tahun=$('#tahun').val();   
+        $.ajax({
+               type: 'GET',
+               url: "{{url('bobot/view_api_bobot')}}",
+               data: "tahun="+tahun+"&kode="+a,
+               beforeSend: function(){
+                    $("#tabeldata").html('<center>Proses Data.............</center>');
+               },
+               success: function(msg){
+                    $("#tabeldata").html(msg);
+                  
+               }
+        });
+    }
 </script>
 @endpush

@@ -98,6 +98,7 @@ Route::group(['middleware'    => 'auth'],function(){
     Route::group(['prefix' => 'bobot'], function(){
         Route::get('/', 'DeploymentController@index_bobot');
         Route::get('/api_bobot', 'DeploymentController@api_bobot');
+        Route::get('/view_api_bobot', 'DeploymentController@view_api_bobot');
         Route::post('/import_data_bobot', 'DeploymentController@import_data_bobot');
     });
 

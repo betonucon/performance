@@ -133,7 +133,7 @@
                 
                    
 
-
+                
                 var table = $('#tabeldata').DataTable({
                     responsive: true,
                     scrollY: "450px",
@@ -144,7 +144,7 @@
                     oLanguage: {"sSearch": "<span class='btn btn-default btn sm'><i class='fa fa-search'></i></span>" },
                     "ajax": {
                         "type": "GET",
-                        "url": "{{url('/bobot/api_bobot/')}}",
+                        "url": "{{url('/bobot/api_bobot?tahun='.$tahun)}}",
                         "timeout": 120000,
                         "dataSrc": function (json) {
                             if(json != null){

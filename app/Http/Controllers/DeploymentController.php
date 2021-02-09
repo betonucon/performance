@@ -29,10 +29,14 @@ class DeploymentController extends Controller
         $judul='Deployment Non Mandatori';
         return view('deployment.index_non',compact('judul'));
     }
-    public function index_bobot(){
+    public function index_bobot(request $request){
         $judul='Master Bobot';
-        
-        return view('bobot.index',compact('judul'));
+        if($request->tahun==''){
+            $tahun=date('Y');
+        }else{
+            $tahun=$request->tahun;
+        }
+        return view('bobot.index',compact('judul','tahun'));
     }
     public function index_validasi(request $request){
         if($request->tahun==''){
@@ -98,9 +102,9 @@ class DeploymentController extends Controller
         }
     }
 
-    public function api_bobot(){
-        
-        $data=Deployment::orderBy('id','Desc')->get();
+    public function api_bobot(request $request){
+        error_reporting(0);
+        $data=Deployment::where('tahun',$request->tahun)->orderBy('id','Desc')->get();
         
         foreach($data as $o){
         

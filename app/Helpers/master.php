@@ -1075,8 +1075,8 @@ function akumulasi_target($id){
     
     }
     
-     
-    return $total;
+    $hasilnyaa=number_format($total,2,'.','');
+    return $hasilnyaa;
 }
 
 function akumulasi_realisasi($id){
@@ -1122,7 +1122,8 @@ function akumulasi_realisasi($id){
     }
     
      
-    return substr($total,0,8);
+    $hasilnyaa=number_format($total,2,'.','');
+    return $hasilnyaa;
 }
 
 function akumulasi_capaian($id,$target=null,$realisasi=null){
@@ -1227,7 +1228,9 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
     }else{
         $nils=$nil;
     }
-    return $nils;
+
+    $hasilnyaa=number_format($nils,2,'.','');
+    return $hasilnyaa;
 }
 
 function score($id,$capaian){

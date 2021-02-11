@@ -563,9 +563,9 @@ function deployment_realisasi($kode=null,$tahun=null){
 
 function deployment_realisasi_atasan($kode=null,$tahun=null){
     if($kode!=''){
-        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
+        $data=App\Deployment::where('status_id',4)->where('sts',0)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
     }else{
-        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
+        $data=App\Deployment::where('status_id',4)->where('sts',0)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
     }
     
 

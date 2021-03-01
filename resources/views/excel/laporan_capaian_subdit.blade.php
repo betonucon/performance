@@ -1,6 +1,6 @@
 <?php
-            // header("Content-type: application/vnd-ms-excel");
-            // header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit($kode)['nama'])."-".$tahun.".xls");
+            header("Content-type: application/vnd-ms-excel");
+            header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit($kode)['nama'])."-".$tahun.".xls");
         ?>
 <html>
     <head>  

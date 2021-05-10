@@ -51,6 +51,7 @@ class RealisasiController extends Controller
             $kode=$request->kode;
             $tahun=$request->tahun;
         }
+        // dd(array_unit_atasan_subdit($kode));
         
         
         return view('realisasi.laporan_subdit',compact('judul','kode','tahun'));

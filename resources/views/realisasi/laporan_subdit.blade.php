@@ -62,7 +62,7 @@
                         </div>
                         @foreach(array_unit_atasan_subdit($kode) as $kodediv)
                             <div style="width:100%;overflow-x:scroll;min-height:500px;padding:2%">
-                                <b>{{cek_unit($kodediv)['nama']}}</b>
+                                <b>{{cek_unit($kodediv)['nama']}} -{{$kode}}</b>
                                 <table  width="130%" >
                                     <thead>
                                         <tr>

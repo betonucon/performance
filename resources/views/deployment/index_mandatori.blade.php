@@ -36,13 +36,14 @@
                 <div class="box-body" style="padding:10px">
                     
                         <div class="input-group ">
-                            <!-- <form method="post" action="{{url('/deployment/import_data_mandatori')}}" enctype="multipart/form-data"> -->
-                            <form method="post" id="mydataini" enctype="multipart/form-data">
+                            <form method="post" action="{{url('/deployment/import_data_mandatori')}}" enctype="multipart/form-data">
+                            <!-- <form method="post" id="mydataini" enctype="multipart/form-data"> -->
                                 @csrf
                                 <div id="proses_upload_loading"></div>
                                 <input type="file" name="file"  style="width: 40%;" class="form-control" >    
                                 <span  id="upload" class="btn btn-primary btn-sm"   onclick="upload_data_unit()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-search"></i> Upload</span>
                                 <span  class="btn btn-default btn-sm" onclick="reload()"  style="margin-left:5px;margin-top:2px" ><i class="fa fa-refresh"></i> Reload</span>
+                                <input type="submit">
                             </form>
                         </div>
                         

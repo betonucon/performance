@@ -171,7 +171,7 @@
                                          @for($x=1;$x<13;$x++)
                                             <td>{{substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)}}%</th>
                                         @endfor
-                                        <td colspan="2" align="right">{{($score/total_bobot($kode,$tahun,$x))*100}}</td>
+                                        <td colspan="2" align="right">{{nilai_max(($score*100)/100)}}</td>
                                     </tr>
 
                                     <tr style="background:{{$color}}">
@@ -188,14 +188,14 @@
                                             
                                             <td>{{potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x))}}%</td>
                                         @endfor
-                                        <td colspan="2" align="right">{{($potongan/12)}}</td>
+                                        <td colspan="2" align="right">{{($potongan)}}</td>
                                     </tr>
                                     <tr style="background:{{$color}}">
                                         <td colspan="7">CAPAIAN AKHIR </td>
                                          @for($x=1;$x<13;$x++)
                                             <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
                                          @endfor
-                                        <td colspan="2" align="right">{{((($score/total_bobot($kode,$tahun,$x))*100)-($potongan/12))}}</td>
+                                         <td colspan="2" align="right">{{nilai_max((($score*100)-($potongan/12))/100)}}</td>
                                     </tr>
                                     @endif
                                 </tbody>
@@ -232,6 +232,7 @@
     function pdf(){
         var kode="{{$kode}}";
         var tahun="{{$tahun}}";
+        document.getElementById("loadnya").style.width = "100%";
         window.location.assign("{{url('/pdf/capaian')}}?kode="+kode+"&tahun="+tahun);
     }
     function excel(){
@@ -245,6 +246,8 @@
         if(kode==''){
             alert('Pilih Unit Kerja');
         }else{
+            
+            document.getElementById("loadnya").style.width = "100%";
             window.location.assign("{{url('/laporan/bertingkat/'.$id)}}?kode="+kode+"&tahun="+tahun);
         }
         

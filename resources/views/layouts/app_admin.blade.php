@@ -75,12 +75,39 @@
         }
       
     }
+    .loadnya {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1070;
+        top: 0;
+        left: 0;
+        background-color: rgb(0,0,0);
+        background-color: rgb(0 0 0 / 55%);
+        overflow-x: hidden;
+        transition: transform .9s;
+    }
+
+    .loadnya-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+        color:#fff;
+        font-size:20px;
+    }
   </style>
   
 </head>
 
 <body class="hold-transition skin-purple-light sidebar-mini">
-
+<div id="loadnya" class="loadnya">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class="loadnya-content">
+          <i class="fas fa-spinner fa-pulse"></i> Proses...........
+      </div>
+  </div>
 <div class="wrapper" style="background-color: #ecf0f5;">
 
   <header class="main-header" style="position: fixed;width: 100%;">

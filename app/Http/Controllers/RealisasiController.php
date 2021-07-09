@@ -246,7 +246,7 @@ class RealisasiController extends Controller
     }
 
     public function perhitungan(request $request){
-            echo hitung_capaian($request->capaian,$request->target,$request->realisasi);
+            echo hitung_capaian($request->capaian,$request->target,$request->realisasi,$request->tahun);
     }
 
     public function simpan_realisasi(request $request,$id){

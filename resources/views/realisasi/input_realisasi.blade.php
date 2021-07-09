@@ -95,7 +95,7 @@
                             <div class="col-md-1">
                                 <ul class="list-group list-group-unbordered" >
                                     @foreach(get_target($data['id']) as $target)
-                                        <li class="list-group-item" style="padding: 9px 0px 5px 7px;"><input type="text" disabled style="width:100%" value="{{hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])}}%"></li>
+                                        <li class="list-group-item" style="padding: 9px 0px 5px 7px;"><input type="text" disabled style="width:100%" value="{{hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'],$data['tahun'])}}%"></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -103,10 +103,10 @@
                                 <ul class="list-group list-group-unbordered" >
                                     @foreach(get_target($data['id']) as $target)
                                         <li class="list-group-item" style="padding: 5px 0px 5px 7px;">
-                                            @if(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])>95)
+                                            @if(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'],$data['tahun'])>95)
                                                 <a href="{{url('_file_upload/'.$target['file'])}}" target="_blank"><span class="btn btn-primary btn-sm"><i class="fa fa-file"></i></span></a>
                                                 <a class="pull-right"></a>
-                                            @elseif(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])==0)
+                                            @elseif(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'],$data['tahun'])==0)
                                                 @if($target['target']!=0 && $target['realisasi']!=0)
                                                 <a href="{{url('_file_upload/'.$target['file'])}}" target="_blank"><span class="btn btn-primary btn-sm"><i class="fa fa-file"></i></span></a>
                                                 <a class="pull-right">
@@ -185,19 +185,19 @@
                                 @if($data['rumus_capaian']==3)  
                                     <div class="form-group">
                                         <label>Realisasi {{$target['target']}}</label>
-                                        <input type="text"  name="realisasi" value="{{$target['realisasi']}}" class="form-control" readonly onchange="cek_realisasi(this.value,'{{$target['target']}}',{{$target['id']}})" id="datepicker_realisasi{{$target['id']}}">
+                                        <input type="text"  name="realisasi" value="{{$target['realisasi']}}" class="form-control" readonly onchange="cek_realisasi({{$data['tahun']}},this.value,'{{$target['target']}}',{{$target['id']}})" id="datepicker_realisasi{{$target['id']}}">
                                     </div>
                                 @endif
                                 
                                 @if($data['rumus_capaian']==2 || $data['rumus_capaian']==1 || $data['rumus_capaian']==4)
                                     <div class="form-group">
                                         <label>Realisasi</label>
-                                        <input type="text" name="realisasi" value="{{$target['realisasi']}}" onkeyup="cek_realisasi(this.value,{{$target['target']}},{{$target['id']}})" onkeypress="return hanyaAngka(event)" class="form-control">
+                                        <input type="text" name="realisasi" value="{{$target['realisasi']}}" onkeyup="cek_realisasi({{$data['tahun']}},this.value,{{$target['target']}},{{$target['id']}})" onkeypress="return hanyaAngka(event)" class="form-control">
                                     </div>
                                 @endif
                                 <div class="form-group">
                                     <label>Capaian</label>
-                                    <input type="text" readonly name="capaian" id="capaian{{$target['id']}}"  value="{{hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])}}" class="form-control">
+                                    <input type="text" readonly name="capaian" id="capaian{{$target['id']}}"  value="{{hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'],$data['tahun'])}}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>file</label>
@@ -302,14 +302,14 @@
         window.location.assign("{{url('/target')}}?kode={{$kode}}&tahun={{$tahun}}");
     }
 
-    function cek_realisasi(realisasi,target,id){
+    function cek_realisasi(tahun,realisasi,target,id){
         
         var akumulasi="{{$data['rumus_akumulasi']}}";
         var capaian="{{$data['rumus_capaian']}}";
         $.ajax({
             type: 'GET',
             url: "{{url('/realisasi/perhitungan')}}",
-            data: "id="+id+"&akumulasi="+akumulasi+"&capaian="+capaian+"&target="+target+"&realisasi="+realisasi,
+            data: "id="+id+"&akumulasi="+akumulasi+"&capaian="+capaian+"&target="+target+"&realisasi="+realisasi+"&tahun="+tahun,
             success: function(msg){
                 if(msg>95){
                     $("#masalah"+id).prop( "disabled", true );

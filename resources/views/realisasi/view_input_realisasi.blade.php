@@ -85,7 +85,7 @@
                             <div class="col-md-1">
                                 <ul class="list-group list-group-unbordered" >
                                     @foreach(get_target($data['id']) as $target)
-                                        <li class="list-group-item" style="padding: 9px 0px 5px 7px;"><input type="text" disabled style="width:100%" value="{{hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])}}%"></li>
+                                        <li class="list-group-item" style="padding: 9px 0px 5px 7px;"><input type="text" disabled style="width:100%" value="{{hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'],$data['tahun'])}}%"></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -93,10 +93,10 @@
                                 <ul class="list-group list-group-unbordered" >
                                     @foreach(get_target($data['id']) as $target)
                                         <li class="list-group-item" style="padding: 5px 0px 5px 7px;">
-                                            @if(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])>95)
+                                            @if(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'],$data['tahun'])>95)
                                                 <span class="btn btn-default btn-sm" disabled><i class="fa fa-check"></i></span>
                                                 <a class="pull-right"></a>
-                                            @elseif(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'])==0)
+                                            @elseif(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'],$data['tahun'])==0)
                                                 <span class="btn btn-default btn-sm" disabled><i class="fa fa-remove"></i></span>
                                                 <a class="pull-right"></a>
                                             @else

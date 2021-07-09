@@ -127,7 +127,7 @@
                                             <tr style="background:{{$color}}">
                                                 <td>C</td>
                                                 @foreach(get_target($data['id']) as $detail)
-                                                    <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</th>
+                                                    <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
                                                 @endforeach
                                                 <td>{{akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))}}</td>
                                             </tr>
@@ -183,9 +183,9 @@
                                             ?>
                                             @for($x=1;$x<13;$x++)
                                                 <?php $totbot+=total_bobot($kodediv,$tahun,$x); ?>
-                                                <td>{{substr(nilai_max((total_capaian($kodediv,$tahun,$x)/total_bobot($kodediv,$tahun,$x))*100),0,4)}}%</th>
+                                                <td>{{substr(nilai_max((total_capaian($kodediv,$tahun,$x)/total_bobot($kodediv,$tahun,$x))*100,$tahun),0,4)}}%</th>
                                             @endfor
-                                            <td colspan="2" align="right">{{nilai_max(($score*$totbot)/100)}}</td>
+                                            <td colspan="2" align="right">{{nilai_max(($score*$totbot)/100,$tahun)}}</td>
                                         </tr>
 
                                         <tr style="background:{{$color}}">
@@ -209,7 +209,7 @@
                                                 @for($x=1;$x<13;$x++)
                                                 <td></td>
                                                 @endfor
-                                            <td colspan="2" align="right">{{substr(nilai_max((($score/$totbot)*100)-($potongan/12)),0,5)}}</td>
+                                            <td colspan="2" align="right">{{substr(nilai_max((($score/$totbot)*100)-($potongan/12),$tahun),0,5)}}</td>
                                         </tr>
                                         @endif
                                     </tbody>

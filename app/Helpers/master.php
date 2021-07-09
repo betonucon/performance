@@ -791,8 +791,8 @@ function rumus_capaian($id,$tahun){
     return $net['rumus_capaian'];
 }
 
-function hitung_capaian($capaian,$target,$realisasi){
-
+function hitung_capaian($capaian,$target,$realisasi,$tahun){
+    $parameter=App\Parameter::where('tahun',$tahun)->first();
     if($capaian==3){
         if(is_null($target) || $target==0){
             $cap=100;
@@ -817,8 +817,8 @@ function hitung_capaian($capaian,$target,$realisasi){
             
         }
         
-        if($cap>120){
-            $nicap=120;
+        if($cap>$parameter['nilai']){
+            $nicap=$parameter['nilai'];
         }else{
             $nicap=$cap;
         }
@@ -839,8 +839,8 @@ function hitung_capaian($capaian,$target,$realisasi){
             }
         }
         
-        if($cap>120){
-            $nicap=120;
+        if($cap>$parameter['nilai']){
+            $nicap=$parameter['nilai'];
         }else{
             $nicap=$cap;
         }
@@ -874,8 +874,8 @@ function hitung_capaian($capaian,$target,$realisasi){
             
         }
         
-        if($cap>120){
-            $nicap=120;
+        if($cap>$parameter['nilai']){
+            $nicap=$parameter['nilai'];
         }else{
             $nicap=$cap;
         }
@@ -893,8 +893,8 @@ function hitung_capaian($capaian,$target,$realisasi){
             }
         }
         
-        if($cap>120){
-            $nicap=120;
+        if($cap>$parameter['nilai']){
+            $nicap=$parameter['nilai'];
         }else{
             $nicap=$cap;
         }
@@ -910,9 +910,10 @@ function hitung_capaian($capaian,$target,$realisasi){
     
 }
 
-function nilai_max($nil){
-    if($nil>120){
-        $tot=120;
+function nilai_max($nil,$tahun){
+    $param=App\Parameter::where('tahun',$tahun)->first();
+    if($nil>$param['nilai']){
+        $tot=$param['nilai'];
     }else{
         $tot=substr($nil,0,6);
     }
@@ -923,7 +924,7 @@ function total_capaian($kode,$tahun,$bulan){
     foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data){
         $detail=App\Target::where('deployment_id',$data['id'])->where('bulan',$bulan)->get();
         foreach($detail as $tar){
-           $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'])*cek_bobot($kode,$data['kode_kpi'],$tahun,$bulan);
+           $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'],$tahun)*cek_bobot($kode,$data['kode_kpi'],$tahun,$bulan);
         }
     }
     $hsl=$total/100;
@@ -935,7 +936,7 @@ function total_capaian_mandatori($tahun,$bulan){
     foreach(deployment_realisasi_atasan_mandatori($tahun) as $no=>$data){
         $detail=App\Target::where('deployment_id',$data['id'])->where('bulan',$bulan)->get();
         foreach($detail as $tar){
-           $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'])*($data['bobot_tahunan']/100);
+           $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'],$tahun)*($data['bobot_tahunan']/100);
         }
     }
      
@@ -1041,6 +1042,7 @@ function akumulasi_target($id){
     $data=App\Deployment::where('id',$id)->first();
     $detail=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->get();
     $jumlah=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->count();
+    $parameter=App\Parameter::where('tahun',$data['tahun'])->first();
 
     if($data['rumus_capaian']==3){
         $total=0;

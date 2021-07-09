@@ -124,7 +124,7 @@
                                         <tr style="background:{{$color}}">
                                             <td>C</td>
                                             @foreach(get_target($data['id']) as $detail)
-                                                <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</th>
+                                                <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
                                             @endforeach
                                             <td>{{akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))}}</td>
                                         </tr>
@@ -171,7 +171,7 @@
                                          @for($x=1;$x<13;$x++)
                                             <td>{{substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)}}%</th>
                                         @endfor
-                                        <td colspan="2" align="right">{{nilai_max(($score*100)/100)}}</td>
+                                        <td colspan="2" align="right">{{nilai_max(($score*100)/100,$tahun)}}</td>
                                     </tr>
 
                                     <tr style="background:{{$color}}">

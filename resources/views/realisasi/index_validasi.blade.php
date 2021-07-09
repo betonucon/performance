@@ -113,7 +113,7 @@
                                         <tr style="background:{{$color}}">
                                             <td>C</td>
                                             @foreach(get_target($data['id']) as $detail)
-                                                <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</th>
+                                                <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
                                             @endforeach
                                             <td>{{akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))}}</td>
                                         </tr>
@@ -171,9 +171,9 @@
                                         ?>
                                         @for($x=1;$x<13;$x++)
                                             <?php $totbot+=total_bobot($kode,$tahun,$x); ?>
-                                            <td>{{nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100)}}%</th>
+                                            <td>{{nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,$tahun)}}%</th>
                                         @endfor
-                                        <td colspan="2" align="right">{{nilai_max(($score*100)/100)}}</td>
+                                        <td colspan="2" align="right">{{nilai_max(($score*100)/100,$tahun)}}</td>
                                     </tr>
 
                                     <tr style="background:{{$color}}">
@@ -190,12 +190,12 @@
                                             
                                             <td>{{potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x))}}%</td>
                                         @endfor
-                                        <td colspan="2" align="right">{{nilai_max($potongan/12)}}</td>
+                                        <td colspan="2" align="right">{{nilai_max($potongan/12,$tahun)}}</td>
                                     </tr>
                                     <tr style="background:{{$color}}">
                                         <td colspan="6">CAPAIAN AKHIR </td>
                                          @for($x=1;$x<13;$x++)
-                                            <td>{{(nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
+                                            <td>{{(nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,$tahun)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
                                          @endfor
                                         <td colspan="2" align="right">{{nilai_max((($score*100)-($potongan/12))/100)}}</td>
                                     </tr>

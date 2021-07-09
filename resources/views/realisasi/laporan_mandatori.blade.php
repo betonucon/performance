@@ -110,7 +110,7 @@
                                         <tr style="background:{{$color}}">
                                             <td>C</td>
                                             @foreach(get_target($data['id']) as $detail)
-                                                <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'])}}%</th>
+                                                <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
                                             @endforeach
                                             <td>{{akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))}}</td>
                                         </tr>

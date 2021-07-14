@@ -98,7 +98,7 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                             @foreach(get_target($data['id']) as $detail)
                                 <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
                             @endforeach
-                            <td>{{akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id']))}}</td>
+                            <td>{{nilai_max(akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])),$tahun)}}</td>
                         </tr>
                         <tr style="background:yellow">
                             <td>B</td>

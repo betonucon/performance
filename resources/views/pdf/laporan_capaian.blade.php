@@ -39,7 +39,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2" width="5%">Kode KPI</th>
-                        <th rowspan="2" width="14%" >Nama KPI</th>
+                        <th rowspan="2" width="9%" >Nama KPI</th>
                         <th rowspan="2" width="4%">Ket</th>
                         <th rowspan="2" width="4%">Target</th>
                         <th rowspan="2" width="6%">Satuan</th>

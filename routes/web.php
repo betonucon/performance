@@ -66,6 +66,7 @@ Route::group(['middleware'    => 'auth'],function(){
         Route::get('/mandatori', 'DeploymentController@index_mandatori');
         Route::get('/non', 'DeploymentController@index_non');
         Route::get('/edit/{id}', 'DeploymentController@edit');
+        Route::get('/hapus/{id}', 'DeploymentController@hapus');
         Route::get('/edit_mandatori/{id}', 'DeploymentController@edit_mandatori');
         Route::post('/simpan/{id}', 'DeploymentController@simpan');
         Route::post('/import_data/', 'DeploymentController@import_data');

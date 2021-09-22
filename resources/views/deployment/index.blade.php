@@ -77,7 +77,10 @@
                                         <td>{{capaian($data->rumus_capaian)}}</td>
                                         <td>{{akumulasi($data->rumus_akumulasi)}}</td>
                                         <td>{{$data->updated_at}}</td>
-                                        <td><a href="{{url('deployment/edit/'.$data['id'])}}"><span class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></span></a></td>
+                                        <td>
+                                            <a href="{{url('deployment/edit/'.$data['id'])}}"><span class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></span></a>/
+                                            <a href="{{url('deployment/hapus/'.$data['id'])}}"><span class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></span></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

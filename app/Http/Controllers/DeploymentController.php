@@ -52,6 +52,10 @@ class DeploymentController extends Controller
         $data=Deployment::where('id',$id)->first();
         return view('deployment.edit',compact('judul','data','id'));
     }
+    public function hapus($id){
+        $data=Deployment::where('id',$id)->delete();
+        return redirect('deployment');
+    }
     public function edit_validasi(request $request){
         $judul='Ubah Tanggal Validasi';
         $kode=$request->kode;

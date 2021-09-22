@@ -60,7 +60,7 @@
                                     
                                     <div class="form-group">
                                         <label>Nama Unit</label>
-                                        <input type="text" readonly name="nama" value="{{$data['nama']}}" class="form-control">
+                                        <input type="text"  name="name" value="{{$data['nama']}}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Nik Atasan</label>
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Nama Atasan</label>
-                                        <input type="text" readonly name="nama_atasan" id="nama_atasan" value="{{$data['nama_atasan']}}" class="form-control">
+                                        <input type="text" readonly name="nama_atasan" id="nama_atasan" value="{{$data->user['name']}}" class="form-control">
                                     </div>
                                 </div>
                             </form>

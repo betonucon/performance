@@ -153,6 +153,7 @@ class UnitController extends Controller
         else{
             $data            =   Unit::find($id);
             $data->nik       =   $request->nik;
+            $data->nama       =   $request->name;
             $data->nik_atasan=   $request->nik_atasan;
             $data->nama_pic  =   $request->nama_pic;
             $data->nama_atasan  =   $request->nama_atasan;

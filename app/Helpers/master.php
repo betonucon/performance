@@ -1226,12 +1226,12 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
     }
     
     if($nil<0){
-        $nils=$nil;
+        $alhasil=0;
     }else{
-        $nils=$nil;
+        $alhasil=$nil;
     }
 
-    $hasilnyaa=number_format($nils,2,'.','');
+    $hasilnyaa=number_format($alhasil,2,'.','');
     return $hasilnyaa;
 }
 

@@ -1201,7 +1201,7 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
                 if($target<0 && $realisasi>0){
                     $cap=1+(((($target)-($realisasi))/($target))*100);
                 }else{
-                    $cap=1-(((($target)-($realisasi))/($target))*100);
+                    $cap=(1-((($target)-($realisasi))/($target)))*100;
                 }
                     
                 

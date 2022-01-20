@@ -1070,12 +1070,8 @@ function akumulasi_target($id){
 
         if($data['rumus_akumulasi']==3){
             // $prog=App\Target::where('deployment_id',$id)->where('target','!=',0)->orderBy('id','desc')->firstOrFail();
-            $datar  = array_column(
-                App\Target::where('deployment_id',$id)->where('realisasi','!=',0)
-                ->get()
-                ->toArray(),'target'
-            );
-            $max=max($datar);
+            $datar  =App\Target::where('deployment_id',$id)->orderBy('id','Desc')->firstOrfail();
+            $max=$datar['target'];
             $total=$max;
         } 
     
@@ -1116,12 +1112,8 @@ function akumulasi_realisasi($id){
 
         if($data['rumus_akumulasi']==3){
             // $prog=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->orderBy('id','desc')->firstOrFail();
-            $datar  = array_column(
-                App\Target::where('deployment_id',$id)->where('realisasi','!=',0)
-                ->get()
-                ->toArray(),'realisasi'
-            );
-            $max=max($datar);
+            $datar  =App\Target::where('deployment_id',$id)->orderBy('id','Desc')->firstOrfail();
+            $max=$datar['realisasi'];
             $total=$max;
         } 
     
@@ -1134,6 +1126,7 @@ function akumulasi_realisasi($id){
 
 function akumulasi_capaian($id,$target=null,$realisasi=null){
     $data=App\Deployment::where('id',$id)->first();
+    $akumulasi=$data['rumus_akumulasi'];
     $capaian=$data['rumus_capaian'];
     if($capaian==3){
         if(is_null($target) || $target==0){

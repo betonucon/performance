@@ -791,6 +791,10 @@ function rumus_capaian($id,$tahun){
     return $net['rumus_capaian'];
 }
 
+function max_nilai_tahunan($tahun){
+    $parameter=App\Parameter::where('tahun',$tahun)->first();
+    return $parameter['nilai'];
+}
 function hitung_capaian($capaian,$target,$realisasi,$tahun){
     $parameter=App\Parameter::where('tahun',$tahun)->first();
     if($capaian==3){
@@ -1155,8 +1159,8 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
             
         }
         
-        if($cap>120){
-            $nicap=120;
+        if($cap>max_nilai_tahunan($data['tahun'])){
+            $nicap=max_nilai_tahunan($data['tahun']);
         }else{
             $nicap=$cap;
         }
@@ -1171,14 +1175,14 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
         }else{
             $expld=explode("-",$target);
             if($expld[0]>$realisasi){
-                $cap=(1-(($expld[0]-$realisasi)/$expld[0]))*100;
+                $cap=(1-((($expld[0])-$realisasi)/($expld[0])))*100;
             }else{
-                $cap=(1-(($realisasi-$expld[1])/$expld[1]))*100;
+                $cap=(1-((($realisasi)-($expld[1]))/($expld[1])))*100;
             }
         }
         
-        if($cap>120){
-            $nicap=120;
+        if($cap>max_nilai_tahunan($data['tahun'])){
+            $nicap=max_nilai_tahunan($data['tahun']);
         }else{
             $nicap=$cap;
         }
@@ -1194,12 +1198,18 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
             if($realisasi==0){
                 $cap=0;
             }else{
-                 $cap=(1-(($target-$realisasi)/$target))*100;
+                if($target<0 && $realisasi>0){
+                    $cap=1+(((($target)-($realisasi))/($target))*100);
+                }else{
+                    $cap=1-(((($target)-($realisasi))/($target))*100);
+                }
+                    
+                
             }
         }
         
-        if($cap>120){
-            $nicap=120;
+        if($cap>max_nilai_tahunan($data['tahun'])){
+            $nicap=max_nilai_tahunan($data['tahun']);
         }else{
             $nicap=$cap;
         }
@@ -1213,25 +1223,34 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
             if($realisasi==0){
                 $cap=0;
             }else{
-                 $cap=(1+(($target-$realisasi)/$target))*100;
+                 $cap=(1+((($target)-($realisasi))/($target)))*100;
             }
         }
         
-        if($cap>120){
-            $nicap=120;
+        if($cap>max_nilai_tahunan($data['tahun'])){
+            $nicap=max_nilai_tahunan($data['tahun']);
         }else{
             $nicap=$cap;
         }
         $nil= round($nicap);
     }
     
-    if($nil<0){
-        $alhasil=0;
+    if($nil>0){
+        $nilakhir=$nil;
     }else{
-        $alhasil=$nil;
+        $nilakhir=0;
     }
 
-    $hasilnyaa=number_format($alhasil,2,'.','');
+    return nilai_normal($nilakhir);
+}
+
+function nilai_normal($nilai){
+    $sisa=explode('.',$nilai);
+    if(count($sisa)>1){
+        $hasilnyaa=number_format($nilai,2,'.','');
+    }else{
+        $hasilnyaa=$nilai;
+    }
     return $hasilnyaa;
 }
 

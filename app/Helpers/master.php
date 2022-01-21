@@ -1053,32 +1053,26 @@ function akumulasi_target($id){
     }else{
         if($data['rumus_akumulasi']==1){
             
-            $total=0;
-            foreach($detail as $tar){
-                $total+=$tar['target'];
-            }
+            $sumx  =App\Target::where('deployment_id',$id)->sum('target');
+            $total=$sumx;
         } 
 
         if($data['rumus_akumulasi']==2){
-            $bagi=App\Target::where('deployment_id',$id)->where('target','!=',0)->count();
-            $tot=0;
-            foreach($detail as $tar){
-                $tot+=$tar['target'];
-            }
-            $total=$tot/$jumlah;
+            $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->count();
+            $sumx  =App\Target::where('deployment_id',$id)->sum('target');
+            $total=$sumx/$datar;
         }
 
         if($data['rumus_akumulasi']==3){
-            // $prog=App\Target::where('deployment_id',$id)->where('target','!=',0)->orderBy('id','desc')->firstOrFail();
-            $datar  =App\Target::where('deployment_id',$id)->orderBy('id','Desc')->firstOrfail();
+            $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->orderBy('id','Desc')->firstOrfail();
             $max=$datar['target'];
             $total=$max;
         } 
     
     }
     
-    $hasilnyaa=number_format($total,2,'.','');
-    return $hasilnyaa;
+    
+    return nilai_normal($total);
 }
 
 function akumulasi_realisasi($id){
@@ -1098,21 +1092,14 @@ function akumulasi_realisasi($id){
         } 
 
         if($data['rumus_akumulasi']==2){
-            $tot=0;
-            foreach($detail as $tar){
-                $tot+=$tar['realisasi'];
-            }
-            $to=$tot/$jumlah;
-            // if($to>0){
-                $total=$tot/$jumlah;
-            // }else{
-            //     $total=0;
-            // }
+            $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->count();
+            $sumx  =App\Target::where('deployment_id',$id)->sum('realisasi');
+            $total=$sumx/$datar;
         }
 
         if($data['rumus_akumulasi']==3){
             // $prog=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->orderBy('id','desc')->firstOrFail();
-            $datar  =App\Target::where('deployment_id',$id)->orderBy('id','Desc')->firstOrfail();
+            $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->orderBy('id','Desc')->firstOrfail();
             $max=$datar['realisasi'];
             $total=$max;
         } 
@@ -1121,7 +1108,7 @@ function akumulasi_realisasi($id){
     
      
     $hasilnyaa=number_format($total,2,'.','');
-    return $hasilnyaa;
+    return nilai_normal($total);
 }
 
 function akumulasi_capaian($id,$target=null,$realisasi=null){
@@ -1239,10 +1226,21 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
 
 function nilai_normal($nilai){
     $sisa=explode('.',$nilai);
-    if(count($sisa)>1){
-        $hasilnyaa=number_format($nilai,2,'.','');
-    }else{
+    $karak=strlen($sisa[1]);
+    if($karak==0){
         $hasilnyaa=$nilai;
+        
+    }else{
+        if($karak==1){
+            $hasilnyaa=$nilai;
+        }
+        if($karak==2){
+            $hasilnyaa=number_format($nilai,2,'.','');
+        }
+        if($karak>2){
+            $hasilnyaa=number_format($nilai,3,'.','');
+        }
+        
     }
     return $hasilnyaa;
 }

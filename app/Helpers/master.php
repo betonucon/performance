@@ -1058,15 +1058,28 @@ function akumulasi_target($id){
         } 
 
         if($data['rumus_akumulasi']==2){
-            $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->count();
-            $sumx  =App\Target::where('deployment_id',$id)->sum('target');
-            $total=$sumx/$datar;
+            $cek=App\Target::where('deployment_id',$id)->where('realisasi','>',0)->count();
+            if($cek>0){
+                $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->count();
+                $sumx  =App\Target::where('deployment_id',$id)->sum('target');
+                $total=$sumx/$datar;
+            }else{
+                $total=0;
+            }
         }
 
         if($data['rumus_akumulasi']==3){
-            $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->orderBy('id','Desc')->firstOrfail();
-            $max=$datar['target'];
-            $total=$max;
+            $cek=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->count();
+            
+
+            if($cek>0){
+                $cekdata=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->orderBy('id')->max('id');
+                $datar  =App\Target::where('id',$cekdata)->first();
+                $total=$datar['target'];
+            }else{
+                $total=0;
+            }
+           
         } 
     
     }
@@ -1098,10 +1111,14 @@ function akumulasi_realisasi($id){
         }
 
         if($data['rumus_akumulasi']==3){
-            // $prog=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->orderBy('id','desc')->firstOrFail();
-            $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->orderBy('id','Desc')->firstOrfail();
-            $max=$datar['realisasi'];
-            $total=$max;
+            $cek=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->count();
+            if($cek>0){
+                $cekdata=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->orderBy('id')->max('id');
+                $datar  =App\Target::where('id',$cekdata)->first();
+                $total=$datar['realisasi'];
+            }else{
+                $total=0;
+            }
         } 
     
     }

@@ -94,6 +94,7 @@ header("Content-Disposition: attachment; filename=KPI MANDATORI-".$tahun.".xls")
                                 <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
                             @endforeach
                             <td>{{round(akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])),1)}}</td>
+                            
                         </tr>
                     @endforeach
                         <tr style="background:{{$color}}">

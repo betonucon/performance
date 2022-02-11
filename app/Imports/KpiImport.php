@@ -21,6 +21,7 @@ class KpiImport implements ToModel, WithStartRow
             $data->kpi  = $row[1];
             $data->rumus_capaian  = $row[4];
             $data->rumus_akumulasi  = $row[5];
+            $data->pilar  = $row[7];
             $data->save();
         }else{
             return new Kpi([
@@ -33,6 +34,7 @@ class KpiImport implements ToModel, WithStartRow
                 'deskripsi'             => $row[2],
                 'keterangan'            => $row[2],
                 'waktu'                 => date('Y-m-d H:i:s'),
+                'pilar'            => $row[7],
                 
                 
             ]);

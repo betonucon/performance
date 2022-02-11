@@ -8,6 +8,6 @@ class Kpi extends Model
 {
     protected $table = 'kpis';
     public $timestamps = false;
-    protected $fillable = ['kode_kpi','kpi','satuan','rumus_capaian','rumus_akumulasi','deskripsi','keterangan','waktu','tahun'];
+    protected $fillable = ['kode_kpi','kpi','satuan','rumus_capaian','rumus_akumulasi','deskripsi','keterangan','waktu','tahun','pilar'];
 
 }

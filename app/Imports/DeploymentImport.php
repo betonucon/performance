@@ -24,6 +24,7 @@ class DeploymentImport implements ToModel, WithStartRow
             $data->rumus_capaian      = rumus_capaian($row[1],$row[4]);
             $data->rumus_akumulasi    = rumus_akumulasi($row[1],$row[4]);
             $data->kode_unit_tingkat  = $row[5];
+            $data->pilar  = $row[8];
             $data->updated_at  = date('Y-m-d H:i:s');
             $data->save();
         }else{
@@ -41,6 +42,7 @@ class DeploymentImport implements ToModel, WithStartRow
                 'level' => $row[6],
                 'sts' => $row[7],
                 'status_id' => 1,
+                'pilar'     => $row[8],
             ]);
         }
     }

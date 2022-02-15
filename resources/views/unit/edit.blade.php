@@ -53,6 +53,15 @@
                                         <label>Nama PIC</label>
                                         <input type="text" readonly name="nama_pic" id="nama_pic" value="{{$data['nama_pic']}}" class="form-control">
                                     </div>
+                                    <div class="form-group">
+                                        <label>Kategori Unit</label>
+                                        <select name="unit_id" id="unit_id" value="{{$data['unit_id']}}" class="form-control">
+                                            <option value="">Pilih -----</option>
+                                            @foreach($level as $lev)
+                                                <option value="{{$lev->id}}" @if($lev['id']==$data['unit_id']) selected @endif>{{$lev['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     
                                 </div>
                                 <!-- /.col -->

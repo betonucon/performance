@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Unit;
 use App\User;
+use App\Level;
 use App\Hasrole;
 use Session;
 
@@ -26,7 +27,8 @@ class UnitController extends Controller
     public function edit($id){
         $judul='Unit Kerja';
         $data=Unit::where('id',$id)->first();
-        return view('unit.edit',compact('judul','data','id'));
+        $level=Level::whereIn('id',array('1','3','5'))->get();
+        return view('unit.edit',compact('judul','data','level','id'));
     }
     public function edit_tingkatan($id){
         $judul='Unit Kerja';
@@ -156,6 +158,7 @@ class UnitController extends Controller
             $data->nama       =   $request->name;
             $data->nik_atasan=   $request->nik_atasan;
             $data->nama_pic  =   $request->nama_pic;
+            $data->unit_id  =   $request->unit_id;
             $data->nama_atasan  =   $request->nama_atasan;
             $data->save();
 

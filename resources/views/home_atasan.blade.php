@@ -108,13 +108,38 @@
        </div>
     </div>
 </section>
-
+<div class="modal modal-dfeault fade" id="modalpengumuman">
+    <div class="modal-dialog " style="width:90%">
+        <div class="modal-content" style="margin-top:-10px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                    <button type="button" class="btn btn-success pull-left" data-dismiss="modal">Tutup</button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="{{url('icon/edaran2022.pdf')}}" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+            
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 
 @endsection
 
-
+@push('simpan')
 <script>
+    $(document).ready(function() {
+        $('#modalpengumuman').modal('show');
+
+    });
     function cari(){
         var bulan=$('#bulan').val();
         var tahun=$('#tahun').val();
@@ -125,5 +150,6 @@
 
 
 </script>
+@endpush
 
 

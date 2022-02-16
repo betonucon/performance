@@ -77,7 +77,7 @@
             </div>
             <div class="modal-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="{{url('icon/edaran.pdf')}}" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" src="{{url('icon/edaran2022.pdf')}}" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="modal-footer">

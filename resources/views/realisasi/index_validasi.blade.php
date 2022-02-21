@@ -83,7 +83,7 @@
                                         <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
                                         <?php if($no%2==0){$color="#fff";}else{$color="#f9f4fb";} ?>
                                         <tr style="background:{{$color}}">
-                                            <td rowspan="4">{{$data->kode_kpi}}</td>
+                                            <td rowspan="4">@if($data->sts=='0')<i class="fa fa-check"></i> &nbsp;&nbsp;@endif {{$data->kode_kpi}}</td>
                                             <td rowspan="4">{{cek_kpi($data->kode_kpi,$data['tahun'])['kpi']}}</td>
                                             <td rowspan="4" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
                                             <td rowspan="4">{{$data->target_tahunan}}</td>
@@ -138,7 +138,7 @@
                                                 <span class="btn btn-success btn-xs" id="validasi_bulanan{{$x}}" onclick="proses_validasi_bulanan('{{$kode}}','{{$x}}','{{$tahun}}')">Validasi</span>
                                                 <div id="not_validasi_bulanan{{$x}}"></div>
                                                 @else
-                                                    {{array_deploymen_target($kode,$tahun,$x)}}-
+                                                    {!!array_deploymen_target($kode,$tahun,$x)!!}-
                                                     {{array_deploymen_realisasi($kode,$tahun,$x)}}
                                                 @endif
                                             @endif

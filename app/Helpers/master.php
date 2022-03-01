@@ -418,7 +418,10 @@ function array_deploymen_target($kode,$tahun,$bulan){
      );
 
      $target=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->where('target','!=',0)->count();
+     
      return $target;
+    // $data  = App\Deployment::where('kode_unit',$kode)->where('sts',0)->where('tahun',$tahun)->count();
+    // return $data;
 }
 function array_deploymen_target_val($kode,$tahun,$bulan){
     $data  = array_column(
@@ -561,11 +564,11 @@ function deployment_realisasi($kode=null,$tahun=null){
     return $data;
 }
 
-function deployment_realisasi_atasan($kode=null,$tahun=null){
+function deployment_realisasi_atasan($kode=null,$tahun=null,$pilar=null){
     if($kode!=''){
-        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
+        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('pilar',$pilar)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
     }else{
-        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
+        $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('pilar',$pilar)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();
     }
     
 
@@ -1042,6 +1045,11 @@ function potongan($tgl,$tahun,$bulan,$cap){
     return $potong;
 }
 
+function pilar($kode,$tahun){
+    $data=App\Deployment::select('pilar')->where('kode_unit',$kode)->where('tahun',$tahun)->groupBy('pilar')->orderBy('pilar','Asc')->get();
+    return $data;
+}
+
 function akumulasi_target($id){
     $data=App\Deployment::where('id',$id)->first();
     $detail=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->get();
@@ -1053,12 +1061,12 @@ function akumulasi_target($id){
     }else{
         if($data['rumus_akumulasi']==1){
             
-            $sumx  =App\Target::where('deployment_id',$id)->sum('target');
+            $sumx  =App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->sum('target');
             $total=$sumx;
         } 
 
         if($data['rumus_akumulasi']==2){
-            $cek=App\Target::where('deployment_id',$id)->where('realisasi','>',0)->count();
+            $cek=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->count();
             if($cek>0){
                 $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->count();
                 $sumx  =App\Target::where('deployment_id',$id)->sum('target');
@@ -1105,9 +1113,13 @@ function akumulasi_realisasi($id){
         } 
 
         if($data['rumus_akumulasi']==2){
-            $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->count();
-            $sumx  =App\Target::where('deployment_id',$id)->sum('realisasi');
-            $total=$sumx/$datar;
+            $datar  =App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->count();
+            if($datar>0){
+                $sumx  =App\Target::where('deployment_id',$id)->sum('realisasi');
+                $total=$sumx/$datar;
+            }else{
+                $total='0';
+            }
         }
 
         if($data['rumus_akumulasi']==3){

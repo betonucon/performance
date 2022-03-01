@@ -83,10 +83,18 @@
                                         </tr>
                                     </thead>
                                     @if(cek_deployment_realisasi_atasan($kodediv,$tahun)>0)
-                                    <tbody>
+                                    @foreach(pilar($kode,$tahun) as $nx=>$pil)
+                                        <thead>
+                                            <tr>
+                                                <th>{{$pil->pilar}}</th>
+                                                <th colspan="19" style="text-align:left;text-transform:uppercase">{{$pil->pilarnya['name']}}</th>
+                                            </tr>
+                                        </thead>
+                                
+                                        <tbody>
                                     
                                         <?php $score=0; ?>
-                                        @foreach(deployment_realisasi_atasan($kodediv,$tahun) as $no=>$data)
+                                        @foreach(deployment_realisasi_atasan($kodediv,$tahun,$pil->pilar) as $no=>$data)
                                             <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
                                         <?php 
                                         if($data['sts']==1){
@@ -138,6 +146,7 @@
                                                 @endforeach
                                                 <td></td>
                                             </tr>
+                                        @endforeach
                                         @endforeach
                                         @if($kodediv!='')
                                         <tr style="background:{{$color}}">

@@ -53,9 +53,16 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                         @endfor
                     </tr>
                 </thead>
+                @foreach(pilar($kode,$tahun) as $nx=>$pil)
+                <thead>
+                    <tr>
+                        <th>{{$pil->pilar}}</th>
+                        <th colspan="19" style="text-align:left;text-transform:uppercase">{{$pil->pilarnya['name']}}</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <?php $score=0; ?>
-                    @foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data)
+                    @foreach(deployment_realisasi_atasan($kode,$tahun,$pil->pilar) as $no=>$data)
                         <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
                         <?php 
                             if($data['sts']==1){
@@ -107,6 +114,7 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                             @endforeach
                             <td></td>
                         </tr>
+                    @endforeach
                     @endforeach
                     @if($kode!='')
                     

@@ -142,7 +142,7 @@ class DeploymentController extends Controller
                             <td>'.$o['kode_kpi'].'</td>
                             <td>'.$o['kode_unit'].' '.cek_unit($o['kode_unit'])['nama'].'</td>';
                             for($b=1;$b<13;$b++){
-                                echo' <td>'.cek_bobot($o['kode_unit'],$o['kode_kpi'],$o['tahun'],$b).'</td>';
+                                echo' <td>'.cek_bobot($o['kode_unit'],$o['id'],$o['tahun'],$b).'</td>';
                             }
                             echo'
                         </tr>

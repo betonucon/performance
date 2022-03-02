@@ -10,8 +10,9 @@
                 border-collapse:collapse;
             }
             th{
-                padding:3px;
+                padding:5px;
                 color: #fff;
+                border:solid 1px #000;
                 text-align:center;
                 font-size: 9px;
                 font-family: sans-serif;
@@ -20,10 +21,11 @@
             }
             td{
                 padding:5px;
-                color: #575282;
+                color: #000;
                 font-size: 9px;
                 font-family: sans-serif;
                 vertical-align:top;
+                border:solid 1px #000;
             }
             .cont{
                 margin-top: 30px;
@@ -37,7 +39,7 @@
         <div class="cont">
             <center><h3>LAPORAN CAPAIAN PERIODE {{$tahun}}<br>{{cek_unit($kode)['nama']}}</h3></center>
             <table  width="100%" border="1" >
-                <thead>
+                
                     <tr>
                         <th rowspan="2" width="5%">Kode KPI</th>
                         <th rowspan="2" width="9%" >Nama KPI</th>
@@ -54,15 +56,16 @@
                         <th width="4%">{{$x}}</th>
                         @endfor
                     </tr>
-                </thead>
+                
                 @foreach(pilar($kode,$tahun) as $nx=>$pil)
-                <thead>
+                
+                    
+                
+                <tbody>
                     <tr>
-                        <th style="background: #aaaacb; text-align: left; color: #000; text-transform: uppercase;">{{$pil->pilar}}</th>
+                        <th style="background: #aaaacb; text-align: center; color: #000; text-transform: uppercase;">{{$pil->pilar}}</th>
                         <th colspan="19" style="background: #aaaacb; text-align: left; color: #000; text-transform: uppercase;">{{$pil->pilarnya['name']}}</th>
                     </tr>
-                </thead>
-                <tbody>
                     <?php $score=0; ?>
                     @foreach(deployment_realisasi_atasan($kode,$tahun,$pil->pilar) as $no=>$data)
                         <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
@@ -89,7 +92,7 @@
                                     @endif
                                 @endforeach
                             <td>{{number_format(akumulasi_target($data['id']),2)}}</td>
-                            <td rowspan="3">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
+                            <td rowspan="4">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
                         </tr>
                         <tr style="background:{{$color}}">
                         <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
@@ -118,6 +121,18 @@
                                 <td>{{hitung_capaian($data['id'],$detail['target'],$detail['realisasi'],$tahun)}}%</td>
                             @endforeach
                             <td>{{nilai_max(akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])),$tahun)}}</td>
+                        </tr>
+                        <tr style="background:{{$color}}">
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td style="border-top:solid 0px #fff;border-bottom:solid 0px #fff;"></td>
+                            <td>B</td>
+                            @foreach(get_target($data['id']) as $detail)
+                                <td>{{bobot_bulanan($data['kode_unit'],$data['kode_kpi'],$data['tahun'],$detail['bulan'])}}</td>
+                            @endforeach
+                            <td></td>
                         </tr>
                     @endforeach
                     @endforeach

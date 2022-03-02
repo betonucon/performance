@@ -345,7 +345,7 @@ class RealisasiController extends Controller
         $kode=$request->kode;
         $tahun=$request->tahun;
         
-
+        // return view('pdf.laporan_capaian', compact('kode','tahun'));
         $pdf = PDF::loadView('pdf.laporan_capaian', compact('kode','tahun'));
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream();
@@ -361,6 +361,7 @@ class RealisasiController extends Controller
         
         
 
+        
         $pdf = PDF::loadView('pdf.laporan_capaian_mandatori', compact('tahun'));
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream();

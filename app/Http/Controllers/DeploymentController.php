@@ -109,9 +109,9 @@ class DeploymentController extends Controller
     public function view_api_bobot(request $request){
         error_reporting(0);
         if($request->kode==''){
-            $data=Masterbobot::select('kode_kpi')->where('tahun',$request->tahun)->where('kode_unit','000000000')->groupBy('kode_kpi')->orderBy('id','Desc')->paginate(200);
+            $data=Masterbobot::select('kode_kpi')->where('tahun',$request->tahun)->where('kode_unit','000000000')->groupBy('kode_kpi')->orderBy('kode_kpi','Asc')->paginate(200);
         }else{
-            $data=Masterbobot::select('kode_kpi')->where('tahun',$request->tahun)->where('kode_unit',$request->kode)->groupBy('kode_kpi')->orderBy('id','Desc')->get();
+            $data=Masterbobot::select('kode_kpi')->where('tahun',$request->tahun)->where('kode_unit',$request->kode)->groupBy('kode_kpi')->orderBy('kode_kpi','Asc')->get();
         }
        
         echo'

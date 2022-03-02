@@ -155,25 +155,30 @@
     });
 
     function hapus_bobot(kpi,kode,tahun){
-        $.ajax({
-               type: 'GET',
-               url: "{{url('bobot/hapus_bobot')}}",
-               data: "tahun="+tahun+"&kode="+kode+"&kpi="+kpi,
-               success: function(msg){
-                   
-                   var det=msg.split('@');
-                    $.ajax({
-                        type: 'GET',
-                        url: "{{url('bobot/view_api_bobot')}}",
-                        data: "tahun="+det[0]+"&kode="+det[1],
-                        success: function(msg){
-                                $("#tabeldata").html(msg);
-                            
-                        }
-                    });
-                  
-               }
-        });
+        let text = "Hapus bobot?.";
+        if (confirm(text) == true) {
+            $.ajax({
+                type: 'GET',
+                url: "{{url('bobot/hapus_bobot')}}",
+                data: "tahun="+tahun+"&kode="+kode+"&kpi="+kpi,
+                success: function(msg){
+                    
+                    var det=msg.split('@');
+                        $.ajax({
+                            type: 'GET',
+                            url: "{{url('bobot/view_api_bobot')}}",
+                            data: "tahun="+det[0]+"&kode="+det[1],
+                            success: function(msg){
+                                    $("#tabeldata").html(msg);
+                                
+                            }
+                        });
+                    
+                }
+            });
+        }else{
+            
+        }
     }
     function cari_unit(a){
         var tahun=$('#tahun').val();   

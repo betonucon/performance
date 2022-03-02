@@ -948,6 +948,21 @@ function total_capaian($kode,$tahun,$bulan){
     // $hsl=$total;
     return $hsl;
 }
+function total_score($kode,$tahun){
+    $total=0;
+    
+     
+    $detail=App\Deployment::where('kode_unit',$kode)->where('tahun',$tahun)->where('status_id', 4)->get();
+    foreach($detail as $tar){
+        // $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'],$tahun)*cek_bobot($kode,$data['kode_kpi'],$tahun,$bulan);
+        $total+=score($tar['id'],akumulasi_capaian($tar['id'],akumulasi_target($tar['id']),akumulasi_realisasi($tar['id'])));
+        // $total+=1;
+    }
+    
+    $hsl=$total;
+    // $hsl=$total;
+    return $hsl;
+}
 
 function total_capaian_mandatori($tahun,$bulan){
     $total=0;
@@ -1287,8 +1302,8 @@ function nilai_normal($nilai){
 function score($id,$capaian){
     $data=App\Deployment::where('id',$id)->first();
     $detail=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->orderBy('bulan','desc')->max('bulan');
-    $bobot=bobot_bulanan($data['kode_unit'],$data['kode_kpi'],$data['tahun'],$detail);
-    $total=$capaian*($bobot/100);
+    $bot=App\Masterbobot::where('kode_kpi',$data['kode_kpi'])->where('kode_unit',$data['kode_unit'])->where('tahun',$data['tahun'])->where('bulan',12)->first();
+    $total=$capaian*($bot['bobot']/100);
 
     return round($total,2);
 }

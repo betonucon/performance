@@ -124,7 +124,7 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                             @for($x=1;$x<13;$x++)
                             <td>{{total_capaian($kode,$tahun,$x)}}%</th>
                         @endfor
-                        <td colspan="2" align="right">{{$score}}</td>
+                        <td colspan="2" align="right">{{total_score($kode,$tahun)}}</td>
                     </tr>
 
                     <tr style="background:{{$color}}">
@@ -144,7 +144,7 @@ header("Content-Disposition: attachment; filename=".str_replace(',','_',cek_unit
                             <?php $totbot+=total_bobot($kode,$tahun,$x); ?>
                             <td>{{nilai_max((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,$tahun)}}%</th>
                         @endfor
-                        <td colspan="2" align="right">{{nilai_max(($score*100)/100,$tahun)}}</td>
+                        <td colspan="2" align="right">{{nilai_max((total_score($kode,$tahun)*100)/100,$tahun)}}</td>
                     </tr>
 
                     <tr style="background:{{$color}}">

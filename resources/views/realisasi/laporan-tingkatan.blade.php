@@ -164,7 +164,7 @@
                                          @foreach(get_target($data['id']) as $detail)
                                             <td>{{total_capaian($kode,$tahun,$detail['bulan'])}}%</th>
                                         @endforeach
-                                        <td colspan="2" align="right">{{$score}}</td>
+                                        <td colspan="2" align="right">{{total_score($kode,$tahun)}}</td>
                                     </tr>
 
                                     <tr style="background:{{$color}}">
@@ -180,7 +180,7 @@
                                          @for($x=1;$x<13;$x++)
                                             <td>{{substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)}}%</th>
                                         @endfor
-                                        <td colspan="2" align="right">{{nilai_max(($score*100)/100,$tahun)}}</td>
+                                        <td colspan="2" align="right">{{nilai_max((total_score($kode,$tahun)*100)/100,$tahun)}}</td>
                                     </tr>
 
                                     <tr style="background:{{$color}}">
@@ -204,7 +204,7 @@
                                          @for($x=1;$x<13;$x++)
                                             <td>{{(substr((total_capaian($kode,$tahun,$x)/total_bobot($kode,$tahun,$x))*100,0,4)-potongan(tgl_validasi_atasan($kode,$tahun,$x),$tahun,$x,total_capaian($kode,$tahun,$x)))}}%</th>
                                          @endfor
-                                         <td colspan="2" align="right">{{nilai_max((($score*100)-($potongan/12))/100)}}</td>
+                                         <td colspan="2" align="right">{{nilai_max(((total_score($kode,$tahun)*100)-($potongan/12))/100)}}</td>
                                     </tr>
                                     @endif
                                 </tbody>

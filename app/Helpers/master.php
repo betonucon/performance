@@ -637,8 +637,9 @@ function cek_kpi($kode,$tahun){
     return $data;
 }
 
-function cek_bobot($kode,$kode_kpi,$tahun,$bulan){
-    $data=App\Masterbobot::where('kode_kpi',$kode_kpi)->where('kode_unit',$kode)->where('tahun',$tahun)->where('bulan',$bulan)->first();
+function cek_bobot($kode,$id,$tahun,$bulan){
+    $kpi  = App\Deployment::where('id',$id)->first();
+    $data=App\Masterbobot::where('kode_kpi',$kpi['kode_kpi'])->where('kode_unit',$kode)->where('tahun',$tahun)->where('bulan',$bulan)->first();
 
     return $data['bobot'];
 }
@@ -798,7 +799,9 @@ function max_nilai_tahunan($tahun){
     $parameter=App\Parameter::where('tahun',$tahun)->first();
     return $parameter['nilai'];
 }
-function hitung_capaian($capaian,$target,$realisasi,$tahun){
+function hitung_capaian($id,$target,$realisasi,$tahun){
+    $deploy=App\Deployment::where('id',$id)->first();
+    $capaian=$deploy['rumus_capaian'];
     $parameter=App\Parameter::where('tahun',$tahun)->first();
     if($capaian==3){
         if(is_null($target) || $target==0){
@@ -928,13 +931,21 @@ function nilai_max($nil,$tahun){
 }
 function total_capaian($kode,$tahun,$bulan){
     $total=0;
-    foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data){
-        $detail=App\Target::where('deployment_id',$data['id'])->where('bulan',$bulan)->get();
-        foreach($detail as $tar){
-           $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'],$tahun)*cek_bobot($kode,$data['kode_kpi'],$tahun,$bulan);
-        }
+    $data  = array_column(
+        App\Deployment::where('kode_unit',$kode)->where('tahun',$tahun)->where('status_id', 4)
+        ->get()
+        ->toArray(),'id'
+     );
+    
+    $detail=App\Target::whereIn('deployment_id',$data)->where('bulan',$bulan)->get();
+    foreach($detail as $tar){
+        // $total+=hitung_capaian($data['rumus_capaian'],$tar['target'],$tar['realisasi'],$tahun)*cek_bobot($kode,$data['kode_kpi'],$tahun,$bulan);
+        $total+=hitung_capaian($tar['deployment_id'],$tar['target'],$tar['realisasi'],$tahun)*cek_bobot($kode,$tar['deployment_id'],$tahun,$bulan);
+        // $total+=1;
     }
+    
     $hsl=$total/100;
+    // $hsl=$total;
     return $hsl;
 }
 
@@ -1068,9 +1079,8 @@ function akumulasi_target($id){
         if($data['rumus_akumulasi']==2){
             $cek=App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->count();
             if($cek>0){
-                $datar  =App\Target::where('deployment_id',$id)->where('realisasi','>',0)->count();
-                $sumx  =App\Target::where('deployment_id',$id)->sum('target');
-                $total=$sumx/$datar;
+                $sumx  =App\Target::where('deployment_id',$id)->where('realisasi','!=',0)->sum('target');
+                $total=$sumx/$cek;
             }else{
                 $total=0;
             }

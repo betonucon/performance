@@ -7,11 +7,12 @@
         th{
             padding:3px;
             border:solid 1px #bf9898;
-            color: #575282;
+            color: #fff;
             text-align:center;
             font-size: 0.7vw;
             font-family: sans-serif;
-            background:#add4d4;
+            background:#0d0d4a;
+            text-transform:uppercase;
         }
         td{
             padding:5px;
@@ -102,8 +103,8 @@
                                 @foreach(pilar($kode,$tahun) as $nx=>$pil)
                                 <thead>
                                     <tr>
-                                        <th>{{$pil->pilar}}</th>
-                                        <th colspan="19" style="text-align:left;text-transform:uppercase">{{$pil->pilarnya['name']}}</th>
+                                        <th style="background: #aaaacb; text-align: left; color: #000; text-transform: uppercase;">{{$pil->pilar}}</th>
+                                        <th colspan="19" style="background: #aaaacb; text-align: left; color: #000; text-transform: uppercase;">{{$pil->pilarnya['name']}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -150,7 +151,7 @@
                                             <tr style="background:{{$color}}">
                                                 <td>C</td>
                                                 @foreach(get_target($data['id']) as $detail)
-                                                    <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
+                                                    <td>{{hitung_capaian($data['id'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
                                                 @endforeach
                                                 <td>{{nilai_max(akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])),$tahun)}}</td>
                                             </tr>

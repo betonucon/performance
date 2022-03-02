@@ -983,6 +983,11 @@ function total_bobot($kode,$tahun,$bulan){
     return $data;
 }
 
+function get_detail_bobot($kode,$tahun,$kpi){
+    $data=App\Masterbobot::where('kode_unit',$kode)->where('tahun',$tahun)->where('kode_kpi',$kpi)->orderBy('bulan','Asc')->get();
+    return $data;
+}
+
 
 function total_bobot_mandatori($tahun){
     $total=0;

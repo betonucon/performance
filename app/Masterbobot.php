@@ -9,4 +9,7 @@ class Masterbobot extends Model
     protected $table = 'master_bobot';
     public $timestamps = false;
     protected $fillable = ['kode_kpi','kode_unit','tahun','bulan','bobot'];
+    function unitkerja(){
+		return $this->belongsTo('App\Unit','kode_unit','kode');
+    }
 }

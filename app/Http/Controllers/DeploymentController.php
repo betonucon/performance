@@ -109,9 +109,9 @@ class DeploymentController extends Controller
     public function view_api_bobot(request $request){
         error_reporting(0);
         if($request->kode==''){
-            $data=Deployment::where('tahun',$request->tahun)->orderBy('id','Desc')->paginate(200);
+            $data=Masterbobot::select('kode_kpi')->where('tahun',$request->tahun)->where('kode_unit','000000000')->groupBy('kode_kpi')->orderBy('id','Desc')->paginate(200);
         }else{
-            $data=Deployment::where('tahun',$request->tahun)->where('kode_unit',$request->kode)->orderBy('id','Desc')->get();
+            $data=Masterbobot::select('kode_kpi')->where('tahun',$request->tahun)->where('kode_unit',$request->kode)->groupBy('kode_kpi')->orderBy('id','Desc')->get();
         }
        
         echo'
@@ -128,6 +128,8 @@ class DeploymentController extends Controller
             <table width="100%" >
                 <tr>
                     <th>NO</th>
+                    <th>Act</th>
+                    
                     <th>Kode KPI</th>
                     <th>Unit Kerja</th>';
                     for($b=1;$b<13;$b++){
@@ -139,10 +141,11 @@ class DeploymentController extends Controller
                     echo'
                         <tr>
                             <td>'.($no+1).'</td>
+                            <td><span class="btn btn-xs btn-danger" onclick="hapus_bobot(`'.$o['kode_kpi'].'`,'.$request->kode.','.$request->tahun.')"><i class="fa fa-close"></i></span></td>
                             <td>'.$o['kode_kpi'].'</td>
-                            <td>'.$o['kode_unit'].' '.cek_unit($o['kode_unit'])['nama'].'</td>';
-                            for($b=1;$b<13;$b++){
-                                echo' <td>'.cek_bobot($o['kode_unit'],$o['id'],$o['tahun'],$b).'</td>';
+                            <td>'.cek_unit($request->kode)['nama'].'</td>';
+                            foreach(get_detail_bobot($request->kode,$request->tahun,$o['kode_kpi']) as $bbt){
+                                echo' <td>'.$bbt['bobot'].'</td>';
                             }
                             echo'
                         </tr>
@@ -152,6 +155,10 @@ class DeploymentController extends Controller
                 }
             echo'</table>
         ';
+    }
+    public function hapus_bobot(request $request){
+        $data=Masterbobot::where('kode_unit',$request->kode)->where('tahun',$request->tahun)->where('kode_kpi',$request->kpi)->delete();
+        echo $request->tahun.'@'.$request->kode;
     }
     public function api_bobot(request $request){
         error_reporting(0);

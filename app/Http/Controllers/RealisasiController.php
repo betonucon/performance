@@ -246,7 +246,9 @@ class RealisasiController extends Controller
     }
 
     public function perhitungan(request $request){
-            echo hitung_capaian($request->capaian,$request->target,$request->realisasi,$request->tahun);
+        $data=Target::where('id',$request->id)->first();
+            echo hitung_capaian($data['deployment_id'],$request->target,$request->realisasi,$request->tahun);
+            // echo $request->tahun;
     }
 
     public function simpan_realisasi(request $request,$id){

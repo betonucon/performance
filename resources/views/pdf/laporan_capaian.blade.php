@@ -199,7 +199,14 @@
             <?php
                 $bar=cek_unit($kode)['nama'].' '.$tahun;
             ?>
-            
+            <table width="100%" border="0">
+                <tr>
+                    <td style="border:solid 1px #fff;font-size:14px" width="10%" align="center"></td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="20%" align="center">{!!barcoderider($bar,4,4)!!}</td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="40%"></td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="30%" align="center" style="font-size:12px">Cilegon, {{ttd()}}<br><br><br><br><br><u>{{cek_nik(cek_unit($kode)['nik_atasan'])}}</u><br>{{cek_unit($kode)['nama']}}</td>
+                </tr>
+            </table>
             
         </div>
     </body>

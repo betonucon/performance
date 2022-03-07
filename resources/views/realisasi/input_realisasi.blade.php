@@ -103,10 +103,10 @@
                                 <ul class="list-group list-group-unbordered" >
                                     @foreach(get_target($data['id']) as $target)
                                         <li class="list-group-item" style="padding: 5px 0px 5px 7px;">
-                                            @if(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'],$data['tahun'])>95)
+                                            @if(hitung_capaian($data['id'],$target['target'],$target['realisasi'],$data['tahun'])>95)
                                                 <a href="{{url('_file_upload/'.$target['file'])}}" target="_blank"><span class="btn btn-primary btn-sm"><i class="fa fa-file"></i></span></a>
                                                 <a class="pull-right"></a>
-                                            @elseif(hitung_capaian($data['rumus_capaian'],$target['target'],$target['realisasi'],$data['tahun'])==0)
+                                            @elseif(hitung_capaian($data['id'],$target['target'],$target['realisasi'],$data['tahun'])==0)
                                                 @if($target['target']!=0 && $target['realisasi']!=0)
                                                 <a href="{{url('_file_upload/'.$target['file'])}}" target="_blank"><span class="btn btn-primary btn-sm"><i class="fa fa-file"></i></span></a>
                                                 <a class="pull-right">

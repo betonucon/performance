@@ -77,53 +77,61 @@
                                         @endfor
                                     </tr>
                                 </thead>
+                                @foreach(pilar($kode,$tahun) as $nx=>$pil)
+                                <thead>
+                                    <tr>
+                                        <th style="background: #aaaacb; text-align: left; color: #000; text-transform: uppercase;">{{$pil->pilar}}</th>
+                                        <th colspan="19" style="background: #aaaacb; text-align: left; color: #000; text-transform: uppercase;">{{$pil->pilarnya['name']}}</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                     <?php $score=0; ?>
-                                    @foreach(deployment_realisasi_atasan($kode,$tahun) as $no=>$data)
-                                        <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
-                                        <?php if($no%2==0){$color="#fff";}else{$color="#f9f4fb";} ?>
-                                        <tr style="background:{{$color}}">
-                                            <td rowspan="4">@if($data->sts=='0')<i class="fa fa-check"></i> &nbsp;&nbsp;@endif {{$data->kode_kpi}}</td>
-                                            <td rowspan="4">{{cek_kpi($data->kode_kpi,$data['tahun'])['kpi']}}</td>
-                                            <td rowspan="4" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
-                                            <td rowspan="4">{{$data->target_tahunan}}</td>
-                                            <td rowspan="4">{{cek_kpi($data->kode_kpi,$data['tahun'])['satuan']}}</td>
-                                            <td>T</td>
+                                        @foreach(deployment_realisasi_atasan($kode,$tahun,$pil->pilar) as $no=>$data)
+                                            <?php $score+=score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])));?>
+                                            <?php if($no%2==0){$color="#fff";}else{$color="#f9f4fb";} ?>
+                                            <tr style="background:{{$color}}">
+                                                <td rowspan="4">@if($data->sts=='0')<i class="fa fa-check"></i> &nbsp;&nbsp;@endif {{$data->kode_kpi}}</td>
+                                                <td rowspan="4">{{cek_kpi($data->kode_kpi,$data['tahun'])['kpi']}}</td>
+                                                <td rowspan="4" style="padding:0px;">{{cek_capaian($data['rumus_capaian'])}}<hr style="margin: 0px;border-color:#b7b7bd">{{cek_akumulasi($data['rumus_akumulasi'])}}</td>
+                                                <td rowspan="4">{{$data->target_tahunan}}</td>
+                                                <td rowspan="4">{{cek_kpi($data->kode_kpi,$data['tahun'])['satuan']}}</td>
+                                                <td>T</td>
+                                                    @foreach(get_target($data['id']) as $detail)
+                                                        @if($data['rumus_capaian']==3)
+                                                        <td>{{tgl($detail['target'])}}</th>
+                                                        @else
+                                                        <td>{{$detail['target']}}</th>
+                                                        @endif
+                                                    @endforeach
+                                                <td>{{akumulasi_target($data['id'])}}</td>
+                                                <td rowspan="4">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
+                                            </tr>
+                                            <tr style="background:{{$color}}">
+                                                <td>R</td>
                                                 @foreach(get_target($data['id']) as $detail)
                                                     @if($data['rumus_capaian']==3)
-                                                    <td>{{tgl($detail['target'])}}</th>
+                                                        <td>{{tgl($detail['realisasi'])}}</th>
                                                     @else
-                                                    <td>{{$detail['target']}}</th>
+                                                        <td>{{$detail['realisasi']}}</th>
                                                     @endif
                                                 @endforeach
-                                            <td>{{akumulasi_target($data['id'])}}</td>
-                                            <td rowspan="4">{{score($data['id'],akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])))}}</td>
-                                        </tr>
-                                        <tr style="background:{{$color}}">
-                                            <td>R</td>
-                                            @foreach(get_target($data['id']) as $detail)
-                                                @if($data['rumus_capaian']==3)
-                                                    <td>{{tgl($detail['realisasi'])}}</th>
-                                                @else
-                                                    <td>{{$detail['realisasi']}}</th>
-                                                @endif
-                                            @endforeach
-                                            <td>{{akumulasi_realisasi($data['id'])}}</td>
-                                        </tr>
-                                        <tr style="background:{{$color}}">
-                                            <td>C</td>
-                                            @foreach(get_target($data['id']) as $detail)
-                                                <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
-                                            @endforeach
-                                            <td>{{nilai_max(akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])),$tahun)}}</td>
-                                        </tr>
-                                        <tr style="background:yellow">
-                                            <td>B</td>
-                                            @foreach(get_target($data['id']) as $detail)
-                                                <td>{{bobot_bulanan($data['kode_unit'],$data['kode_kpi'],$data['tahun'],$detail['bulan'])}}</th>
-                                            @endforeach
-                                            <td></td>
-                                        </tr>
+                                                <td>{{akumulasi_realisasi($data['id'])}}</td>
+                                            </tr>
+                                            <tr style="background:{{$color}}">
+                                                <td>C</td>
+                                                @foreach(get_target($data['id']) as $detail)
+                                                    <td>{{hitung_capaian($data['rumus_capaian'],$detail['target'],$detail['realisasi'],$tahun)}}%</th>
+                                                @endforeach
+                                                <td>{{nilai_max(akumulasi_capaian($data['id'],akumulasi_target($data['id']),akumulasi_realisasi($data['id'])),$tahun)}}</td>
+                                            </tr>
+                                            <tr style="background:yellow">
+                                                <td>B</td>
+                                                @foreach(get_target($data['id']) as $detail)
+                                                    <td>{{bobot_bulanan($data['kode_unit'],$data['kode_kpi'],$data['tahun'],$detail['bulan'])}}</th>
+                                                @endforeach
+                                                <td></td>
+                                            </tr>
+                                        @endforeach
                                     @endforeach
                                     @if($kode!='')
                                     <tr style="background:{{$color}}">

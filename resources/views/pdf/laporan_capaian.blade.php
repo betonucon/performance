@@ -29,7 +29,6 @@
             }
             .cont{
                 margin-top: 30px;
-                height: 100%;
                 width: 100%;
                 padding:10px;
             }

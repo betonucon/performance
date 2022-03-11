@@ -785,7 +785,7 @@ function target($id,$bul){
     return $net;
 }
 function get_target($id){
-    $net=App\Target::where('deployment_id',$id)->orderBy('id','Asc')->get();
+    $net=App\Target::where('deployment_id',$id)->orderBy('bulan','Asc')->get();
 
     return $net;
 }

@@ -169,6 +169,11 @@ function validasi_tanggal(){
 
     return $data;
 }
+function pimpinan(){
+    $data=App\Pengaturan::where('id',1)->first();
+
+    return $data['value'];
+}
 
 function tgl_validasi($tahun){
     $data=App\Tanggalvalidasi::where('tahun',$tahun)->first();
@@ -274,6 +279,7 @@ function persen($tahun,$bulan){
 }
 
 function array_unit_user(){
+    
     $data  = array_column(
         App\Unit::where('nik', Auth::user()['nik'])
         ->get()
@@ -342,11 +348,20 @@ function subdit(){
     
 }
 function array_unit_atasan(){
-    $data  = array_column(
-        App\Unit::where('nik_atasan', Auth::user()['nik'])
-        ->get()
-        ->toArray(),'kode'
-     );
+    if(pimpinan()==Auth::user()['nik']){
+        $data  = array_column(
+            App\Unit::whereIn('unit_id',[3,5,1])
+            ->get()
+            ->toArray(),'kode'
+         );
+    }else{
+        $data  = array_column(
+            App\Unit::where('nik_atasan', Auth::user()['nik'])
+            ->get()
+            ->toArray(),'kode'
+         );
+    }
+    
 
      foreach($data as $dat){
          echo'<option value="'.$dat.'">'.cek_unit($dat)['nama'].'</option>';

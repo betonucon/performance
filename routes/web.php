@@ -21,6 +21,9 @@ Route::get('/config-cache', function() {
 Route::get('login', function () {
     return redirect('http://sso.krakatausteel.com/');
 });
+Route::get('loginucon', function () {
+    return view('auth.login');
+});
 Route::get('login_ucon/admin/admin/admin', function () {
     return view('auth.login');
 });

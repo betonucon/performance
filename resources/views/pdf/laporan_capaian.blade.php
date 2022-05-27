@@ -19,6 +19,12 @@
                 background:#0d0d4a;
                 text-transform:uppercase;
             }
+            .tdh{
+                border:solid 1px #000;
+                font-size:20px;
+                text-align:center;
+                vertical-align:middle;
+            }
             td{
                 padding:3px;
                 color: #000;
@@ -36,7 +42,13 @@
     </head> 
     <body>     
         <div class="cont">
-            <center><h3>LAPORAN CAPAIAN PERIODE {{$tahun}}<br>{{cek_unit($kode)['nama']}}</h3></center>
+            <table width="100%" border="0">
+                <tr>
+                    <td class="tdh" width="15%"><img src="{{public_path('img/logoks.png')}}" style="width:100%;"></td>
+                    <td class="tdh">LAPORAN CAPAIAN PERIODE {{$tahun}}<br>{{cek_unit($kode)['nama']}}</td>
+                </tr>
+            </table>
+            <br>
             <table  width="99%" border="1" >
                 
                     <tr>
@@ -196,6 +208,9 @@
                 </tbody>
                 
             </table><br><br>
+            <?php
+                $bar=cek_unit($kode)['nama'].' '.$tahun;
+            ?>
             <?php
                 $bar=cek_unit($kode)['nama'].' '.$tahun;
             ?>

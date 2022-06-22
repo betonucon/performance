@@ -1,5 +1,9 @@
       <ul class="sidebar-menu" data-widget="tree">
+        @if(Auth::user()['role_id']==1)
         <li class="header"><span class="btn btn-sm btn-success" onclick="perbaharui()">Perbaharui</span></li>
+        @else
+        <li class="header">MENU</li>
+        @endif
         <li>
           <a href="{{url('/home')}}" style="font-weight: 500;">
             <i class="fa fa-home"></i> <span>Dashboard</span>

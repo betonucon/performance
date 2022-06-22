@@ -10,7 +10,7 @@ class GetadataController extends Controller
 {
     public function capaian(request $request){
         date_default_timezone_set('Asia/Jakarta');
-        $cek = DB::connection('mysql')->table('users')->where('token',$request->token)->count();
+        $cek = DB::connection('mysql')->table('users')->where('role_id',1)->where('token',$request->token)->count();
         if($cek>0){
             $data=DB::connection('mysql')->table('view_capaian')->where('kode',$request->kode)->where('tahun',$request->tahun)->get();
             return response()->json($data);

@@ -934,7 +934,15 @@ function hitung_capaian($id,$target,$realisasi,$tahun){
     return $nils;
     
 }
-
+function jam_berikutnya()
+{
+   date_default_timezone_set('Asia/Jakarta');
+   $tgl=date('Y-m-d H:i:s');
+   $hari=1;
+   
+   $kedepan = date('Y-m-d H:i:s', strtotime("$hari hour", strtotime($tgl)));
+   return  $kedepan;
+}
 function nilai_max($nil,$tahun){
     $param=App\Parameter::where('tahun',$tahun)->first();
     if($nil>$param['nilai']){

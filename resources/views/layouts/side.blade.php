@@ -1,5 +1,5 @@
-<ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MENU</li>
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header"><span class="btn btn-sm btn-success" onclick="perbaharui()">Perbaharui</span></li>
         <li>
           <a href="{{url('/home')}}" style="font-weight: 500;">
             <i class="fa fa-home"></i> <span>Dashboard</span>

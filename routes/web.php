@@ -36,7 +36,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // })->name('logout');
 
 Route::get('a/{personnel_no}/', 'Auth\LoginController@programaticallyEmployeeLogin')->name('login.a');
-
+Route::get('api-login','ApiloginController@login');
 Route::group(['middleware'    => 'auth'],function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
@@ -123,6 +123,7 @@ Route::group(['middleware'    => 'auth'],function(){
 
     Route::group(['prefix' => 'laporan'], function(){
         Route::get('/', 'RealisasiController@laporan');
+        Route::get('/getdata', 'RealisasiController@getdata');
         Route::get('/subdit/', 'RealisasiController@laporan_subdit');
         Route::get('/subdit_new/', 'RealisasiController@laporan_subdit_new');
         Route::get('/bertingkat/{id}', 'RealisasiController@laporan_tingkatan');

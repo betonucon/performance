@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use DB;
+class GetadataController extends Controller
+{
+    public function capaian(request $request){
+        date_default_timezone_set('Asia/Jakarta');
+        $cek = DB::connection('mysql')->table('users')->where('token',$request->token)->count();
+        if($cek>0){
+            $data=DB::connection('mysql')->table('view_capaian')->where('kode',$request->kode)->where('tahun',$request->tahun)->get();
+            return response()->json($data);
+        }else{
+            echo'Token Not Valid';
+        }
+        
+    }
+}

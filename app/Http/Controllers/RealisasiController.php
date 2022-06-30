@@ -115,10 +115,7 @@ class RealisasiController extends Controller
 
     public function input_realisasi($id){
         $judul='Input realisasi';
-        $data=where('kode_unit',$request->kode)->where('tahun',$request->tahun)->get();
-        foreach($data as $o){
-            
-        }where('id',$id)->first();
+        $data=Deployment::where('id',$id)->first();
         $kode=$data['kode_unit'];
         $tahun=$data['tahun'];
 

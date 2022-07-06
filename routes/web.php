@@ -124,6 +124,7 @@ Route::group(['middleware'    => 'auth'],function(){
     Route::group(['prefix' => 'laporan'], function(){
         Route::get('/', 'RealisasiController@laporan');
         Route::get('/getdata', 'RealisasiController@getdata');
+        Route::get('/getdataakumulasi', 'RealisasiController@getdataakumulasi');
         Route::get('/subdit/', 'RealisasiController@laporan_subdit');
         Route::get('/subdit_new/', 'RealisasiController@laporan_subdit_new');
         Route::get('/bertingkat/{id}', 'RealisasiController@laporan_tingkatan');

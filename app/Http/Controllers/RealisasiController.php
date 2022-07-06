@@ -48,10 +48,22 @@ class RealisasiController extends Controller
                 $target=Target::where('deployment_id',$o['id'])->get();
                 foreach($target as $tar){
                     $save=Target::where('id',$tar['id'])->update([
-                        'capaian'=>hitung_capaian($o['id'],$tar['target'],$tar['realisasi'],$request->tahun)
+                        'capaian'=>hitung_capaian($o['id'],$tar['target'],$tar['realisasi'],$request->tahun),
                     ]);
                     
                 }
+                
+            }
+    }
+    public function getdataakumulasi(request $request){
+        
+            $data=Deployment::where('tahun',$request->tahun)->get();
+            foreach($data as $o){
+                $save=Deployment::where('id',$o['id'])->update([
+                    'komulatif_target'=>akumulasi_target($o['id']),
+                    'komulatif_realisasi'=>akumulasi_realisasi($o['id']),
+                    'komulatif_capaian'=>akumulasi_capaian($o['id'],akumulasi_target($o['id']),akumulasi_realisasi($o['id'])),
+                ]);
                 
             }
     }
@@ -135,10 +147,7 @@ class RealisasiController extends Controller
     }
     public function input_realisasi_mandatori($id){
         $judul='Input Realisasi Mandatori';
-        $data=where('kode_unit',$request->kode)->where('tahun',$request->tahun)->get();
-        foreach($data as $o){
-            
-        }where('id',$id)->first();
+        $data=Deployment::where('id',$id)->first();
         $tahun=$data['tahun'];
 
          if(Auth::user()['role_id']==1){
@@ -148,7 +157,6 @@ class RealisasiController extends Controller
         if(Auth::user()['role_id']==3){
             return view('realisasi.view_input_realisasi',compact('judul','data','id','tahun'));
         }
-        
         
     }
 
@@ -173,10 +181,7 @@ class RealisasiController extends Controller
 
     public function simpan_target(request $request,$id){
         error_reporting(0);
-        $data                       =   where('kode_unit',$request->kode)->where('tahun',$request->tahun)->get();
-        foreach($data as $o){
-            
-        }find($id);
+        $data                       =   Deployment::find($id);
         $data->status_id            =   2;
         $data->save();
 
@@ -214,20 +219,14 @@ class RealisasiController extends Controller
     }
 
     public function validasi_atasan_target($id){
-        $data           = where('kode_unit',$request->kode)->where('tahun',$request->tahun)->get();
-        foreach($data as $o){
-            
-        }find($id);
+        $data           = Deployment::find($id);
         $data->status_id= 3;
         $data->tgl_validasi_atasan= date('Y-m-d');
         $data->save();
     }
 
     public function validasi_bulanan($kode,$bulan,$tahun){
-        $deploy=where('kode_unit',$request->kode)->where('tahun',$request->tahun)->get();
-        foreach($data as $o){
-            
-        }where('tahun',$tahun)->where('kode_unit',$kode)->where('sts',0)->get();
+        $deploy=Deployment::where('tahun',$tahun)->where('kode_unit',$kode)->where('sts',0)->get();
 
         foreach($deploy as $dep){
             // $data           = Target::where('deployment_id',$dep['id'])->where('bulan',$bulan)->first();
@@ -242,10 +241,7 @@ class RealisasiController extends Controller
     }
 
     public function unvalidasi_bulanan($kode,$bulan,$tahun){
-        $deploy=where('kode_unit',$request->kode)->where('tahun',$request->tahun)->get();
-        foreach($data as $o){
-            
-        }where('tahun',$tahun)->where('kode_unit',$kode)->where('sts',0)->get();
+        $deploy=Deployment::where('tahun',$tahun)->where('kode_unit',$kode)->where('sts',0)->get();
 
         foreach($deploy as $dep){
             // $data           = Target::where('deployment_id',$dep['id'])->where('bulan',$bulan)->first();
@@ -264,10 +260,7 @@ class RealisasiController extends Controller
     }
 
     public function validasi_admin_target($id){
-        $data           = where('kode_unit',$request->kode)->where('tahun',$request->tahun)->get();
-        foreach($data as $o){
-            
-        }find($id);
+        $data           = Deployment::find($id);
         $data->status_id= 4;
         $data->status_realisasi= 1;
         $data->tgl_validasi_admin= date('Y-m-d');

@@ -1313,21 +1313,26 @@ function akumulasi_capaian($id,$target=null,$realisasi=null){
 
 function nilai_normal($nilai){
     $sisa=explode('.',$nilai);
-    $karak=strlen($sisa[1]);
-    if($karak==0){
-        $hasilnyaa=$nilai;
-        
-    }else{
-        if($karak==1){
+    $cek=count($sisa);
+    if($cek>1){
+        $karak=strlen($sisa[1]);
+        if($karak==0){
             $hasilnyaa=$nilai;
+            
+        }else{
+            if($karak==1){
+                $hasilnyaa=$nilai;
+            }
+            if($karak==2){
+                $hasilnyaa=number_format($nilai,2,'.','');
+            }
+            if($karak>2){
+                $hasilnyaa=number_format($nilai,3,'.','');
+            }
+            
         }
-        if($karak==2){
-            $hasilnyaa=number_format($nilai,2,'.','');
-        }
-        if($karak>2){
-            $hasilnyaa=number_format($nilai,3,'.','');
-        }
-        
+    }else{
+        $hasilnyaa=$nilai;
     }
     return $hasilnyaa;
 }

@@ -164,7 +164,10 @@ class UnitController extends Controller
 
             $cek=User::where('nik',$request->nik)->count();
             if($cek>0){
-
+                $user=User::where('nik',$request->nik)->update([
+                    'role_id'=>2
+                ]);
+                
             }else{
                 $user = new User;
                 $user->name = $request->nama_pic;
@@ -177,7 +180,9 @@ class UnitController extends Controller
 
             $cekk=User::where('nik',$request->nik_atasan)->count();
             if($cekk>0){
-
+                $user=User::where('nik',$request->nik_atasan)->update([
+                    'role_id'=>3
+                ]);
             }else{
                 $user = new User;
                 $user->name = $request->nama_atasan;

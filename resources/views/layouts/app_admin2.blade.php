@@ -76,12 +76,39 @@
         }
       
     }
+    .loadnya {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1070;
+        top: 0;
+        left: 0;
+        background-color: rgb(0,0,0);
+        background-color: rgb(0 0 0 / 55%);
+        overflow-x: hidden;
+        transition: transform .9s;
+    }
+
+    .loadnya-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+        color:#fff;
+        font-size:20px;
+    }
   </style>
   
 </head>
 
 <body class="hold-transition skin-purple-light sidebar-mini">
-
+<div id="loadnya" class="loadnya">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class="loadnya-content">
+          <i class="fas fa-spinner fa-pulse"></i> Proses...........
+      </div>
+  </div>
 <div class="wrapper" style="background-color: #ecf0f5;">
 
   <header class="main-header" style="position: fixed;width: 100%;">
@@ -348,7 +375,40 @@
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-
+        <div class="modal fade" id="modal-perbaharuii">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Proses Perbaharuan Nilai Capaian</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Aktivitas</label>
+                    <select id="aktivitas_proses" class="form-control">
+                        <option value="1">Capaian</option>
+                        <option value="2">Komulatif</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label>TAHUN</label>
+                    <select id="tahun_report" class="form-control">
+                        @for($tgh=2019;$tgh<=date('Y');$tgh++)
+                            <option value="{{$tgh}}" @if($tgh==date('Y')) selected @endif>{{$tgh}}</option>
+                        @endfor
+                    </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="perbaharui_report()">Perbaharui</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
 <!-- jQuery 3 -->
 <script src="{{url('/adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -374,6 +434,28 @@
     <!-- Page script -->
     @stack('simpan')
     <script>
+    function perbaharui(){
+        $('#modal-perbaharuii').modal('show');
+    }
+    function perbaharui_report(){
+        var act=$('#aktivitas_proses').val();
+        var tahun=$('#tahun_report').val();
+          $.ajax({
+              type: 'GET',
+              url: "{{url('/laporan/getdata')}}",
+              data: "tahun="+tahun+"&act="+act,
+              beforeSend: function() {
+                  document.getElementById("loadnya").style.width = "100%";
+              },
+              success: function(msg){
+                  document.getElementById("loadnya").style.width = "0px";
+                  $('#modal-perbaharuii').modal('hide');
+                  alert('Sukses diperbaharui')
+              
+                  
+              }
+          });
+    }
     $(function () {
         /*
         * Flot Interactive Chart

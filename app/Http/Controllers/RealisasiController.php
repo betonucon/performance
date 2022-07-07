@@ -43,16 +43,28 @@ class RealisasiController extends Controller
     }
     public function getdata(request $request){
         
-            $data=Deployment::where('tahun',$request->tahun)->get();
-            foreach($data as $o){
-                $target=Target::where('deployment_id',$o['id'])->get();
-                foreach($target as $tar){
-                    $save=Target::where('id',$tar['id'])->update([
-                        'capaian'=>hitung_capaian($o['id'],$tar['target'],$tar['realisasi'],$request->tahun),
+            $data=Deployment::where('tahun',$request->tahun)->where('status_id',4)->get();
+            if($request->act==1){
+                foreach($data as $o){
+                    $target=Target::where('deployment_id',$o['id'])->get();
+                    foreach($target as $tar){
+                        $save=Target::where('id',$tar['id'])->update([
+                            'capaian'=>hitung_capaian($o['id'],$tar['target'],$tar['realisasi'],$request->tahun),
+                        ]);
+                        
+                    }
+                    
+                }
+            }
+            if($request->act==2){
+                foreach($data as $o){
+                    $save=Deployment::where('id',$o['id'])->update([
+                        'komulatif_target'=>akumulasi_target($o['id']),
+                        'komulatif_realisasi'=>akumulasi_realisasi($o['id']),
+                        'komulatif_capaian'=>akumulasi_capaian($o['id'],akumulasi_target($o['id']),akumulasi_realisasi($o['id'])),
                     ]);
                     
                 }
-                
             }
     }
     public function getdataakumulasi(request $request){

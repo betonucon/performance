@@ -16,6 +16,7 @@ Route::post('apilogin', 'Api\LoginController@index');
 Route::get('capaian', 'Api\GetadataController@capaian');
 Route::get('kpi', 'Api\GetadataController@kpi');
 Route::get('unit', 'Api\GetadataController@unit');
+Route::get('bobot', 'Api\GetadataController@bobot');
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

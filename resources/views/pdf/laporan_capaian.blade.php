@@ -209,17 +209,33 @@
                 
             </table><br><br>
             <?php
-                $bar=cek_unit($kode)['nama'].' '.$tahun;
+                $bar=cek_unit($kode)['nama'].' '.cek_unit($kode)['nama_atasan'];
             ?>
             <?php
-                $bar=cek_unit($kode)['nama'].' '.$tahun;
+                $bar=cek_unit($kode)['nama'].' '.cek_unit($kode)['nama_atasan'];
             ?>
             <table width="100%" border="0">
                 <tr>
                     <td style="border:solid 1px #fff;font-size:14px" width="10%" align="center"></td>
-                    <td style="border:solid 1px #fff;font-size:14px" width="20%" align="center">{!!barcoderider($bar,4,4)!!}</td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="20%" align="center"></td>
                     <td style="border:solid 1px #fff;font-size:14px" width="40%"></td>
-                    <td style="border:solid 1px #fff;font-size:14px" width="30%" align="center" style="font-size:12px">Cilegon, {{ttd()}}<br><br><br><br><br><u>{{cek_nik(cek_unit($kode)['nik_atasan'])}}</u><br>{{cek_unit($kode)['nama']}}</td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="30%" align="center" style="font-size:12px">Cilegon, {{ttd()}}</td>
+                </tr>
+            </table>
+            <table width="100%" border="0">
+                <tr>
+                    <td style="border:solid 1px #fff;font-size:14px" width="10%" align="center"></td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="20%" align="center"></td>
+                    <td style="border:solid 1px #fff;font-size:14px"></td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="20%" align="center" style="font-size:12px"><center>{!!barcoderider($bar,4,4)!!}</center></td>
+                </tr>
+            </table>
+            <table width="100%" border="0">
+                <tr>
+                    <td style="border:solid 1px #fff;font-size:14px" width="10%" align="center"></td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="20%" align="center"></td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="40%"></td>
+                    <td style="border:solid 1px #fff;font-size:14px" width="30%" align="center" style="font-size:12px"><u>{{cek_nik(cek_unit($kode)['nik_atasan'])}}</u><br>{{cek_unit($kode)['nama']}}</td>
                 </tr>
             </table>
             

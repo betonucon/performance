@@ -208,11 +208,9 @@
                 </tbody>
                 
             </table><br><br>
+            
             <?php
-                $bar=cek_unit($kode)['nama'].' '.cek_unit($kode)['nama_atasan'];
-            ?>
-            <?php
-                $bar=cek_unit($kode)['nama'].' '.cek_unit($kode)['nama_atasan'];
+                $bar=cek_unit($kode)['nama'].' / '.cek_unit($kode)['nama_atasan'].' / '.max_tanggal($kode,$tahun);
             ?>
             <table width="100%" border="0">
                 <tr>

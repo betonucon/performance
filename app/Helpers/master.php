@@ -579,6 +579,17 @@ function deployment_realisasi($kode=null,$tahun=null){
     return $data;
 }
 
+function max_tanggal($kode,$tahun){
+    $cek=App\Viewcapaian::where('kode',$kode)->where('tahun',$tahun)->where('status',2)->count();
+    if($cek>0){
+        $data=App\Viewcapaian::where('kode',$kode)->where('tahun',$tahun)->where('status',2)->orderBy('tgl_validasi_atasan','Desc')->firstOrFail();
+        $tgl=$data['tgl_validasi_atasan'];
+    }else{
+        $tgl="0";
+    }
+    return $tgl;
+}
+
 function deployment_realisasi_atasan($kode=null,$tahun=null,$pilar=null){
     if($kode!=''){
         $data=App\Deployment::where('status_id',4)->where('kode_unit',$kode)->where('pilar',$pilar)->where('tahun',$tahun)->orderBy('kode_kpi','Asc')->get();

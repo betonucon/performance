@@ -23,12 +23,31 @@ class UnitController extends Controller
         $judul='Unit Kerja Bertingkat';
         return view('unit.index_tingkatan',compact('judul'));
     }
+    public function tampil_unit_atasan(request $request){
+        if($request->unit_id==1){
+            $unit_id=5;
+        }else{
+            $unit_id=1;
+        }
+        $data=Unit::where('unit_id',$unit_id)->orderBy('nama','Asc')->get();
+        echo'<option value="">-Pilih---</option>';
+        foreach($data as $o){
+            echo'<option value="'.$o->kode.'"> '.$o->nama.'</option>';
+        }
+    }
 
     public function edit($id){
+        error_reporting(0);
         $judul='Unit Kerja';
-        $data=Unit::where('id',$id)->first();
+        
         $level=Level::whereIn('id',array('1','3','5'))->get();
-        return view('unit.edit',compact('judul','data','level','id'));
+        if($id>0){
+            $data=Unit::where('id',$id)->first();
+            return view('unit.edit',compact('judul','data','level','id'));
+        }else{
+            return view('unit.form',compact('judul','level','id'));
+        }
+            
     }
     public function edit_tingkatan($id){
         $judul='Unit Kerja';
@@ -194,6 +213,83 @@ class UnitController extends Controller
             }
 
             echo'ok';
+        }
+    }
+    public function store(request $request){
+        if (trim($request->kode) == '') {$error[] = '- Masukan Kode Unit';}
+        if (trim($request->unit_id) == '') {$error[] = '- Masukan Kategori Unit';}
+        if (trim($request->name) == '') {$error[] = '- Masukan Nama Unit';}
+        if (trim($request->nik) == '') {$error[] = '- Masukan Nik PIC';}
+        if (trim($request->nama_pic) == '') {$error[] = '- Masukan Nama PIC';}
+        if (trim($request->nik_atasan) == '') {$error[] = '- Masukan Nik Atasan';}
+        if (trim($request->nama_atasan) == '') {$error[] = '- Masukan Nama Atasan';}
+        if (isset($error)) {echo '<p style="padding:5px;background:#d1ffae"><b>Error</b>: <br />'.implode('<br />', $error).'</p>';} 
+        else{
+            $cek=Unit::where('kode',$request->kode)->count();
+            if($cek>0){
+
+            }else{
+                if($request->unit_id==5){
+                        $data            =   New Unit;
+                        $data->nik       =   $request->nik;
+                        $data->kode       =   $request->kode;
+                        $data->nama       =   $request->name;
+                        $data->nik_atasan=   $request->nik_atasan;
+                        $data->nama_pic  =   $request->nama_pic;
+                        $data->unit_id  =   $request->unit_id;
+                        $data->nama_atasan  =   $request->nama_atasan;
+                        $data->kode_unit  =   'KS';
+                        $data->save();
+                }else{
+    
+                        $data            =   New Unit;
+                        $data->kode       =   $request->kode;
+                        $data->nik       =   $request->nik;
+                        $data->nama       =   $request->name;
+                        $data->nik_atasan=   $request->nik_atasan;
+                        $data->nama_pic  =   $request->nama_pic;
+                        $data->unit_id  =   $request->unit_id;
+                        $data->nama_atasan  =   $request->nama_atasan;
+                        $data->kode_unit  =   $request->kode_unit;
+                        $data->save();
+                }
+
+                if($data){
+                    $cek=User::where('nik',$request->nik)->count();
+                    if($cek>0){
+                        $user=User::where('nik',$request->nik)->update([
+                            'role_id'=>2
+                        ]);
+                        
+                    }else{
+                        $user = new User;
+                        $user->name = $request->nama_pic;
+                        $user->nik = $request->nik;
+                        $user->password = Hash::make($request->nik);
+                        $user->role_id = 2;
+                        $user->save();
+
+                    }
+
+                    $cekk=User::where('nik',$request->nik_atasan)->count();
+                    if($cekk>0){
+                        $user=User::where('nik',$request->nik_atasan)->update([
+                            'role_id'=>3
+                        ]);
+                    }else{
+                        $user = new User;
+                        $user->name = $request->nama_atasan;
+                        $user->nik = $request->nik_atasan;
+                        $user->password = Hash::make($request->nik_atasan);
+                        $user->role_id = 3;
+                        $user->save();
+
+                    }
+
+                    echo'ok';
+                }
+            }
+            
         }
     }
 

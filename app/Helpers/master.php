@@ -144,6 +144,17 @@ function cek_role($id){
         return 'Pimpinan';
     }
 }
+function pimpinan_unit($id){
+    if($id==1){
+        return 'General Manager';
+    }
+    if($id==3){
+        return 'Manager';
+    }
+    if($id==1){
+        return 'Direktur';
+    }
+}
 function tgl($tgl=null){
     if($tgl=='' || $tgl==0){
         $data=0;

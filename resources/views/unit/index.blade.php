@@ -34,6 +34,7 @@
                                 <span  class="btn btn-primary btn-sm"   onclick="cari()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-search"></i> Cari</span>
                                 <span  class="btn btn-success btn-sm"   onclick="pdf()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-file-pdf-o"></i> PDF</span>
                                 <span  class="btn btn-success btn-sm"   onclick="excel()" style="margin-left:5px;margin-top:2px" ><i class="fa fa-file-excel-o"></i> Excel</span> -->
+                                <span  class="btn btn-primary btn-sm" onclick="location.assign(`{{url('unit/edit/0')}}`)"  style="margin-left:5px;margin-top:2px" ><i class="fa fa-plus"></i> Tambah</span>
                                 <span  class="btn btn-default btn-sm" onclick="reload()"  style="margin-left:5px;margin-top:2px" ><i class="fa fa-refresh"></i> Reload</span>
                              </div>
                             <div class="pull-right">
@@ -60,7 +61,7 @@
                                         <td>{{$no+1}}</td>
                                         <td>{{$data->kode}}</td>
                                         <td>{{$data->nama}}</td>
-                                        <td>{{$data->pimpinan}}</td>
+                                        <td>{{pimpinan_unit($data->unit_id)}}</td>
                                         <td>{{$data->nik_atasan}}<br>{{cek_nik($data->nik_atasan)}}</td>
                                         <td>{{$data->nik}}<br>{{$data->nama_pic}}</td>
                                         
